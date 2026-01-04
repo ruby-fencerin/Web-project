@@ -1,1 +1,1 @@
-idk but its here
+[link to ideas] (https://docs.google.com/document/d/1o_Ai8DddpeUatv2TnIrNdKO5C4gUGg-BkQhyw9SoOig/edit?usp=sharing)
