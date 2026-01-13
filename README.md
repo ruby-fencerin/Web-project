@@ -18,11 +18,11 @@ docker-compose up -d
 
 ## За спиране на програмата:
 Има два варианта:
-1) Чрез GUI на Docker Desktop: 
-- В Containers под Actions има стоп бутон (син объл квадрат)
+- Чрез GUI на Docker Desktop: 
+    В Containers под Actions има стоп бутон (син объл квадрат)
 
-2) Чрез терминала: 
-- От основната папка чрез командата:
+- Чрез терминала: 
+    От основната папка чрез командата:
 ```terminal
 docker-compose down
 ```
