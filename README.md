@@ -28,3 +28,11 @@ docker-compose down
 ```
 
 
+## Data base
+
+Влизате в myphpAdmin с:
+    user: root
+    password: root_password
+
+в my_webapp се import-ва app/db/schema.sql
+
