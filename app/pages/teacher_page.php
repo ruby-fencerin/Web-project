@@ -36,7 +36,7 @@
                 <img src = "../images/unknown.jpg">
                 <div id = "personal-info">
                     <h3 id = "name"></h3>
-                    Катедра: <span id = "department">...</span><br>
+                    Катедра: <span id = "department"></span><br>
                     e-mail: <span id = "email"></span><br>
                 </div>
             </div>

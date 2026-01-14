@@ -11,18 +11,22 @@ if (!student)
 
 // попълваме информацията за студента
 async function loadStudent() {
-  const res = await fetch(`../php/student.php?userid=${encodeURIComponent(userID)}`);
-  const data = await res.json();
-  console.log(res);
-  if (!res.ok) {
-    alert(data.error || "Грешка при зареждане на студент!");
-    return;
-  }
+    // Изпращаме HTTP GET заявка към PHP API-то,
+    // като подаваме userid като URL параметър
+    const res = await fetch(`../php/student.php?userid=${encodeURIComponent(userID)}`);
+    
+    // Преобразуваме отговора от JSON към JavaScript обект
+    const data = await res.json();
+    console.log(res);
+    if (!res.ok) {
+      alert(data.error || "Грешка при зареждане на студент!");
+      return;
+    }
 
-  // попълваме информацията за студента
-  document.getElementById("name").textContent = data.name;
-  document.getElementById("fn").textContent = data.fn;
-  document.getElementById("email").textContent = data.email;
+    // попълваме информацията за студента
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("fn").textContent = data.fn;
+    document.getElementById("email").textContent = data.email;
 }
 
 loadStudent();

@@ -1,33 +1,49 @@
 <?php
 declare(strict_types=1);
 
+// Изключваме показването на PHP грешки в отговора,
+// за да не се чупи JSON форматът
 ini_set('display_errors', '0');
+
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '/db.php'; // adjust if db.php is elsewhere
+// Включваме файла с PDO връзката към базата данни
+require_once __DIR__ . '/db.php';
 
+// Валидация на входните данни
 $userId = isset($_GET['userid']) ? (int)$_GET['userid'] : 0;
+
 if ($userId <= 0) {
+  // При невалиден параметър връщаме HTTP 400 (Bad Request)
   http_response_code(400);
   echo json_encode(['error' => 'Invalid userid']);
   exit;
 }
 
+// Подготвяме SQL заявка за извличане на информация за преподавател
+// Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
   SELECT id,
-         CONCAT(first_name, ' ', last_name) AS name,
-         department,
-         email
+         CONCAT(first_name, ' ', last_name) AS name, 
+         department,                              
+         email                                      
   FROM users
-  WHERE id = ? AND role = 'teacher'
+  WHERE id = ? AND role = 'teacher'                
 ");
+
+// Изпълняваме заявката, като подаваме userid вместо '?'
 $stmt->execute([$userId]);
 
+// Вземаме резултата като асоциативен масив
 $teacher = $stmt->fetch();
+
+
 if (!$teacher) {
+  // Връщаме HTTP 404 (Not Found)
   http_response_code(404);
   echo json_encode(['error' => 'Teacher not found']);
   exit;
 }
 
+// Връщаме данните за преподавателя като JSON
 echo json_encode($teacher);

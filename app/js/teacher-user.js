@@ -18,17 +18,22 @@ myEventsBtn.addEventListener("click", () => {
 });
 
 async function loadTeacher() {
-  const res = await fetch(`../php/teacher.php?userid=${encodeURIComponent(userID)}`);
-  const data = await res.json();
+    // Изпращаме HTTP GET заявка към PHP API-то,
+    // като подаваме userid като URL параметър
+    const res = await fetch(`../php/teacher.php?userid=${encodeURIComponent(userID)}`);
+    
+    // Преобразуваме отговора от JSON към JavaScript обект
+    const data = await res.json();
 
-  if (!res.ok) {
-    alert(data.error || "Грешка при зареждане на преподавател!");
-    return;
-  }
+    if (!res.ok) {
+        alert(data.error || "Грешка при зареждане на преподавател!");
+        return;
+    }
 
-  document.getElementById("name").textContent = data.name;
-  document.getElementById("department").textContent = data.department;
-  document.getElementById("email").textContent = data.email;
+    //Попълваме данните на страницата
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("department").textContent = data.department;
+    document.getElementById("email").textContent = data.email;
 }
 
 loadTeacher();
