@@ -2,7 +2,7 @@
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '/../db.php'; // PDO connection
+require_once __DIR__ . '/db.php'; // PDO connection
 
 // Validate input
 $studentId = isset($_GET['studentid']) ? (int)$_GET['studentid'] : 0;
@@ -15,7 +15,7 @@ if ($studentId <= 0) {
 $stmt = $pdo->prepare("
   SELECT id,
          CONCAT(first_name, ' ', last_name) AS name,
-         faculty_number,
+         faculty_number AS fn,
          email
   FROM users
   WHERE id = ? AND role = 'student'
@@ -28,7 +28,5 @@ if (!$student) {
   echo json_encode(['error' => 'Student not found']);
   exit;
 }
-
-$student['faculty_number'] = null;
 
 echo json_encode($student);

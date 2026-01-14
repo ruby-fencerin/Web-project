@@ -13,7 +13,7 @@ if (!student)
 async function loadStudent() {
   const res = await fetch(`../php/student.php?studentid=${encodeURIComponent(studentID)}`);
   const data = await res.json();
-
+  console.log(res);
   if (!res.ok) {
     alert(data.error || "Грешка при зареждане на студент!");
     return;
@@ -21,7 +21,7 @@ async function loadStudent() {
 
   // попълваме информацията за студента
   document.getElementById("name").textContent = data.name;
-  document.getElementById("fn").textContent = data.faculty_number;
+  document.getElementById("fn").textContent = data.fn;
   document.getElementById("email").textContent = data.email;
 }
 
@@ -31,5 +31,5 @@ loadStudent();
 myEventsBtn = document.getElementById("my-events");
 myEventsBtn.addEventListener("click", () => {
     // искаме да е страницата на този студент => studentid от url
-    window.location.href = "student_event_page.html?studentid=" + studentID;
+    window.location.href = "student_event_page.php?studentid=" + studentID;
 });

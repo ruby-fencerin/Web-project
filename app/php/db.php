@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-$host = getenv('DB_HOST') ?: '127.0.0.1';
-$db   = getenv('DB_NAME') ?: 'course_events_app';
-$user = getenv('DB_USER') ?: 'appuser';
-$pass = getenv('DB_PASS') ?: 'apppass';
+$host = getenv('DB_HOST') ?: 'db';
+$db   = getenv('DB_NAME') ?: 'my_webapp';
+$user = getenv('DB_USER') ?: 'user';
+$pass = getenv('DB_PASS') ?: 'user_password';
 
 $dsn = "mysql:host={$host};dbname={$db};charset=utf8mb4";
 $options = [
