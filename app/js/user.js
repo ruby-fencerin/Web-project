@@ -1,9 +1,9 @@
 // url параметри на student_page.html - studentid
 const params = new URLSearchParams(window.location.search);
-const studentID = params.get("studentid");
+const userID = params.get("userid");
 
 // търсим студентът с id = studentid в базата
-student = STUDENTS[studentID];
+student = STUDENTS[userID];
 if (!student) 
 {
     alert("Студентът не е намерен!");
@@ -11,7 +11,7 @@ if (!student)
 
 // попълваме информацията за студента
 async function loadStudent() {
-  const res = await fetch(`../php/student.php?studentid=${encodeURIComponent(studentID)}`);
+  const res = await fetch(`../php/student.php?userid=${encodeURIComponent(userID)}`);
   const data = await res.json();
   console.log(res);
   if (!res.ok) {
@@ -31,5 +31,5 @@ loadStudent();
 myEventsBtn = document.getElementById("my-events");
 myEventsBtn.addEventListener("click", () => {
     // искаме да е страницата на този студент => studentid от url
-    window.location.href = "student_event_page.php?studentid=" + studentID;
+    window.location.href = "student_event_page.php?studentid=" + userID;
 });

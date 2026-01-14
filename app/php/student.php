@@ -5,10 +5,10 @@ header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/db.php'; // PDO connection
 
 // Validate input
-$studentId = isset($_GET['studentid']) ? (int)$_GET['studentid'] : 0;
-if ($studentId <= 0) {
+$userId = isset($_GET['userid']) ? (int)$_GET['userid'] : 0;
+if ($userId <= 0) {
   http_response_code(400);
-  echo json_encode(['error' => 'Invalid studentid']);
+  echo json_encode(['error' => 'Invalid userid']);
   exit;
 }
 
@@ -20,7 +20,7 @@ $stmt = $pdo->prepare("
   FROM users
   WHERE id = ? AND role = 'student'
 ");
-$stmt->execute([$studentId]);
+$stmt->execute([$userId]);
 
 $student = $stmt->fetch();
 if (!$student) {
