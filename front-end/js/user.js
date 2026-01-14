@@ -10,14 +10,22 @@ if (!student)
 }
 
 // попълваме информацията за студента
-spanName = document.getElementById("name");
-spanName.textContent = student.name;
+async function loadStudent() {
+  const res = await fetch(`http://localhost:8080/php/student.php?studentid=${encodeURIComponent(studentID)}`);
+  const data = await res.json();
 
-spanFN = document.getElementById("fn");
-spanFN.textContent = student.fn;
+  if (!res.ok) {
+    alert(data.error || "Грешка при зареждане на студент!");
+    return;
+  }
 
-spanEmail = document.getElementById("email");
-spanEmail.textContent = student.email;
+  // попълваме информацията за студента
+  document.getElementById("name").textContent = data.name;
+  document.getElementById("fn").textContent = data.faculty_number;
+  document.getElementById("email").textContent = data.email;
+}
+
+loadStudent();
 
 // функционалност на опция в менюто "мои събития" - към страницата с всички събития (student_event_page.html)
 myEventsBtn = document.getElementById("my-events");
