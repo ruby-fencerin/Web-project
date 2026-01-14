@@ -35,9 +35,9 @@
             <div id = "info-div">
                 <img src = "../images/unknown.jpg">
                 <div id = "personal-info">
-                    <h3 id = "name">доц. Иван Иванов</h3>
-                    Катедра: <span id = "department">Компютърна информатика</span><br>
-                    e-mail: <span id = "email">ivan.ivanov76@gmail.com</span><br>
+                    <h3 id = "name"></h3>
+                    Катедра: <span id = "department">...</span><br>
+                    e-mail: <span id = "email"></span><br>
                 </div>
             </div>
         </main>

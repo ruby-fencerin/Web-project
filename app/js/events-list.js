@@ -41,7 +41,7 @@ document.querySelectorAll(".event").forEach(event => {
     event.addEventListener("click", () => {
         // за да можем после да се върнем, подаваме и параметър studentid
         const id = event.dataset.id;
-        window.location.href = "event_page_student_view.html?eventid=" + id + "&studentid=" + studentID;
+        window.location.href = "event_page_student_view.php?eventid=" + id + "&studentid=" + studentID;
     });
 });
 
@@ -49,5 +49,5 @@ document.querySelectorAll(".event").forEach(event => {
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
     // искаме да е страницата на този студент => studentid от url
-    window.location.href = "student_page.html?studentid=" + studentID;
+    window.location.href = "student_page.php?studentid=" + studentID;
 });

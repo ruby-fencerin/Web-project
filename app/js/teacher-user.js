@@ -1,29 +1,48 @@
 // намираме id (от базата TEACHERS) на учителя с име = името, което пише в html елемента с id = "name"
-const teacherName = document.getElementById("name").textContent.trim();
-teacherID = Object.keys(TEACHERS).find(id => TEACHERS[id].name === teacherName);
+//const teacherName = document.getElementById("name").textContent.trim();
+//teacherID = Object.keys(TEACHERS).find(id => TEACHERS[id].name === teacherName);
+const params = new URLSearchParams(window.location.search);
+const userID = params.get("userid");
 
 // функционалност на опция в менюто "мои събития" - към страницата с всички събития (teacher_event_page.html)
 myEventsBtn = document.getElementById("my-events");
 myEventsBtn.addEventListener("click", () => { 
-    if (!teacherID) 
+    if (!userID) 
     {
         alert("Преподавателят не е намерен!");
         return;
     }
     
-    // искаме да е страницата на този преподавател => teacherID
-    window.location.href = "teacher_event_page.html?teacherid=" + teacherID;
+    // искаме да е страницата на този преподавател => userID
+    window.location.href = "teacher_event_page.php?userid=" + userID;
 });
+
+async function loadTeacher() {
+  const res = await fetch(`../php/teacher.php?userid=${encodeURIComponent(userID)}`);
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error || "Грешка при зареждане на преподавател!");
+    return;
+  }
+
+  document.getElementById("name").textContent = data.name;
+  document.getElementById("department").textContent = data.department;
+  document.getElementById("email").textContent = data.email;
+}
+
+loadTeacher();
+
 
 // функционалност на опция в менюто "студенти" - към списък със студенти (teacher_page_list_students.html)
 studentsListBtn = document.getElementById("list-all-students");
 studentsListBtn.addEventListener("click", () => {
-    if (!teacherID) 
+    if (!userID) 
     {
         alert("Преподавателят не е намерен!");
         return;
     }
     
     // за всички преподаватели е еднаква страница, но за да можем да се върнем, подаваме teacherID
-    window.location.href = "teacher_page_list_students.html?teacherid=" + teacherID;
+    window.location.href = "teacher_page_list_students.php?userid=" + userID;
 });

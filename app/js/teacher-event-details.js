@@ -38,7 +38,7 @@ back = document.getElementById("back");
 back.addEventListener("click", () => {
     // искаме да е страницата на този преподавател => teacherid от url
     const teacherID = params.get("teacherid");
-    window.location.href = "teacher_event_page.html?teacherid=" + teacherID;
+    window.location.href = "teacher_event_page.php?teacherid=" + teacherID;
 
 });
 
@@ -47,7 +47,7 @@ myEvents = document.getElementById("my-events");
 myEvents.addEventListener("click", () => {
     // искаме да е страницата на този преподавател => teacherid от url
     const teacherID = params.get("teacherid");
-    window.location.href = "teacher_event_page.html?teacherid=" + teacherID;
+    window.location.href = "teacher_event_page.php?teacherid=" + teacherID;
 
 });
 
@@ -55,7 +55,7 @@ myEvents.addEventListener("click", () => {
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
     // искаме да е страницата на този преподавател => teacherid от url
-    window.location.href = "teacher_page.html";
+    window.location.href = "teacher_page.php";
 
 });
 
@@ -64,5 +64,5 @@ studentsListBtn = document.getElementById("list-all-students");
 studentsListBtn.addEventListener("click", () => {
     // за всички преподаватели е еднаква страница, но за да можем да се върнем, подаваме teacherid от url
     const teacherID = params.get("teacherid");
-    window.location.href = "teacher_page_list_students.html?teacherid=" + teacherID;
+    window.location.href = "teacher_page_list_students.php?teacherid=" + teacherID;
 });

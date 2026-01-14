@@ -28,14 +28,14 @@ Object.keys(STUDENTS).forEach(id => {
 document.querySelectorAll(".student-page").forEach(student => {
     student.addEventListener("click", () => {
         const id = student.dataset.id;
-        window.open("student_page.html?studentid=" + id, "_blank", "noopen");
+        window.open("student_page.php?studentid=" + id, "_blank", "noopen");
     });
 });
 
 // функционалност на опция в менюто "за мен" - към страницата с лична информация (teacher_page.html)
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
-    window.location.href = "teacher_page.html";
+    window.location.href = "teacher_page.php";
 });
 
 // функционалност на опция в менюто "мои събития" - към страницата с всички събития (teacher_event_page.html)
@@ -43,5 +43,5 @@ myEvents = document.getElementById("my-events");
 myEvents.addEventListener("click", () => {
     // искаме да е страницата на този преподавател => teacherid от url
     const teacherID = params.get("teacherid");
-    window.location.href = "teacher_event_page.html?teacherid=" + teacherID;
+    window.location.href = "teacher_event_page.php?teacherid=" + teacherID;
 });

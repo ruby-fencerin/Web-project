@@ -41,14 +41,14 @@ document.querySelectorAll(".event").forEach(event => {
     event.addEventListener("click", () => {
         // за да можем после да се върнем, подаваме и параметър teacherid
         const id = event.dataset.id;
-        window.location.href = "event_page_teacher_view.html?eventid=" + id + "&teacherid=" + teacherID;
+        window.location.href = "event_page_teacher_view.php?eventid=" + id + "&teacherid=" + teacherID;
     });
 });
 
 // функционалност на опция в менюто "за мен" - към страницата с лична информация (teacher_page.html)
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
-    window.location.href = "teacher_page.html";
+    window.location.href = "teacher_page.php";
 
 });
 
@@ -56,5 +56,5 @@ forMe.addEventListener("click", () => {
 studentsListBtn = document.getElementById("list-all-students");
 studentsListBtn.addEventListener("click", () => {
     // за всички преподаватели е еднаква страница, но за да можем да се върнем, подаваме teacherid от url
-    window.location.href = "teacher_page_list_students.html?teacherid=" + teacherID;
+    window.location.href = "teacher_page_list_students.php?teacherid=" + teacherID;
 });
