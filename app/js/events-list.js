@@ -1,8 +1,7 @@
 // url параметри на student_event_page.html - studentid
 const params = new URLSearchParams(window.location.search);
-const studentID = params.get("studentid");
+const userID = params.get("userid");
 
-const currentStudent = STUDENTS[studentID];
 if (!currentStudent) {
     //alert("Студентът не е намерен!");
 }
@@ -41,7 +40,7 @@ document.querySelectorAll(".event").forEach(event => {
     event.addEventListener("click", () => {
         // за да можем после да се върнем, подаваме и параметър studentid
         const id = event.dataset.id;
-        window.location.href = "event_page_student_view.php?eventid=" + id + "&studentid=" + studentID;
+        window.location.href = "event_page_student_view.php?eventid=" + id + "&userid=" + studentID;
     });
 });
 
@@ -49,5 +48,5 @@ document.querySelectorAll(".event").forEach(event => {
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
     // искаме да е страницата на този студент => studentid от url
-    window.location.href = "student_page.php?studentid=" + studentID;
+    window.location.href = "student_page.php?userid=" + studentID;
 });
