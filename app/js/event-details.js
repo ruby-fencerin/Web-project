@@ -1,36 +1,45 @@
 // url параметри на event_page_student_view.html - eventid и studentid
 const params = new URLSearchParams(window.location.search);
-const id = params.get("eventid");
+const eventID = params.get("eventid");
+const studentID = params.get("studentid");
 
-if (!EVENTS[id]) {
-    alert("Събитието не съществува");
+if (!eventID || !studentID) {
+  alert("Липсват eventid или studentid в URL!");
+  throw new Error("Missing params");
 }
 
-// взимаме събитието, на което съответства подаденото в url eventid
-const ev = EVENTS[id];
+async function loadEvent() {
+    const res = await fetch(`../php/event.php?eventid=${encodeURIComponent(eventID)}&studentid=${encodeURIComponent(studentID)}`);
 
-// търсим преподавателя в TEACHERS по teacherId, което е ключ за обектите "събитие"
-teacher = TEACHERS[ev.teacherId];
-if (!teacher) {
-    alert("Преподавателят не съществува!");
+    
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch {
+        console.error("Non-JSON response:", text);
+        alert("Server error: endpoint did not return JSON. Check console.");
+        return;
+    }
+
+    if (!res.ok) {
+        alert(data.error || "Грешка при зареждане на събитието!");
+        return;
+    }
+
+    const ev = data.event;
+
+    document.getElementById("event-title").textContent = ev.title;
+    document.getElementById("event-teacher").textContent = "Преподавател: " + ev.teacher_name;
+    document.getElementById("event-info").textContent = "Информация: " + (ev.info ?? "");
+
+    const list = document.getElementById("attendance-list");
+    const count = document.getElementById("count-attendance");
+
+    count.textContent = data.attendance.count;
+
 }
 
-// вмъкваме информацията за събитието в страницата 
-document.getElementById("event-title").textContent = ev.title;
-document.getElementById("event-teacher").textContent = "Преподавател: " + teacher.name;
-document.getElementById("event-theme").textContent = "Тема: " + ev.theme;
-document.getElementById("event-info").textContent = "Информация: " + ev.info;
-
-const list = document.getElementById("attendance-list");
-const count = document.getElementById("count-attendance");
-
-// добавяме брой присъствали
-count.textContent = ev.students.length;
-
-// попълваме списъка с присъстващи
-ev.students.forEach(s => {
-    list.innerHTML += `<div>${s}</div>`;
-});
+loadEvent();
 
 
 // при натискане на бутона "Присъстващи" се отваря списък с присъстващите - 
