@@ -7,11 +7,11 @@ header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/db.php';
 
 $eventId   = isset($_GET['eventid']) ? (int)$_GET['eventid'] : 0;
-$studentId = isset($_GET['studentid']) ? (int)$_GET['studentid'] : 0;
+$userId = isset($_GET['userid']) ? (int)$_GET['userid'] : 0;
 
-if ($eventId <= 0 || $studentId <= 0) {
+if ($eventId <= 0 || $userId <= 0) {
   http_response_code(400);
-  echo json_encode(['error' => 'Invalid eventid or studentid']);
+  echo json_encode(['error' => 'Invalid eventid or userid']);
   exit;
 }
 
@@ -22,7 +22,7 @@ $check = $pdo->prepare("
   WHERE event_id = ? AND student_id = ? AND present = 1
   LIMIT 1
 ");
-$check->execute([$eventId, $studentId]);
+$check->execute([$eventId, $userId]);
 if (!$check->fetchColumn()) {
   http_response_code(403);
   echo json_encode(['error' => 'Нямате достъп до това събитие!']);

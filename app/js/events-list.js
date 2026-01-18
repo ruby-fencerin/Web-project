@@ -4,7 +4,7 @@ const studentID = params.get("studentid");
 
 const currentStudent = STUDENTS[studentID];
 if (!currentStudent) {
-    alert("Студентът не е намерен!");
+    //alert("Студентът не е намерен!");
 }
 
 // добавяме div за всяко събитие в базата, което е посетено от студента с id = studentid от url

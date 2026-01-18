@@ -27,6 +27,6 @@ loadStudent();
 // функционалност на опция в менюто "мои събития" - към страницата с всички събития (student_event_page.html)
 myEventsBtn = document.getElementById("my-events");
 myEventsBtn.addEventListener("click", () => {
-    // искаме да е страницата на този студент => studentid от url
-    window.location.href = "student_event_page.php?studentid=" + userID;
+    // искаме да е страницата на този user => userid от url
+    window.location.href = "student_event_page.php?userid=" + userID;
 });
