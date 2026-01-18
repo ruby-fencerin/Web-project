@@ -31,6 +31,6 @@
     </div>
 
     <script src = "../js/events-data.js"></script>
-    <script src = "../js/events-list.js"></script>
+    <script src = "../js/event-list.js"></script>
 </body>
 </html>
