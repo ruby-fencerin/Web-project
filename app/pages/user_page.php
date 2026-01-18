@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id = "nav-div">
-        <nav>
+        <nav id = "menu">
             <div class = "menu-option chosen" id = "for-me">
                 За мен
             </div>
@@ -28,7 +28,7 @@
                 <img src = "../images/unknown.jpg">
                 <div id = "personal-info">
                     <h3 id = "name"></h3>
-                    ФН: <span id = "fn"></span><br>
+                    <span id = "fn/dep"></span><br>
                     e-mail: <span id = "email"></span><br>
                 </div>
             </div>
