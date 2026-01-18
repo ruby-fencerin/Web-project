@@ -2,13 +2,6 @@
 const params = new URLSearchParams(window.location.search);
 const userID = params.get("userid");
 
-// търсим студентът с id = studentid в базата
-student = STUDENTS[userID];
-if (!student) 
-{
-    alert("Студентът не е намерен!");
-}
-
 // попълваме информацията за студента
 async function loadStudent() {
     // Изпращаме HTTP GET заявка към PHP API-то,

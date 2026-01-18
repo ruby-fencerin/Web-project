@@ -4,19 +4,6 @@
 const params = new URLSearchParams(window.location.search);
 const userID = params.get("userid");
 
-// функционалност на опция в менюто "мои събития" - към страницата с всички събития (teacher_event_page.html)
-myEventsBtn = document.getElementById("my-events");
-myEventsBtn.addEventListener("click", () => { 
-    if (!userID) 
-    {
-        alert("Преподавателят не е намерен!");
-        return;
-    }
-    
-    // искаме да е страницата на този преподавател => userID
-    window.location.href = "teacher_event_page.php?userid=" + userID;
-});
-
 async function loadTeacher() {
     // Изпращаме HTTP GET заявка към PHP API-то,
     // като подаваме userid като URL параметър
