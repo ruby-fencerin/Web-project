@@ -25,26 +25,28 @@ if ($userId <= 0) {
 // Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
   SELECT id,
+         role,
          CONCAT(first_name, ' ', last_name) AS name, 
-         faculty_number AS fn,                      
+         faculty_number AS fn,
+         department,                      
          email                                   
   FROM users
-  WHERE id = ? AND role = 'student'               -- Само ако потребителят е студент
+  WHERE id = ?              
 ");
 
 // Изпълняваме заявката, като подаваме userid вместо '?'
 $stmt->execute([$userId]);
 
 // Вземаме резултата като асоциативен масив
-$student = $stmt->fetch();
+$user = $stmt->fetch();
 
 // Ако няма намерен студент с този id
-if (!$student) {
+if (!$user) {
   // Връщаме HTTP 404 (Not Found)
   http_response_code(404);
-  echo json_encode(['error' => 'Student not found']);
+  echo json_encode(['error' => 'User not found']);
   exit;
 }
 
 // Връщаме данните за студента като JSON
-echo json_encode($student);
+echo json_encode($user);

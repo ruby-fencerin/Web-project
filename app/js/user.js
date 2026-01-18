@@ -6,7 +6,7 @@ const userID = params.get("userid");
 async function loadStudent() {
     // Изпращаме HTTP GET заявка към PHP API-то,
     // като подаваме userid като URL параметър
-    const res = await fetch(`../php/student.php?userid=${encodeURIComponent(userID)}`);
+    const res = await fetch(`../php/user.php?userid=${encodeURIComponent(userID)}`);
     
     // Преобразуваме отговора от JSON към JavaScript обект
     const data = await res.json();
