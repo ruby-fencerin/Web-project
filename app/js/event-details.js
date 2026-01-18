@@ -36,8 +36,9 @@ async function loadEvent() {
     document.getElementById("event-info").textContent = "Информация: " + ev.info;
 
     count.textContent = data.attendance.count;
-    list.textContent = data.attendance.students;
-    console.log(list);
+    for (var name of data.attendance.students){
+        list.innerHTML += name + "<br>";
+    }
 }
 
 
