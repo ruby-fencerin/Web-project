@@ -56,6 +56,7 @@ nav {
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 #right-side {
@@ -106,7 +107,7 @@ main {
     justify-content: flex-start;
 }
 
-img {
+#profile-pic {
     padding: 0 40px;
     max-width: 100%;
     max-height: 100%;
@@ -273,4 +274,54 @@ h2 {
 
 .student-page:hover {
     background-color: #b6fcfc;
+}
+
+.student-page {
+    width: 65vw;
+    padding: 10px 20px;
+    margin: 10px 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    box-shadow: 0 0 6px 3px #e6e6e6;
+    background-color: 	#e7fefe;
+    border-radius: 5px;
+    border: 2px solid #08c4c4;
+    
+    cursor: pointer;
+}
+
+.student-page:hover {
+    background-color: #b6fcfc;
+} 
+
+.resource {
+    width: 65vw;
+    padding: 10px 20px;
+    margin: 15px 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    box-shadow: 0 0 6px 3px #e6e6e6;
+    background-color: 	#e7fefe;
+    border-radius: 5px;
+    border: 2px solid #08c4c4;
+    
+    cursor: pointer;
+}
+
+.resource:hover {
+    background-color: #b6fcfc;
+}
+
+.resource-icon {
+    margin-right: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }

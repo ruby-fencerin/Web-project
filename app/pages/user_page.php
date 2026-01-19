@@ -25,7 +25,7 @@
         </header>
         <main>
             <div id = "info-div">
-                <img src = "../images/unknown.jpg">
+                <img id = "profile-pic" src = "../images/unknown.jpg">
                 <div id = "personal-info">
                     <h3 id = "name"></h3>
                     <span id = "fn/dep"></span><br>

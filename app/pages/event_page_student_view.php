@@ -39,8 +39,15 @@
 
             <div id = "attendance-list" class = "hidden">
             </div>
+
+            <div id = "resources-div">
+                <h3>Ресурси</h3>
+                <!-- Добавяме ресурси с JS -->
+            </div>
         </main>
     </div>
+
+    <script src = "../js/add-resource.js"></script>
 
     <script src="../js/events-data.js"></script>
     <script src="../js/event-details.js"></script>
