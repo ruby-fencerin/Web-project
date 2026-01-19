@@ -7,21 +7,24 @@
     <title>Login</title>
 </head>
 <body>
-    <form id = "login-form" novalidate>
+    <form id = "login-form">
         <h2>Влизане в профил</h2>
 
         <label>
-        <div class = "field-name">Потребителско име (e-mail)</div>
-        <input type = "email" id = "email">
+            <div class="field-name">Потребителско име (e-mail)</div>
+            <input type="email" id="email" name="email" required>
         </label>
 
         <label>
-        <div class = "field-name">Парола</div>
-        <input type = "password" id = "password">
+            <div class="field-name">Парола</div>
+            <input type="password" id="password" name="password" required>
         </label>
 
-        <div id = "error"></div>
-        <button type = "submit" id = "login-btn">Вход</button>
+        <div id="error" class="error"></div>
+
+        <button type="submit">Вход</button>
     </form>
+
+    <script src="../js/login.js"></script>
 </body>
 </html>

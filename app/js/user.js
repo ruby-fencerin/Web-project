@@ -49,11 +49,10 @@ myEventsBtn.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
     window.location.href = "student_event_page.php";
 });
-/*
+
 // функционалност на опция в менюто "студенти" - към списък със студенти (teacher_page_list_students.html)
 studentsListBtn = document.getElementById("list-all-students");
 studentsListBtn.addEventListener("click", () => {
     // за всички преподаватели е еднаква страница, но за да можем да се върнем, подаваме teacherID
     window.location.href = "teacher_page_list_students.php";
 });
-*/
