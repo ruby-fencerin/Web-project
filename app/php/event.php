@@ -34,20 +34,46 @@ if (!isset($_SESSION['user_id'])) {
 
 // Взимаме id на логнатия потребител от сесията
 $userId = (int)$_SESSION['user_id'];
+$role   = $_SESSION['role'];
 
-// Проверка дали студентът има право да вижда това събитие:
-$check = $pdo->prepare("
-  SELECT 1
-  FROM attendances
-  WHERE event_id = ? AND student_id = ? AND present = 1
-  LIMIT 1
-");
-$check->execute([$eventId, $userId]);
+if ($role === 'student') {
 
-// Ако няма такъв запис – отказваме достъп
-if (!$check->fetchColumn()) {
-  http_response_code(403); // Forbidden
-  echo json_encode(['error' => 'Нямате достъп до това събитие!']);
+  // Проверка дали студентът е присъствал на събитието
+  $check = $pdo->prepare("
+    SELECT 1
+    FROM attendances
+    WHERE event_id = ? AND student_id = ? AND present = 1
+    LIMIT 1
+  ");
+  $check->execute([$eventId, $userId]);
+
+  if (!$check->fetchColumn()) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Нямате достъп до това събитие!']);
+    exit;
+  }
+
+} elseif ($role === 'teacher') {
+
+  // Проверка дали преподавателят е създал събитието
+  $check = $pdo->prepare("
+    SELECT 1
+    FROM events
+    WHERE id = ? AND created_by = ?
+    LIMIT 1
+  ");
+  $check->execute([$eventId, $userId]);
+
+  if (!$check->fetchColumn()) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Нямате достъп до това събитие!']);
+    exit;
+  }
+
+} else {
+
+  http_response_code(403);
+  echo json_encode(['error' => 'Невалидна роля']);
   exit;
 }
 

@@ -16,25 +16,50 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = (int)$_SESSION['user_id'];
+$role   = $_SESSION['role'];
 
-// SQL заявка:
-// - взима всички събития
-// - на които студентът е присъствал
-// - сортирани по дата (най-новите първи)
-$stmt = $pdo->prepare("
-  SELECT
-    e.id,
-    e.title,
-    e.start_at,
-    e.end_at
-  FROM attendances a
-  JOIN events e ON e.id = a.event_id
-  WHERE a.student_id = ? AND a.present = 1
-  ORDER BY e.start_at DESC
-");
+if ($role === 'student') {
+  // SQL заявка:
+  // - взима всички събития
+  // - на които студентът е присъствал
+  // - сортирани по дата (най-новите първи)
+  $stmt = $pdo->prepare("
+    SELECT
+      e.id,
+      e.title,
+      e.start_at,
+      e.end_at
+    FROM attendances a
+    JOIN events e ON e.id = a.event_id
+    WHERE a.student_id = ? AND a.present = 1
+    ORDER BY e.start_at DESC
+  ");
 
-// Изпълняваме заявката със studentId
-$stmt->execute([$userId]);
+  // Изпълняваме заявката със studentId
+  $stmt->execute([$userId]);
+} 
+elseif ($role === 'teacher'){
+  // SQL заявка:
+  // - взима всички събития
+  // - които преподавателя е създал
+  // - сортирани по дата (най-новите първи)
+  $stmt = $pdo->prepare("
+    SELECT
+      id,
+      title,
+      start_at,
+      end_at
+    FROM events
+    WHERE created_by = ?
+    ORDER BY start_at DESC
+  ");
+  $stmt->execute([$userId]);
+
+} else {
+  http_response_code(403);
+  echo json_encode(['error' => 'Invalid role']);
+  exit;
+}
 
 // Взимаме всички резултати
 $events = $stmt->fetchAll();
