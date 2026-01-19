@@ -50,42 +50,15 @@
                 <!-- Добавяме ресурси с JS -->
             </div>
 
-            <div id = "comments-div">  
-                <div class = "section-title">
-                    <h3>Коментари</h3> 
-                    <div class = "add-comment">
-                        + Добави
-                    </div>
-                </div>
-                <div class = "comment">
-                    <div class = "comment-info">
-                        <span class = "sender-name">Борис Иванов</span>
-                        <span class = "comment-data">18.04</span>
-                    </div>
-                    <div class = "comment-content">
-                        Беше скучно
-                    </div>
-                </div>
+           <div id="comments-div">
+                <h3>Коментари</h3>
 
-                <div class = "comment">
-                    <div class = "comment-info">
-                        <span class = "sender-name">Петя Петрова</span>
-                        <span class = "comment-data">19.04</span>
-                    </div>
-                    <div class = "comment-content">
-                        Иване, идиот такъв!
-                    </div>
-                </div>
+                <!-- тук JS ще добавя всички коментари -->
+                <div id="comments-list"></div>
 
-                 <div class = "comment">
-                    <div class = "comment-info">
-                        <span class = "sender-name">Георги Терезов</span>
-                        <span class = "comment-data">19.04</span>
-                    </div>
-                    <div class = "comment-content">
-                        6-7
-                    </div>
-                </div>
+                <!-- поле за нов коментар -->
+                <textarea id="comment-text" placeholder="Добави коментар..."></textarea>
+                <button id="add-comment">Изпрати</button>
             </div>
         </main>
     </div>
