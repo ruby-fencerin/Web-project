@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+session_start();
 
 // Изключваме показването на PHP грешки в отговора,
 // за да не се чупи JSON форматът
@@ -10,16 +11,14 @@ header('Content-Type: application/json; charset=utf-8');
 // Включваме файла с PDO връзката към базата данни
 require_once __DIR__ . '/db.php';
 
-
-// Валидация на входните данни
-$userId = isset($_GET['userid']) ? (int)$_GET['userid'] : 0;
-
-if ($userId <= 0) {
+if (!isset($_SESSION['user_id'])) {
   // При невалиден параметър връщаме HTTP 400 (Bad Request)
-  http_response_code(400);
-  echo json_encode(['error' => 'Invalid userid']);
+  http_response_code(401);
+  echo json_encode(['error' => 'Not logged in']);
   exit;
 }
+
+$userId = (int)$_SESSION['user_id'];
 
 // Подготвяме SQL заявка за извличане на информация за студент
 // Използваме prepared statement за защита от SQL Injection
