@@ -55,7 +55,6 @@
         </main>
     </div>
 
-    <script src="../js/events-data.js"></script>
     <script src="../js/teacher-event-details.js"></script>
 </body>
 </html>

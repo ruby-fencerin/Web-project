@@ -1,47 +1,60 @@
-// url параметри на teacher_page_list_students.html - teacherid
-const params = new URLSearchParams(window.location.search);
-
-// за всеки студент в базата добавяме div
+// Контейнерът, в който ще визуализираме списъка със студенти
 const container = document.getElementById("students-list");
 
-Object.keys(STUDENTS).forEach(id => {
-    const student = STUDENTS[id];
+// Основна функция за зареждане на всички студенти от базата данни
+async function loadStudents() {
+    // Изпращаме заявка към PHP endpoint-а,който връща всички студенти
+    const res = await fetch("../php/student_list.php");
 
-    const div = document.createElement("div");
-    // добавяме атрибут data-id - после търсим по него
-    div.dataset.id = id;
-    div.className = "student-page";
+    const text = await res.text();
+    let data;
 
-    spanName = document.createElement("span");
-    spanName.textContent = student.name;
+    // Опитваме да парснем отговора като JSON
+    try { data = JSON.parse(text); }
+    catch {
+        console.error("Non-JSON response:", text);
+        alert("Server error: endpoint did not return JSON. Check console.");
+        return;
+    }
 
-    spanFN = document.createElement("span");
-    spanFN.textContent = student.fn;
+    if (!res.ok) {
+        alert(data.error || "Грешка при зареждане на студентите!");
+        return;
+    }
+    // Изчистваме контейнера
+    container.innerHTML = "";
 
-    div.appendChild(spanName);
-    div.appendChild(spanFN);
+    // Обхождаме всички студенти, върнати от базата
+    data.students.forEach(st => {
+        // Създаваме div за един студент
+        const div = document.createElement("div");
+        div.dataset.id = st.id;
+        // Запазваме student id като data-атрибут
+        div.className = "student-page";
 
-    container.appendChild(div);
-});
+        const spanName = document.createElement("span");
+        spanName.textContent = st.name;
 
-// при кликане на студент отиваме в неговата страница "за мен" в нов таб 
-document.querySelectorAll(".student-page").forEach(student => {
-    student.addEventListener("click", () => {
-        const id = student.dataset.id;
-        window.open("student_page.php?studentid=" + id, "_blank", "noopen");
+        const spanFN = document.createElement("span");
+        spanFN.textContent = st.fn ?? "-";
+
+        div.appendChild(spanName);
+        div.appendChild(spanFN);
+
+        // При клик върху студент:
+        // отваряме страница за преглед на студента от преподавател в нов таб
+        div.addEventListener("click", () => {
+        window.open(`student_view.php?studentid=${encodeURIComponent(st.id)}`, "_blank");
+        });
+
+        container.appendChild(div);
     });
-});
 
-// функционалност на опция в менюто "за мен" - към страницата с лична информация (teacher_page.html)
-forMe = document.getElementById("for-me");
-forMe.addEventListener("click", () => {
-    window.location.href = "teacher_page.php";
-});
+    if (data.students.length === 0) {
+        container.innerHTML = "<div>Няма намерени студенти.</div>";
+    }
+}
 
-// функционалност на опция в менюто "мои събития" - към страницата с всички събития (teacher_event_page.html)
-myEvents = document.getElementById("my-events");
-myEvents.addEventListener("click", () => {
-    // искаме да е страницата на този преподавател => teacherid от url
-    const teacherID = params.get("teacherid");
-    window.location.href = "teacher_event_page.php?teacherid=" + teacherID;
-});
+loadStudents();
+
+
