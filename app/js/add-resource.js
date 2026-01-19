@@ -64,6 +64,12 @@ async function loadResources(eventID) {
     // Изчистваме стари ресурси (ако има)
     if (container) {
         container.innerHTML = "";
+
+        const title = document.createElement("h3");
+        title.textContent = "Ресурси";
+
+        // Добавяме заглавието в контейнера
+        container.appendChild(title);
     }
 
     // Добавяме всеки ресурс към страницата
