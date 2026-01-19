@@ -1,10 +1,9 @@
 // url параметри на event_page_student_view.html - eventid и studentid
 const params = new URLSearchParams(window.location.search);
 const eventID = params.get("eventid");
-const userID = params.get("userid");
 
-if (!eventID || !userID) {
-  alert("Липсват eventid или userid в URL!");
+if (!eventID) {
+  alert("Липсва eventid в URL!");
   throw new Error("Missing params");
 }
 
@@ -12,7 +11,7 @@ const list = document.getElementById("attendance-list");
 const count = document.getElementById("count-attendance");
 
 async function loadEvent() {
-    const res = await fetch(`../php/event.php?eventid=${encodeURIComponent(eventID)}&userid=${encodeURIComponent(userID)}`);
+    const res = await fetch(`../php/event.php?eventid=${encodeURIComponent(eventID)}`);
 
     
     const text = await res.text();
@@ -52,7 +51,7 @@ document.getElementById("show-attending")
         list.classList.toggle("hidden");
     });
 
-// функционалност на бутон [<=] - връщане към страницата с всички събития (student_event_page.html)
+// функционалност на бутон [<=] - връщане към страницата с всички събития (student_event_page.php)
 back = document.getElementById("back");
 back.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
@@ -60,7 +59,7 @@ back.addEventListener("click", () => {
 
 });
 
-// функционалност на опция в менюто "мои събития" - към страницата с всички събития (student_event_page.html)
+// функционалност на опция в менюто "мои събития" - към страницата с всички събития (student_event_page.php)
 myEvents = document.getElementById("my-events");
 myEvents.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
@@ -68,7 +67,7 @@ myEvents.addEventListener("click", () => {
 
 });
 
-// функционалност на опция в менюто "за мен" - към страницата с лична информация (student_page.html)
+// функционалност на опция в менюто "за мен" - към страницата с лична информация (student_page.php)
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url

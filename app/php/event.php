@@ -1,21 +1,41 @@
 <?php
 declare(strict_types=1);
 
+// Стартираме PHP сесията,
+// за да имаме достъп до $_SESSION (логнат потребител)
+session_start();
+
+// Изключваме показването на PHP грешки в отговора,
+// за да не се наруши JSON форматът
 ini_set('display_errors', '0');
+
+// Указваме, че този файл връща JSON отговор
 header('Content-Type: application/json; charset=utf-8');
 
+// Включваме файла с PDO връзката към базата данни
 require_once __DIR__ . '/db.php';
 
-$eventId   = isset($_GET['eventid']) ? (int)$_GET['eventid'] : 0;
-$userId = isset($_GET['userid']) ? (int)$_GET['userid'] : 0;
+// Взимаме идентификатора на събитието от URL (?eventid=...)
+$eventId = isset($_GET['eventid']) ? (int)$_GET['eventid'] : 0;
 
-if ($eventId <= 0 || $userId <= 0) {
-  http_response_code(400);
-  echo json_encode(['error' => 'Invalid eventid or userid']);
+// Проверка за валиден eventid
+if ($eventId <= 0) {
+  http_response_code(400); // Bad Request
+  echo json_encode(['error' => 'Невалиден идентификатор на събитие']);
   exit;
 }
 
+// Проверка дали потребителят е логнат (има активна сесия)
+if (!isset($_SESSION['user_id'])) {
+  http_response_code(401); // Unauthorized
+  echo json_encode(['error' => 'Потребителят не е логнат']);
+  exit;
+}
 
+// Взимаме id на логнатия потребител от сесията
+$userId = (int)$_SESSION['user_id'];
+
+// Проверка дали студентът има право да вижда това събитие:
 $check = $pdo->prepare("
   SELECT 1
   FROM attendances
@@ -23,12 +43,15 @@ $check = $pdo->prepare("
   LIMIT 1
 ");
 $check->execute([$eventId, $userId]);
+
+// Ако няма такъв запис – отказваме достъп
 if (!$check->fetchColumn()) {
-  http_response_code(403);
+  http_response_code(403); // Forbidden
   echo json_encode(['error' => 'Нямате достъп до това събитие!']);
   exit;
 }
 
+// Заявка за извличане на информация за събитието
 $eventStmt = $pdo->prepare("
   SELECT
     e.id,
@@ -43,14 +66,18 @@ $eventStmt = $pdo->prepare("
   LIMIT 1
 ");
 $eventStmt->execute([$eventId]);
+
+// Вземаме информацията за събитието
 $event = $eventStmt->fetch();
 
+// Ако събитието не съществува
 if (!$event) {
-  http_response_code(404);
-  echo json_encode(['error' => 'Event not found']);
+  http_response_code(404); // Not Found
+  echo json_encode(['error' => 'Събитието не е намерено']);
   exit;
 }
 
+// Заявка за списък с присъствалите студенти
 $attStmt = $pdo->prepare("
   SELECT CONCAT(u.first_name, ' ', u.last_name) AS name
   FROM attendances a
@@ -59,8 +86,11 @@ $attStmt = $pdo->prepare("
   ORDER BY u.last_name, u.first_name
 ");
 $attStmt->execute([$eventId]);
+
+// Вземаме имената на студентите в масив
 $students = $attStmt->fetchAll(PDO::FETCH_COLUMN);
 
+// Връщаме крайния JSON отговор към клиента
 echo json_encode([
   'event' => [
     'id' => (int)$event['id'],
@@ -71,7 +101,7 @@ echo json_encode([
     'teacher_name' => $event['teacher_name'],
   ],
   'attendance' => [
-    'count' => count($students),
-    'students' => $students
+    'count' => count($students),   // брой присъствали
+    'students' => $students        // списък с имена
   ]
 ]);

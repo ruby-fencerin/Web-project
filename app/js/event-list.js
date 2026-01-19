@@ -68,8 +68,7 @@ async function loadMyEvents() {
 
     // При клик → отиваме на страницата за конкретното събитие
     div.addEventListener("click", () => {
-      window.location.href =
-        `event_page_student_view.php`;
+      window.location.href = `event_page_student_view.php?eventid=${encodeURIComponent(ev.id)}`;
     });
 
     eventsContainer.appendChild(div);
@@ -84,5 +83,5 @@ loadMyEvents();
 
 // Меню → „За мен“
 document.getElementById("for-me").addEventListener("click", () => {
-  window.location.href = `student_page.php`;
+  window.location.href = `user_page.php`;
 });
