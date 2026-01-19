@@ -44,6 +44,13 @@
                 <h3>Ресурси</h3>
                 <!-- Добавяме ресурси с JS -->
             </div>
+
+            <div id = "comments-div">
+                <h3>Коментари</div>
+                <div class = "comment">
+                    
+                </div>
+            </div>
         </main>
     </div>
 
