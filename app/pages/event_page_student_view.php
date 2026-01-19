@@ -45,11 +45,15 @@
                 <!-- Добавяме ресурси с JS -->
             </div>
 
-            <div id = "comments-div">
-                <h3>Коментари</div>
-                <div class = "comment">
-                    
-                </div>
+           <div id="comments-div">
+                <h3>Коментари</h3>
+
+                <!-- тук JS ще добавя всички коментари -->
+                <div id="comments-list"></div>
+
+                <!-- поле за нов коментар -->
+                <textarea id="comment-text" placeholder="Добави коментар..."></textarea>
+                <button id="add-comment">Изпрати</button>
             </div>
         </main>
     </div>

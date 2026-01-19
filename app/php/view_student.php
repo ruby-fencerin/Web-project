@@ -4,10 +4,14 @@ declare(strict_types=1);
 // Стартираме сесията
 session_start();
 
-// JSON отговор
+// Изключваме показването на PHP грешки в отговора,
+// за да не се наруши JSON форматът
 ini_set('display_errors', '0');
+
+// Указваме, че този файл връща JSON
 header('Content-Type: application/json; charset=utf-8');
 
+// Включваме PDO връзката към базата данни
 require_once __DIR__ . '/db.php';
 
 // Само преподавател има право да достъпва този файл
