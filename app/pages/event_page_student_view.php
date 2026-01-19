@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id = "nav-div">
-        <nav>
+        <nav id = "menu">
             <div class = "menu-option" id = "for-me">
                 За мен
             </div>
@@ -55,9 +55,8 @@
     </div>
 
     <script src = "../js/add-resource.js"></script>
-
-    <script src="../js/events-data.js"></script>
-    <script src="../js/event-details.js"></script>
+    <script src= "../js/event-details.js"></script>
+    <script src= "../js/menu.js" defer></script>
 
 </body>
 </html>

@@ -35,7 +35,7 @@
         </main>
     </div>
 
-    <script src = "../js/events-data.js"></script>
     <script src = "../js/user.js"></script>
+    <script src = "../js/menu.js" defer></script>
 </body>
 </html>

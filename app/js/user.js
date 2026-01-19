@@ -20,25 +20,6 @@ async function loadUser() {
     document.getElementById("name").textContent = data.name;
     document.getElementById("fn/dep").textContent =  (isStudent) ? "ФН: " + data.fn : "Катедра: " + data.department;
     document.getElementById("email").textContent = data.email;
-
-    if (!isStudent) {
-        nav = document.getElementById("menu");
-
-        list_students_option = document.createElement("div");
-        list_students_option.classList.add("menu-option");
-        list_students_option.id = "list-all-students";
-        list_students_option.textContent = "Студенти";
-
-        stats_option = document.createElement("div");
-        stats_option.classList.add("menu-option");
-        stats_option.id = "statistics";
-        stats_option.textContent = "Статистика";
-
-        nav.appendChild(list_students_option);
-        nav.appendChild(stats_option);
-
-        document.getElementsByClassName("header-option").textContent = "Преподавател";
-    }
 }
 
 loadUser();
