@@ -55,7 +55,7 @@ document.getElementById("show-attending")
 back = document.getElementById("back");
 back.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
-    window.location.href = "student_event_page.php?userid=" + userID;
+    window.location.href = "student_event_page.php";
 
 });
 
@@ -63,7 +63,7 @@ back.addEventListener("click", () => {
 myEvents = document.getElementById("my-events");
 myEvents.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
-    window.location.href = "student_event_page.php?userid=" + userID;
+    window.location.href = "student_event_page.php";
 
 });
 
@@ -71,6 +71,6 @@ myEvents.addEventListener("click", () => {
 forMe = document.getElementById("for-me");
 forMe.addEventListener("click", () => {
     // искаме да е страницата на този user => userid от url
-    window.location.href = "student_page.php?userid=" + userID;
+    window.location.href = "user_page.php";
 
 });
