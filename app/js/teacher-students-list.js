@@ -44,7 +44,7 @@ async function loadStudents() {
         // При клик върху студент:
         // отваряме страница за преглед на студента от преподавател в нов таб
         div.addEventListener("click", () => {
-        window.open(`student_view.php?studentid=${encodeURIComponent(st.id)}`, "_blank");
+        window.open(`../pages/user_page.php?studentid=${encodeURIComponent(st.id)}`, "_blank");
         });
 
         container.appendChild(div);
