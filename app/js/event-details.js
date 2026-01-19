@@ -43,6 +43,7 @@ async function loadEvent() {
 
 
 loadEvent();
+loadResources(eventID);
 
 
 // при натискане на бутона "Присъстващи" се отваря списък с присъстващите - 
