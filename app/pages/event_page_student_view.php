@@ -23,6 +23,7 @@
             <div class = "header-option">Студент</div>
             <div class = "header-option">Профил</div>
         </header>
+
         <main>
             <div id = "back">⇦</div>
 
@@ -43,22 +44,26 @@
             <div id = "resources-div">
                 <div class = "section-title">
                     <h3>Ресурси</h3> 
-                    <div class = "add-resource">
+                    <div id = "add-resource">
                         + Добави
                     </div>
                 </div>
                 <!-- Добавяме ресурси с JS -->
             </div>
 
-           <div id="comments-div">
-                <h3>Коментари</h3>
+            <div id="comments-div">
+                <div class = "section-title">
+                    <h3>Коментари</h3>
+                </div>
 
                 <!-- тук JS ще добавя всички коментари -->
                 <div id="comments-list"></div>
 
                 <!-- поле за нов коментар -->
                 <textarea id="comment-text" placeholder="Добави коментар..."></textarea>
-                <button id="add-comment">Изпрати</button>
+                <div id = "add-comment">
+                    Изпрати
+                </div>
             </div>
         </main>
     </div>

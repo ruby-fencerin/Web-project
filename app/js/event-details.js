@@ -91,10 +91,14 @@ async function loadComments() {
     // Визуализиране на всеки коментар
     data.comments.forEach(c => {
         commentsList.innerHTML += `
-            <div class="comment">
-                <strong>${c.author}</strong>
-                <small>${new Date(c.created_at).toLocaleString()}</small>
-                <p>${c.body}</p>
+            <div class = "comment">
+                <div class = "comment-info">
+                    <span class = "sender-name">${c.author}</span>
+                    <span class = "comment-data">${new Date(c.created_at).toLocaleString()}</span>
+                </div>
+                <div class = "comment-content">
+                    ${c.body}
+                </div>
             </div>
         `;
     });
