@@ -1,13 +1,3 @@
-// Взимаме параметрите от URL адреса
-const params = new URLSearchParams(window.location.search);
-const userID = params.get("userid");
-
-// Проверка дали имаме userid
-if (!userID) {
-  alert("Липсва userid в URL!");
-  throw new Error("Missing userid");
-}
-
 // Контейнерът, в който ще показваме събитията
 const eventsContainer = document.getElementById("events");
 
@@ -28,7 +18,7 @@ function formatDateTime(dtStr) {
 // Основна функция – зарежда събитията от базата
 async function loadMyEvents() {
   // Изпращаме заявка към PHP endpoint-а
-  const res = await fetch(`../php/event_list.php?userid=${encodeURIComponent(userID)}`);
+  const res = await fetch(`../php/event_list.php`);
   
   // Четем суровия отговор (за по-лесно дебъгване)
   const text = await res.text();
@@ -79,7 +69,7 @@ async function loadMyEvents() {
     // При клик → отиваме на страницата за конкретното събитие
     div.addEventListener("click", () => {
       window.location.href =
-        `event_page_student_view.php?eventid=${encodeURIComponent(ev.id)}&userid=${encodeURIComponent(userID)}`;
+        `event_page_student_view.php`;
     });
 
     eventsContainer.appendChild(div);
@@ -94,5 +84,5 @@ loadMyEvents();
 
 // Меню → „За мен“
 document.getElementById("for-me").addEventListener("click", () => {
-  window.location.href = `student_page.php?userid=${encodeURIComponent(userID)}`;
+  window.location.href = `student_page.php`;
 });
