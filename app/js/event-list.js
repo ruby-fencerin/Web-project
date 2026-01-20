@@ -21,7 +21,7 @@ async function addEventsButton(){
     addButton.classList.remove("hidden");
     addButton.addEventListener("click", () => {
       // искаме да е страницата на този преподавател => teacherid от url
-      window.location.href = "event_creation_page.php?";
+      window.location.href = "event_creation_page.php";
     });
   }
 }

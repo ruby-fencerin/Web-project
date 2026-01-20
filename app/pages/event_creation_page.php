@@ -8,21 +8,13 @@
 </head>
 <body>
     <div id = "nav-div">
-        <nav>
+        <nav id = "menu">
             <div class = "menu-option" id = "for-me">
                 За мен
             </div>
 
             <div class = "menu-option chosen" id = "my-events">
                 Мои събития
-            </div>
-
-             <div class = "menu-option" id = "list-all-students">
-                Студенти
-            </div>
-
-             <div class = "menu-option" id = "statistics">
-                Статистика
             </div>
         </nav>
     </div>
@@ -56,5 +48,6 @@
     </div>
 
     <script src="../js/event-creation.js"></script>
+    <script src="../js/menu.js"></script>
 </body>
 </html>
