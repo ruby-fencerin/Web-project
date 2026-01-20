@@ -1,6 +1,32 @@
 // Контейнерът, в който ще показваме събитията
 const eventsContainer = document.getElementById("events");
+async function addEventsButton(){
+  // Изпращаме заявка към PHP endpoint-а
+  const res = await fetch(`../php/user.php`);
 
+  // Четем суровия отговор (за по-лесно дебъгване)
+  const text = await res.text();
+  let data;
+
+  // Опитваме да парснем JSON
+  try { data = JSON.parse(text); }
+  catch {
+    console.error("Non-JSON response:", text);
+    alert("Server error: endpoint did not return JSON. Check console.");
+    return;
+  }
+
+  const addButton = document.getElementById("add-event");
+  if(data.role === 'teacher'){
+    addButton.classList.remove("hidden");
+    addButton.addEventListener("click", () => {
+      // искаме да е страницата на този преподавател => teacherid от url
+      window.location.href = "event_creation_page.php?";
+    });
+  }
+}
+
+addEventsButton()
 // Помощна функция за форматиране на дата и час
 function formatDateTime(dtStr) {
     

@@ -24,6 +24,9 @@
             <div class = "header-option">Профил</div>
         </header>
         <main>
+            <div id = "add-event" class="hidden">
+                + Добави
+            </div>
             <div id = "events">
                 <!-- Добавяме ги с JS -->
             </div>
