@@ -22,7 +22,7 @@
 
         <div id="error" class="error"></div>
 
-        <button type="submit">Вход</button>
+        <button type="submit" id = "login-btn">Вход</button>
     </form>
 
     <script src="../js/login.js"></script>
