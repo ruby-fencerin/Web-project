@@ -94,7 +94,12 @@ async function loadStats() {
                     labels: {
                         usePointStyle: false,
                         boxWidth: 0,
-                        boxHeight: 0
+                        boxHeight: 0,
+                        color: 'hsl(240, 100%, 5%)',
+                        font: {
+                            family: 'Cambria',
+                            size: 18,
+                        }
                     }
                 }
             }
