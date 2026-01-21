@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id = "nav-div">
-        <nav id = "menu">
+        <nav id = "menu" style="visibility:hidden">
             <div class = "menu-option" id = "for-me">
                 За мен
             </div>
@@ -22,7 +22,7 @@
         </nav>
     </div>
     <div id = "right-side">
-        <header>
+        <header style="visibility:hidden">
             <div class = "header-option">Преподавател</div>
             <div class = "header-option">Профил</div>
         </header>
@@ -51,6 +51,6 @@
     </div>
 
     <script src="../js/event-creation.js"></script>
-    <script src="../js/menu.js"></script>
+    <script src="../js/menu.js" defer></script>
 </body>
 </html>
