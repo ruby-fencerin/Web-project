@@ -40,7 +40,6 @@ async function buildMenu() {
   }
 
   // Общи опции
-  const header = document.querySelector("header");
   const headerOpt = document.querySelector(".header-option");
   if (headerOpt) headerOpt.textContent = isStudent ? "Студент" : "Преподавател";
 
@@ -65,14 +64,6 @@ async function buildMenu() {
       "Статистика",
       "teacher_statistics_page.php" 
     );
-  }
-
-  if (nav.style.visibility === 'hidden') {
-      nav.style.visibility = 'visible';
-  }
-
-  if (header.style.visibility === 'hidden') {
-      header.style.visibility = 'visible';
   }
 }
 
