@@ -27,7 +27,7 @@ async function buildMenu() {
     div.addEventListener("click", () => {
       window.location.href = href;
     });
-
+    
     nav.appendChild(div);
   }
 
@@ -40,7 +40,7 @@ async function buildMenu() {
   });
 
   document.getElementById("my-events")?.addEventListener("click", () => {
-    window.location.href = "student_event_page.php";
+    window.location.href = "event_list_page.php";
   });
 
   // Опции само за преподаватели
@@ -54,7 +54,7 @@ async function buildMenu() {
     addMenuOption(
       "statistics",
       "Статистика",
-      "teacher_statistics.php" 
+      "teacher_statistics_page.php" 
     );
   }
 }

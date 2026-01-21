@@ -1,0 +1,62 @@
+#events {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.event {
+    width: 65vw;
+    padding: 16px 2px;
+    margin: 5px 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    box-shadow: 0 0 6px 3px #e6e6e6;
+    
+    cursor: pointer;
+}
+
+.lecture {
+    padding-left: 2.5em;
+    background-color: #e7fefe;
+    border-radius: 5px;
+    border: 2px solid #08c4c4;
+}
+
+.lecture:hover {
+    background-color: #b6fcfc;
+}
+
+.exercise {
+    background-color: #e7feee;
+    border-radius: 5px;
+    border: 2px solid #00b339;
+}
+
+.exercise:hover {
+    background-color: #b6fccb;
+}
+
+#add-event {
+    width: 10vw;
+    text-align: center;
+
+    margin: 10px 10px;
+    padding: 6px;
+
+    background-color: #2b8cee;
+    color:white;
+    text-shadow: 1px 1px 1px #0066cc;
+
+    border-radius: 5px;
+    border: 2px solid #1173d4;
+    box-shadow: 0 0 6px 3px #e6e6e6;
+
+    cursor: pointer;
+}
+
+#add-event:hover {
+    background-color: #1173d4;
+}

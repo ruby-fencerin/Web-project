@@ -1,0 +1,23 @@
+#info-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#profile-pic {
+    padding: 0 40px 0 10px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#personal-info {
+    line-height: 1.6;
+}
+
+#name {
+    font-size: 1.3em;
+    color: #062647;
+    margin-bottom: 6px;
+    padding: 4px 4px;
+}

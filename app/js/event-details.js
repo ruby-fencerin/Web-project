@@ -146,5 +146,5 @@ document.getElementById("show-attending")
 
 // Навигация – връщане към списъка със събития
 document.getElementById("back").addEventListener("click", () => {
-    window.location.href = "student_event_page.php";
+    window.location.href = "event_list_page.php";
 });

@@ -4,7 +4,10 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>List of events</title>
-    <link rel = "stylesheet" href = "../css/page_styles.css">
+
+    <link rel = "stylesheet" href = "../css/menu_styles.css">
+    <link rel = "stylesheet" href = "../css/event_list_styles.css">
+    
 </head>
 <body>
     <div id = "nav-div">
@@ -20,7 +23,7 @@
     </div>
     <div id = "right-side">
         <header>
-            <div class = "header-option">Студент</div>
+            <div class = "header-option"></div>
             <div class = "header-option">Профил</div>
         </header>
         <main>

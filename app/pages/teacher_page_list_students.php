@@ -4,7 +4,10 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>List of students</title>
-    <link rel = "stylesheet" href = "../css/page_styles.css">
+
+    <link rel = "stylesheet" href = "../css/menu_styles.css">
+    <link rel = "stylesheet" href = "../css/students_list_styles.css">
+
 </head>
 <body>
     <div id = "nav-div">

@@ -94,7 +94,7 @@ async function loadMyEvents() {
 
     // При клик → отиваме на страницата за конкретното събитие
     div.addEventListener("click", () => {
-      window.location.href = `event_page_student_view.php?eventid=${encodeURIComponent(ev.id)}`;
+      window.location.href = `event_details_page.php?eventid=${encodeURIComponent(ev.id)}`;
     });
 
     eventsContainer.appendChild(div);

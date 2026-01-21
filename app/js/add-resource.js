@@ -2,7 +2,7 @@
 function addResourceToPage(resourceName, resourceLink) {
 
     // Взимаме контейнера, в който ще показваме всички ресурси
-    const div = document.getElementById("resources-div");
+    const div = document.getElementById("resources-list");
 
     // Създаваме нов div за конкретния ресурс
     const new_resource = document.createElement("div");
@@ -59,17 +59,11 @@ async function loadResources(eventID) {
     }
 
     // Взимаме контейнера за ресурси
-    const container = document.getElementById("resources-div");
+    const container = document.getElementById("resources-list");
 
     // Изчистваме стари ресурси (ако има)
     if (container) {
         container.innerHTML = "";
-
-        const title = document.createElement("h3");
-        title.textContent = "Ресурси";
-
-        // Добавяме заглавието в контейнера
-        container.appendChild(title);
     }
 
     // Добавяме всеки ресурс към страницата

@@ -1,0 +1,98 @@
+#back {
+    width: 38px;
+    height: auto;
+    margin: 0 0 20px 0;
+    padding: 2px 3px 3px 3px;
+
+    background-color:#2b8cee;
+    border-radius: 15px;
+    border: 2px solid #1173d4;
+    box-shadow: 0 0 6px 3px #e6e6e6;
+
+    text-align: center;
+    font-size: 1.4em;
+    color: white;
+
+    cursor: pointer;
+}
+
+#back:hover {
+    background-color: #1173d4;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+#attendance-btns {
+    width: 36vw;
+    margin: 20px 0 40px 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#show-attending {
+    width: 20vw;
+    text-align: center;
+
+    padding: 6px;
+
+    background-color: #2b8cee;
+    color:white;
+    text-shadow: 1px 1px 1px #0066cc;
+
+    border-radius: 5px;
+    border: 2px solid #1173d4;
+    box-shadow: 0 0 6px 3px #e6e6e6;
+
+    cursor: pointer;
+}
+
+#show-attending:hover {
+    background-color: #1173d4;
+}
+
+#add {
+    width: 10vw;
+    text-align: center;
+
+    padding: 6px;
+
+    background-color: #2b8cee;
+    color:white;
+    text-shadow: 1px 1px 1px #0066cc;
+
+    border-radius: 5px;
+    border: 2px solid #1173d4;
+    box-shadow: 0 0 6px 3px #e6e6e6;
+
+    cursor: pointer;
+}
+
+#add:hover {
+    background-color: #1173d4;
+}
+
+#attendance-list {
+    max-height: 200px;
+    width: 60vw;
+    overflow-y: auto;
+
+    margin: 20px 0;
+    padding: 16px 24px;
+    border: 2px solid #1173d4;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 3px #e6e6e6;
+
+    font-size: 0.88em;
+    line-height: 1.4;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+

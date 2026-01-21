@@ -4,7 +4,10 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Event page</title>
-    <link rel = "stylesheet" href = "../css/page_styles.css">
+
+    <link rel = "stylesheet" href = "../css/menu_styles.css">
+    <link rel = "stylesheet" href = "../css/event_details_styles.css">
+
 </head>
 <body>
     <div id = "nav-div">
@@ -20,7 +23,7 @@
     </div>
     <div id = "right-side">
         <header>
-            <div class = "header-option">Студент</div>
+            <div class = "header-option"></div>
             <div class = "header-option">Профил</div>
         </header>
 
@@ -34,8 +37,13 @@
                 <div id = "event-info"></div>
             </div>
 
-            <div id = "show-attending">
-                Присъствали: <span id = "count-attendance"></span>
+            <div id = "attendance-btns">
+                <div id = "show-attending">
+                    Присъствали: <span id = "count-attendance">30</span>
+                </div>
+                <div id = "add">
+                    + Добави
+                </div>
             </div>
 
             <div id = "attendance-list" class = "hidden">
@@ -48,7 +56,10 @@
                         + Добави
                     </div>
                 </div>
-                <!-- Добавяме ресурси с JS -->
+
+                <div id = "resources-list">
+                        <!-- Добавяме ресурси с JS -->
+                </div>
             </div>
 
             <div id="comments-div">
