@@ -28,13 +28,13 @@ async function buildMenu() {
       window.location.href = href;
     });
 
-    const headerOpt = document.querySelector(".header-option");
-    if (headerOpt) headerOpt.textContent = isStudent ? "Студент" : "Преподавател";
-
     nav.appendChild(div);
   }
 
   // Общи опции
+  const headerOpt = document.querySelector(".header-option");
+  if (headerOpt) headerOpt.textContent = isStudent ? "Студент" : "Преподавател";
+
   document.getElementById("for-me")?.addEventListener("click", () => {
     window.location.href = "user_page.php";
   });
