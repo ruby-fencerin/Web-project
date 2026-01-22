@@ -40,27 +40,28 @@ if($role !== 'teacher'){
   echo json_encode(['error' => 'Нямате права за създаване на събитие']);
   exit;
 }
-
-$userNamesString = str_replace("\r\n", ",", $users);
-echo $userNamesString;
+$userNamesArray = explode("\r\n", $users);
+$userNamesString = implode("\",\"", $userNamesArray);
+# echo $userNamesString;
 
 $stmt = $pdo->prepare("
     SELECT
         id 
     FROM users
-    WHERE CONCAT(first_name, ' ', last_name) IN (". $userNamesString .")
+    WHERE CONCAT(first_name, ' ', last_name) IN ("."\"". $userNamesString."\"" .")
 ");
 $stmt->execute();
 $queryUserIDs = $stmt->fetchAll();
-echo $queryUserIDs;
 
 // Записваме коментара в базата
 $stmt = $pdo->prepare("
   INSERT INTO attendances(`event_id`, `student_id`, `present`, `added_by`, `added_at`)
   VALUES (?, ?, 1, ? , NOW())
 ");
+
 foreach($queryUserIDs as $id){
-    $stmt->execute([$eventId, $id, $userId]);
+  #echo $id['id'];
+  $stmt->execute([$eventId, $id['id'], $userId]);
 }
 
 // Успешен отговор
