@@ -47,29 +47,25 @@ async function loadStats() {
         percentages.push(percent.toFixed(0));
     });
 
-    // Показваме последните <= 10 събития (т.е. ако има поне 10 събития, показваме 10, 
-    // иначе показваме колкото има). Затова при нужда режем първите 10 от масива
-    if (eventNames.length > maxEvents) {
-        eventNames = eventNames.slice(0, maxEvents);
-    }
-    if (percentages.length > maxEvents) {
-        percentages = percentages.slice(0, maxEvents);
-    }
+    // За графиката на последните 10 събития правим също масиви
+    let lastEventNames = (eventNames.length > maxEvents) ? eventNames.slice(0, maxEvents) : eventNames;
+        
+    let lastPercentages = (percentages.length > maxEvents) ? percentages.slice(0, maxEvents) : percentages;
 
     // Намираме canvas елемента, в който ще сложим графиката
-    const canvas = document.getElementById('myChart');
+    const canvasBarplot = document.getElementById('myBarplot');
 
-    // Създаваме графиката 
-    new Chart(canvas, {
+    // Създаваме графиката за последните 10 събития
+    new Chart(canvasBarplot, {
         // Типът е barplot
         type: 'bar',
         data: {
             // По X оста са имената на събитията
-            labels: eventNames,
+            labels: lastEventNames,
             datasets: [{
-                label: 'Процент присъствали студенти',
+                label: 'Процент присъствали студенти (последни 10 събития)',
                 // По Y оста са процентите посещаемост за всяко събитие
-                data: percentages,
+                data: lastPercentages,
                 // Всяка колона е различен цвят от тези, които генерирахме по-горе
                 backgroundColor: colors,
                 // Всяка колона има рамка от съответния цвят
@@ -101,6 +97,72 @@ async function loadStats() {
                             size: 18,
                         }
                     }
+                },
+                // Задаваме надписите на етикетите, които се появяват при hover
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Процент присъствали студенти: ' + context.parsed.y + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Намираме canvas елемента, в който ще сложим втората графика
+    const canvasLineplot = document.getElementById("myLineplot");
+
+    // Създаваме графиката за всички събития
+    new Chart(canvasLineplot, {
+        // Типът е barplot
+        type: 'line',
+        data: {
+            // По X оста са имената на събитията
+            labels: eventNames,
+            datasets: [{
+                label: 'Обща статистика за присъствие в %',
+                // По Y оста са процентите посещаемост за всяко събитие
+                data: percentages,
+                backgroundColor: 'hsl(270, 100%, 40%)', 
+                borderColor: 'hsl(270, 100%, 40%)',
+                borderWidth: 1
+        }]
+        },
+        options: {
+            // Махаме анимацията
+            animation: false,
+            // Y оста е от 0 до 100, защото показва проценти
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                },
+                // Тъй като може да имаме много събития, махаме надписите по X оста
+                x: {
+                    ticks: {
+                        display: false
+                    }
+                }
+            },
+           
+            plugins: {      
+                //Chart.js по подразбиране слага цветно квадратче до легендата
+                // Тъй като генерираме различни цветове за всеки стълб, го махаме, за да не е объркващо
+                legend: {
+                    labels: {
+                        usePointStyle: false,
+                        boxWidth: 0,
+                        boxHeight: 0,
+                        color: 'hsl(240, 100%, 5%)',
+                        font: {
+                            family: 'Cambria',
+                            size: 18,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: false
                 }
             }
         }

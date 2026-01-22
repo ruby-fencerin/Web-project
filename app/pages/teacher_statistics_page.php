@@ -35,8 +35,12 @@
             <div class = "header-option">Профил</div>
         </header>
         <main>
-            <div id = "chart-div">
-                <canvas id="myChart"></canvas>
+            <div id = "barplot-div">
+                <canvas id="myBarplot"></canvas>
+            </div>
+
+            <div id = "lineplot-div">
+                <canvas id="myLineplot"></canvas>
             </div>
         </main>
     </div>
