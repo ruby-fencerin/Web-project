@@ -3,6 +3,7 @@
 async function loadStats() {
     // Зареждаме данните от php endpoint-а
     const res = await fetch('../php/stats_teacher.php');
+    
     // Преобразуваме данните първо в текстов формат за по-лесно дебъгване
     const text = await res.text();
     
@@ -48,9 +49,18 @@ async function loadStats() {
     });
 
     // За графиката на последните 10 събития правим също масиви
-    let lastEventNames = (eventNames.length > maxEvents) ? eventNames.slice(0, maxEvents) : eventNames;
+    let lastEventNames = (eventNames.length > maxEvents) ? eventNames.slice(0, maxEvents) : [...eventNames];
         
-    let lastPercentages = (percentages.length > maxEvents) ? percentages.slice(0, maxEvents) : percentages;
+    let lastPercentages = (percentages.length > maxEvents) ? percentages.slice(0, maxEvents) : [...percentages];
+
+    // За втората графика искаме данните да са подредени от най-стари към най-нови, 
+    // затова обръщаме масивите
+    eventNames.reverse();
+    percentages.reverse();
+
+    // Обръщаме и масивите с последните събития
+    lastEventNames.reverse();
+    lastPercentages.reverse();
 
     // Намираме canvas елемента, в който ще сложим графиката
     const canvasBarplot = document.getElementById('myBarplot');
@@ -71,7 +81,7 @@ async function loadStats() {
                 // Всяка колона има рамка от съответния цвят
                 borderColor: borderColors,
                 borderWidth: 1
-        }]
+            }]
         },
         options: {
             // Махаме анимацията

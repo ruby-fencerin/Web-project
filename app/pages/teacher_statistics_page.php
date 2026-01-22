@@ -36,11 +36,11 @@
         </header>
         <main>
             <div id = "barplot-div">
-                <canvas id="myBarplot"></canvas>
+                <canvas id = "myBarplot"></canvas>
             </div>
 
             <div id = "lineplot-div">
-                <canvas id="myLineplot"></canvas>
+                <canvas id = "myLineplot"></canvas>
             </div>
         </main>
     </div>

@@ -21,3 +21,11 @@
     margin-bottom: 6px;
     padding: 4px 4px;
 }
+
+#barplot-div {
+    width: 70vw;
+    height: 30vh;
+
+    margin: 70px 20px;
+}
+

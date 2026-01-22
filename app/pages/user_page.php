@@ -35,9 +35,15 @@
                     e-mail: <span id = "email"></span><br>
                 </div>
             </div>
+
+            <div id = "barplot-div">
+                <canvas id = "single-bar-plot"></canvas>
+            </div>
         </main>
     </div>
 
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+     
     <script src = "../js/user.js"></script>
     <script src = "../js/menu.js" defer></script>
 </body>
