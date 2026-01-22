@@ -51,9 +51,27 @@ document.getElementById("add").addEventListener("click", async () => {
         alert(data.error || "Събитието не можа да бъде добавен");
         return;
     }
-    
+
+    const formUsers = new FormData();
     const users = editor.value.trim();
-    if (!text) return;
+
+    if (!users) return;
+    formUsers.append("users", users);
+    console.log(data.eventId[0].id);
+    formUsers.append("eventid", data.eventId[0].id);
+    const resUsers = await fetch("../php/event_add_users.php", {
+        method: "POST",
+        body: formUsers
+    });
+
+    
+    const dataUsers = await resUsers.json();
+    
+    // Проверка за грешка
+    if (!resUsers.ok) {
+        alert(dataUsers.error || "Събитието не можа да бъде добавен");
+        return;
+    }
     // Изчистваме полето и презареждаме коментарите
     editor.value = "";
     window.location.href = "event_list_page.php";
