@@ -42,7 +42,7 @@
         </main>
     </div>
 
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+     <script src="../js/chart.js"></script> 
      
     <script src = "../js/user.js"></script>
     <script src = "../js/menu.js" defer></script>

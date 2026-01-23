@@ -4,7 +4,7 @@ session_start();
 
 // HARD-CODE a test user ID from your DB
 // Change these values to test different users
-$_SESSION['user_id'] = 9;       // example: student with id=2
+$_SESSION['user_id'] = 1;       // example: student with id=2
 $_SESSION['role'] = 'teacher'; // or 'teacher'
 
 // Prevent session fixation
