@@ -54,10 +54,40 @@ async function loadEvent() {
     list.innerHTML = "";
 
     // Сортираме имената и ги добавяме в списъка
-    data.attendance.students.sort();
-    for (const name of data.attendance.students) {
-        list.innerHTML += name + "<br>";
-    }
+    data.attendance.students.sort((s1, s2) => s1.name.localeCompare(s2.name));
+    // for (const name of data.attendance.students) {
+    //     list.innerHTML += name + "<br>";
+    // }
+
+    displayAttendanceList(data.attendance.students);
+}
+
+function displayAttendanceList(attendingStudents) {
+    const list = document.getElementById("attendance-list");
+    list.innerHTML = "";
+
+    attendingStudents.forEach(st => {
+        const div = document.createElement("div");
+        div.dataset.id = st.id;
+        div.classList.add("student-in-attendance-list");
+
+        const spanName = document.createElement("span");
+        spanName.textContent = st.name;
+
+        const spanFN = document.createElement("span");
+        spanFN.textContent = st.fn ?? "-";
+
+        div.appendChild(spanName);
+        div.appendChild(spanFN);
+
+        div.addEventListener("click", () => {
+            // change present to 0 in database - communicate with backend
+
+            div.classList.toggle("not-present");
+        });
+
+        list.appendChild(div);
+    });
 }
 
 // Зареждане на коментарите за събитието
@@ -142,6 +172,15 @@ document.getElementById("add-comment").addEventListener("click", async () => {
 document.getElementById("show-attending")
     .addEventListener("click", () => {
         list.classList.toggle("hidden");
+        // Показване / скриване на инструкцията 
+        // за премахване / повторно добавяне на студент
+        const instruction = document.getElementById("remove-student-instruction");
+        instruction.classList.toggle("hidden");
+
+        // Показване / скриване на формата за записване на студент към събитието
+        // Засега е скрита с бутона "Присъствали", може да се промени
+        const addStudentDiv = document.getElementById("add-student-div");
+        addStudentDiv.classList.toggle("hidden");
     });
 
 // Навигация – връщане към списъка със събития

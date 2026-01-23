@@ -45,9 +45,9 @@
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script src="../js/chart.js"></script> 
 
-    <script src = "../js/charts.js"></script>
+    <script src = "../js/teacher-stats.js"></script>
     <script src = "../js/menu.js" defer></script>
 
 </body>

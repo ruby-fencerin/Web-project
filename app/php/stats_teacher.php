@@ -37,8 +37,8 @@ $stmt = $pdo->prepare("
            e.title as event_title,
            COUNT(student_id) as count_students
     FROM events e
-    LEFT JOIN attendances a on e.id = a.event_id
-    WHERE e.created_by = ? 
+    LEFT JOIN attendances a ON e.id = a.event_id
+    WHERE e.created_by = ?
     GROUP BY a.event_id
     ORDER BY e.start_at DESC
 ");

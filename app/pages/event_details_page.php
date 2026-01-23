@@ -37,17 +37,41 @@
                 <div id = "event-info"></div>
             </div>
 
-            <div id = "attendance-btns">
-                <div id = "show-attending">
-                    Присъствали: <span id = "count-attendance">30</span>
-                </div>
-                <div id = "add">
-                    + Добави
-                </div>
+            <div id = "show-attending">
+                Присъствали: <span id = "count-attendance">30</span>
             </div>
 
             <div id = "attendance-list" class = "hidden">
             </div>
+
+            <p id = "remove-student-instruction" class = "hidden">
+                * За да отбележите, че студент не е присъствал на
+                събитието, кликнете върху него. Ако впоследствие решите да го добавите
+                отново, кликнете още веднъж върху него.
+            </p>
+
+            <div id = "add-student-div" class = "hidden">
+                <p id = "add-student-title">Добавяне на студент</p>
+
+                <form id = "add-student-form">
+                    <label>
+                        <div class = "input-label">Име:</div>
+                        <input type = "text" id = "new-student-name" name = "new-student-name" required>
+                    </label>
+
+                    <label>
+                        <div class = "input-label">ФН:</div>
+                        <input type = "text" id = "new-student-fn" name = "new-student-fn" required>
+                    </label>
+            
+                    <button id = "add-student">
+                        + Добави
+                    </button>
+                </form>
+
+                <div id = "add-student-error"></div>
+
+             </div>
 
             <div id = "resources-div">
                 <div class = "section-title">

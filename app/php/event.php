@@ -105,7 +105,10 @@ if (!$event) {
 
 // Заявка за списък с присъствалите студенти
 $attStmt = $pdo->prepare("
-  SELECT CONCAT(u.first_name, ' ', u.last_name) AS name
+  SELECT
+    u.id,
+    CONCAT(u.first_name, ' ', u.last_name) AS name,
+    faculty_number AS fn
   FROM attendances a
   JOIN users u ON u.id = a.student_id
   WHERE a.event_id = ? AND a.present = 1
@@ -114,7 +117,8 @@ $attStmt = $pdo->prepare("
 $attStmt->execute([$eventId]);
 
 // Вземаме имената на студентите в масив
-$students = $attStmt->fetchAll(PDO::FETCH_COLUMN);
+// $studentNames = $attStmt->fetchAll(PDO::FETCH_COLUMN);
+$students = $attStmt->fetchAll();
 
 // Връщаме крайния JSON отговор към клиента
 echo json_encode([
@@ -128,6 +132,6 @@ echo json_encode([
   ],
   'attendance' => [
     'count' => count($students),   // брой присъствали
-    'students' => $students        // списък с имена
+    'students' =>  $students,        // списък с имена
   ]
 ]);

@@ -37,7 +37,7 @@ $userId = (int)$_SESSION['user_id'];
 $stmt = $pdo->prepare("
     SELECT COUNT(DISTINCT event_id)
     FROM attendances
-    WHERE student_id = ?
+    WHERE student_id = ? AND present = 1
 ");
 
 // Изпълняваме заявката с user_id от сесията на логнатия потребител
