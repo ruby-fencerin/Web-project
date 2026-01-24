@@ -56,12 +56,12 @@
                 <form id = "add-student-form">
                     <label>
                         <div class = "input-label">Име:</div>
-                        <input type = "text" id = "new-student-name" name = "new-student-name" required>
+                        <input type = "text" id = "new-name" name = "new-name" required>
                     </label>
 
                     <label>
                         <div class = "input-label">ФН:</div>
-                        <input type = "text" id = "new-student-fn" name = "new-student-fn" required>
+                        <input type = "text" id = "new-fn" name = "new-fn" required>
                     </label>
             
                     <button id = "add-student">
@@ -69,24 +69,56 @@
                     </button>
                 </form>
 
+                <div id = "add-student-succes"></div>
                 <div id = "add-student-error"></div>
-
              </div>
+
+            <hr>
 
             <div id = "resources-div">
                 <div class = "section-title">
                     <h3>Ресурси</h3> 
-                    <div id = "add-resource">
-                        + Добави
-                    </div>
                 </div>
 
                 <div id = "resources-list">
-                        <!-- Добавяме ресурси с JS -->
+                    <!-- Добавяме ресурси с JS -->
                 </div>
+
+                <div class = "section-title">
+                    <h3>Ресурси на студенти</h3> 
+                </div>
+                <div id = "student-resources-list">
+                    <!-- Добавяме ресурси с JS -->
+                </div>
+
+                <div id = "add-resource-div">
+                    <p id = "add-resource-title">Добавяне на ресурс</p>
+
+                    <form id = "add-resource-form">
+                        <label>
+                            <div class = "input-label">Заглавие:</div>
+                            <input type = "text" id = "new-resource-title" name = "new-resource-title" required>
+                        </label>
+
+                        <label>
+                            <div class = "input-label">URL:</div>
+                            <input type = "text" id = "new-resource-url" name = "new-resource-url" required>
+                        </label>
+                
+                        <button id = "add-resource">
+                            + Добави
+                        </button>
+                    </form>
+
+                    <div id = "add-resource-succes"></div>
+                    <div id = "add-resource-error"></div>
+                </div>
+
             </div>
 
-            <div id="comments-div">
+            <hr>
+
+            <div id = "comments-div">
                 <div class = "section-title">
                     <h3>Коментари</h3>
                 </div>
