@@ -33,7 +33,7 @@ function addResourceToPage(resourceName, resourceLink) {
 
 // Тази функция зарежда ресурсите за дадено събитие от базата данни
 async function loadResources(eventID) {
-
+    
     // Изпращаме заявка към PHP endpoint-а за ресурси
     const res = await fetch(
         `../php/event_resources.php?eventid=${encodeURIComponent(eventID)}`

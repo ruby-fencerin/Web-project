@@ -135,7 +135,10 @@
         </main>
     </div>
 
+    <script src = "../js/attendance-list.js"></script>
     <script src = "../js/add-resource.js"></script>
+    <script src = "../js/add-comment.js"></script>
+    
     <script src= "../js/event-details.js"></script>
     <script src= "../js/menu.js" defer></script>
 
