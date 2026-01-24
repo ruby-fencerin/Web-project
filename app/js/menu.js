@@ -65,6 +65,12 @@ async function buildMenu() {
       "teacher_statistics_page.php" 
     );
   }
+    addMenuOption(
+      "log-out",
+      "Изход",
+      "../php/log_out.php" 
+    );
+
 }
 
 buildMenu(); 
