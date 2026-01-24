@@ -104,8 +104,21 @@
                             <div class = "input-label">URL:</div>
                             <input type = "text" id = "new-resource-url" name = "new-resource-url" required>
                         </label>
+
+                        <label>
+                            <div class = "input-label">Тип на ресурса:</div>
+                            <select id = "new-resource-type" name = "new-resource-type" required>
+                                <option>pdf</option>
+                                <option>live_link</option>
+                                <option>js</option>
+                                <option>php</option>
+                                <option>html</option>
+                                <option>sql</option>
+                                <option>recording</option>
+                            </select>
+                        </label>
                 
-                        <button id = "add-resource">
+                        <button id = "add-resource" type = "button">
                             + Добави
                         </button>
                     </form>

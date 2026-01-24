@@ -278,7 +278,7 @@ h2 {
 }
 
 /* Полета за попълване на заглавие и url */
-#new-resource-title, #new-resource-url {
+#new-resource-title, #new-resource-url, #new-resource-type {
     margin-right: 20px;
     width: 20vw;
     height: 5vh;

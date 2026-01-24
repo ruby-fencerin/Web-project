@@ -60,7 +60,7 @@ loadEvent();
 // Зареждаме ресурсите и добавяме функционалност на бутона за
 // добавяне на ресурси - функциите са дефинирани в add-resource.js
 loadResources(eventID);
-//makeFunctionalAddResource(eventID);
+makeFunctionalAddResource(eventID);
 
 // Зареждаме коментарите и добавяме функционалност на бутона за
 // добавяне на коментари - функциите са дефинирани в add-comment.js

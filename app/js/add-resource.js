@@ -71,3 +71,50 @@ async function loadResources(eventID) {
         addResourceToPage(resource.title, resource.url);
     });
 }
+
+// Добавяне на финкционалност на бутона за добавяне на ресурс
+function makeFunctionalAddResource(eventID) {
+    document.getElementById("add-resource").addEventListener("click", async () => {
+        // Вземаме въведените от потребителя данни
+        const resourceTitle = document.getElementById("new-resource-title").value.trim();
+        const resourceURL = document.getElementById("new-resource-url").value.trim();
+        const resourceType = document.getElementById("new-resource-type").value.trim();
+
+        if (!resourceTitle && !resourceURL && !resourceType) return;
+
+        // Подготвяме данните за POST заявката
+        const form = new FormData();
+        form.append("eventid", eventID);
+        form.append("title", resourceTitle);
+        form.append("url", resourceURL);
+        form.append("type", resourceType);
+
+        // Изпращаме заявката към сървъра
+        const res = await fetch("../php/add_resource.php", {
+            method: "POST",
+            body: form
+        });
+
+        const text = await res.text();
+
+        // Опитваме се да парснем JSON
+        try { 
+            data = JSON.parse(text); 
+        }
+        catch {
+            console.error("Non-JSON response:", text);
+            alert("Сървърна грешка – отговорът не е JSON.");
+            return;
+        }
+
+        // Проверка за грешка
+        if (!res.ok) {
+            alert(data.error || "Ресурсът не можа да бъде добавен");
+            return;
+        }
+
+        // Изчистваме полетата и презареждаме ресурсите
+        document.getElementById("add-resource-form").reset();
+        loadResources(eventID);
+    });
+}

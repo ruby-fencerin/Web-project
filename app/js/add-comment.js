@@ -48,8 +48,6 @@ function makeFunctionalAddComment(eventID) {
         const text = document.getElementById("comment-text").value.trim();
         if (!text) return;
 
-        console.log(eventID);
-
         // Подготвяме данните за POST заявката
         const form = new FormData();
         form.append("eventid", eventID);
