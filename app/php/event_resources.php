@@ -30,22 +30,42 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
-// Подготвяме SQL заявка за извличане на ресурсите за дадено събитие
-$stmt = $pdo->prepare("
+// Подготвяме SQL заявка за извличане на ресурсите за дадено събитие, добавени от преподавател
+$teacherStmt = $pdo->prepare("
   SELECT
     title,   
     url      
-  FROM resources
-  WHERE event_id = ?
+  FROM resources r
+  JOIN users u on u.id = r.created_by
+  WHERE r.event_id = ? AND u.role = 'teacher'
 ");
 
 // Изпълняваме заявката, като подаваме eventId
-$stmt->execute([$eventId]);
+$teacherStmt->execute([$eventId]);
 
 // Вземаме всички ресурси като масив
-$resources = $stmt->fetchAll();
+$teacherResources = $teacherStmt->fetchAll();
+
+// Подготвяме SQL заявка за извличане на ресурсите за дадено събитие, добавени от студенти
+$studentStmt = $pdo->prepare("
+  SELECT
+    title,   
+    url      
+  FROM resources r
+  JOIN users u on u.id = r.created_by
+  WHERE r.event_id = ? AND u.role = 'student'
+");
+
+// Изпълняваме заявката, като подаваме eventId
+$studentStmt->execute([$eventId]);
+
+// Вземаме всички ресурси като масив
+$studentResources = $studentStmt->fetchAll();
 
 // Връщаме ресурсите като JSON отговор
 echo json_encode([
-  'resources' => $resources
+  'resources' => [
+    'teacher' => $teacherResources,
+    'student' => $studentResources,
+  ]
 ]);

@@ -44,6 +44,7 @@
 
      <script src="../js/chart.js"></script> 
      
+    <script src = "../js/user-stats.js"></script>
     <script src = "../js/user.js"></script>
     <script src = "../js/menu.js" defer></script>
 </body>

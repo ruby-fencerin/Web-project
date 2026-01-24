@@ -80,7 +80,7 @@
                     <h3>Ресурси</h3> 
                 </div>
 
-                <div id = "resources-list">
+                <div id = "teacher-resources-list">
                     <!-- Добавяме ресурси с JS -->
                 </div>
 

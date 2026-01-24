@@ -1,9 +1,8 @@
 // Тази функция добавя един ресурс (файл / линк) към страницата
-function addResourceToPage(resourceName, resourceLink) {
-
-    // Взимаме контейнера, в който ще показваме всички ресурси
-    const div = document.getElementById("resources-list");
-
+function addResourceToPage(resourceName, resourceLink, isFromStudent) {
+    // Вземаме съответния контейнер за ресурси
+    const div = (isFromStudent) ? document.getElementById("student-resources-list") : document.getElementById("teacher-resources-list");
+    
     // Създаваме нов div за конкретния ресурс
     const new_resource = document.createElement("div");
     new_resource.classList.add("resource");
@@ -58,17 +57,30 @@ async function loadResources(eventID) {
         return;
     }
 
-    // Взимаме контейнера за ресурси
-    const container = document.getElementById("resources-list");
+    // Взимаме контейнера, в който ще показваме всички ресурси от преподаватели
+    const teacherDiv = document.getElementById("teacher-resources-list");
 
     // Изчистваме стари ресурси (ако има)
-    if (container) {
-        container.innerHTML = "";
+    if (teacherDiv) {
+        teacherDiv.innerHTML = "";
     }
 
     // Добавяме всеки ресурс към страницата
-    data.resources.forEach(resource => {
-        addResourceToPage(resource.title, resource.url);
+    data.resources.teacher.forEach(resource => {
+        addResourceToPage(resource.title, resource.url, false);
+    });
+
+    // Взимаме контейнера, в който ще показваме всички ресурси от студенти
+    const studentDiv = document.getElementById("student-resources-list");
+
+     // Изчистваме стари ресурси (ако има)
+    if (studentDiv) {
+        studentDiv.innerHTML = "";
+    }
+
+     // Добавяме всеки ресурс към страницата
+    data.resources.student.forEach(resource => {
+        addResourceToPage(resource.title, resource.url, true);
     });
 }
 
