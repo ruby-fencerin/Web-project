@@ -23,7 +23,7 @@ function addResourceToPage(resourceName, resourceLink, isFromStudent) {
 
     // При клик върху ресурса отваряме линка му
     new_resource.addEventListener("click", () => {
-        window.location.href = resourceLink;
+       window.open(resourceLink, "_blank");
     });
 
     // Добавяме ресурса към контейнера на страницата
@@ -126,7 +126,9 @@ function makeFunctionalAddResource(eventID) {
         }
 
         // Изчистваме полетата и презареждаме ресурсите
-        document.getElementById("add-resource-form").reset();
+        document.getElementById("new-resource-title").value = '';
+        document.getElementById("new-resource-url").value = '';
+        document.getElementById("new-resource-type").selectedIndex = 0;
         loadResources(eventID);
     });
 }
