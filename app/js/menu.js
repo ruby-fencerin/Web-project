@@ -19,23 +19,23 @@ async function buildMenu() {
 
     // Ако вече съществува – не го добавяме втори път, но му задаваме функционалност
     if (document.getElementById(id)) {
-        const div = document.getElementById(id)
+      const div = document.getElementById(id)
 
-        div.addEventListener("click", () => {
-          window.location.href = href;
-        });
-    } 
+      div.addEventListener("click", () => {
+        window.location.href = href;
+      });
+    }
     else {
-        const div = document.createElement("div");
-        div.classList.add("menu-option");
-        div.id = id;
-        div.textContent = text;
+      const div = document.createElement("div");
+      div.classList.add("menu-option");
+      div.id = id;
+      div.textContent = text;
 
-        div.addEventListener("click", () => {
-          window.location.href = href;
-        });
-        
-        nav.appendChild(div);
+      div.addEventListener("click", () => {
+        window.location.href = href;
+      });
+
+      nav.appendChild(div);
     }
   }
 
@@ -62,14 +62,20 @@ async function buildMenu() {
     addMenuOption(
       "statistics",
       "Статистика",
-      "teacher_statistics_page.php" 
+      "teacher_statistics_page.php"
     );
   }
-    addMenuOption(
-      "log-out",
-      "Изход",
-      "../php/log_out.php" 
-    );
+  addMenuOption(
+    "change-password",
+    "Смяна на парола",
+    "change_password_page.php"
+  );
+
+  addMenuOption(
+    "log-out",
+    "Изход",
+    "../php/log_out.php"
+  );
 
 }
 
