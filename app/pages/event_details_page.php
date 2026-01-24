@@ -85,7 +85,7 @@
                 </div>
 
                 <div class = "section-title">
-                    <h3>Ресурси на студенти</h3> 
+                    <h3>Ресурси от студенти</h3> 
                 </div>
                 <div id = "student-resources-list">
                     <!-- Добавяме ресурси с JS -->
