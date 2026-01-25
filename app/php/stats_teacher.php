@@ -49,14 +49,6 @@ $stmt->execute([$userId]);
 // Взимаме всички резултати
 $stats = $stmt->fetchAll();
 
-// Проверяваме дали сме намерили данни в базата
-if (!$stats) {
-    // Връщаме HTTP 404 (Not Found)
-    http_response_code(404);
-    echo json_encode(['error' => 'Не са намерени събития в базата.']);
-    exit;
-}
-
 // Подготвяме заявка, за да намерим общия брой студенти
 $totalStmt = $pdo->prepare("
     SELECT COUNT(*)
@@ -66,14 +58,6 @@ $totalStmt = $pdo->prepare("
 
 $totalStmt->execute();
 $total = (int)$totalStmt->fetchColumn();
-
-// Проверяваме дали сме намерили данни в базата
-if (!$total) {
-    // Връщаме HTTP 404 (Not Found)
-    http_response_code(404);
-    echo json_encode(['error' => 'Не е намерен броят на студентите в базата.']);
-    exit;
-}
 
 // Връщаме данните като JSON
 echo json_encode(['stats' => $stats, 'total' => $total]);

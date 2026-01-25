@@ -24,6 +24,9 @@ async function loadStudents() {
     // Изчистваме контейнера
     container.innerHTML = "";
 
+      // Сортираме имената
+    data.students.sort((s1, s2) => s1.name.localeCompare(s2.name));
+
     // Обхождаме всички студенти, върнати от базата
     data.students.forEach(st => {
         // Създаваме div за един студент

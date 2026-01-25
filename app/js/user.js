@@ -43,13 +43,18 @@ async function loadUser() {
     document.getElementById("fn/dep").textContent =  (isStudent) ? "ФН: " + data.fn : "Катедра: " + data.department;
     document.getElementById("email").textContent = data.email;
 
-    if (isStudent) {
+    if (ctx.mode === "me" && isStudent) {
         // Функцията е дефинирана в user-stats.js
         loadStudentStats();
     }
-    // else {
-    //     loadTeacherStats();
-    // }
+    else if (ctx.mode === "me" && !isStudent) {
+        // Функцията е дефинирана в user-stats.js
+        loadTeacherStats();
+    }
+    else if (ctx.mode === "student") {
+        // Функцията е дефинирана в user-stats.js
+        loadStudentStatsTeacherView(studentid);
+    }
 }
 
 loadUser();

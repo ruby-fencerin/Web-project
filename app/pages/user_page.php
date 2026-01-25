@@ -39,6 +39,11 @@
             <div id = "barplot-div">
                 <canvas id = "single-bar-plot"></canvas>
             </div>
+
+             <div id = "barplot-div-view-student">
+                <canvas id = "single-bar-plot-view-student"></canvas>
+            </div>
+
         </main>
     </div>
 

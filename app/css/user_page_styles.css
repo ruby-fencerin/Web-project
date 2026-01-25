@@ -22,7 +22,7 @@
     padding: 4px 4px;
 }
 
-#barplot-div {
+#barplot-div, #barplot-div-view-student {
     width: 70vw;
     height: 30vh;
 
