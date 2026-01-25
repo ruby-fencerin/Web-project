@@ -78,14 +78,17 @@ async function loadMyEvents() {
     
     // Заглавие на събитието
     const spanTitle = document.createElement("span");
+    spanTitle.classList.add("event-title");
     spanTitle.textContent = ev.title;
 
     // Дата
     const spanDate = document.createElement("span");
+    spanDate.classList.add("event-date");
     spanDate.textContent = start.date;
 
     //Час
     const spanTime = document.createElement("span");
+    spanTime.classList.add("event-time");
     spanTime.textContent = start.time;
 
     div.appendChild(spanTitle);

@@ -33,11 +33,11 @@ $userId = (int)$_SESSION['user_id'];
 // студенти за всяко събитие на преподавателя.
 // Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
-    SELECT a.event_id as event_id,
+    SELECT e.id as event_id,
            e.title as event_title,
-           COUNT(student_id) as count_students
+           COUNT(a.student_id) as count_students
     FROM events e
-    LEFT JOIN attendances a ON e.id = a.event_id
+    LEFT JOIN attendances a ON e.id = a.event_id AND a.present = 1
     WHERE e.created_by = ?
     GROUP BY a.event_id
     ORDER BY e.start_at DESC

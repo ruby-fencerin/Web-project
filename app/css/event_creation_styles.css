@@ -24,42 +24,13 @@ h2 {
     margin-bottom: 20px;
 }
 
-#attendance-btns {
-    width: 36vw;
-    margin: 20px 0 40px 0;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:center;
-}
-
-#show-attending {
-    width: 20vw;
-    text-align: center;
-
-    padding: 6px;
-
-    background-color: #2b8cee;
-    color:white;
-    text-shadow: 1px 1px 1px #0066cc;
-
-    border-radius: 5px;
-    border: 2px solid #1173d4;
-    box-shadow: 0 0 6px 3px #e6e6e6;
-
-    cursor: pointer;
-}
-
-#show-attending:hover {
-    background-color: #1173d4;
-}
 
 #add {
     width: 10vw;
     text-align: center;
 
     padding: 6px;
+    margin: 20px 0;
 
     background-color: #2b8cee;
     color:white;
@@ -76,24 +47,16 @@ h2 {
     background-color: #1173d4;
 }
 
+#event-theme, #event-info, #event-start-at, #event-end-at {
+    margin: 7px 0 3px 0;
+}
+
 textarea{
     display: block;
 }
 
-#attendance-list {
-    max-height: 200px;
-    width: 60vw;
-    overflow-y: auto;
-
-    margin: 20px 0;
-    padding: 16px 24px;
-    border: 2px solid #1173d4;
-    border-radius: 4px;
-    box-shadow: 0 0 6px 3px #e6e6e6;
-
-    font-size: 0.88em;
-    line-height: 1.4;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#bbb-import {
+    margin-top: 25px;
 }
 
 .hidden {

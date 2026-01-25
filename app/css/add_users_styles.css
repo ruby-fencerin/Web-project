@@ -24,41 +24,11 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-#attendance-btns {
-    width: 36vw;
-    margin: 20px 0 40px 0;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:center;
-}
-
-#show-attending {
-    width: 20vw;
-    text-align: center;
-
-    padding: 6px;
-
-    background-color: #2b8cee;
-    color:white;
-    text-shadow: 1px 1px 1px #0066cc;
-
-    border-radius: 5px;
-    border: 2px solid #1173d4;
-    box-shadow: 0 0 6px 3px #e6e6e6;
-
-    cursor: pointer;
-}
-
-#show-attending:hover {
-    background-color: #1173d4;
-}
-
 #add-one, #add-multiple {
     width: 10vw;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 
     padding: 6px;
 
@@ -77,24 +47,12 @@ h1, h2 {
     background-color: #1173d4;
 }
 
-textarea{
-    display: block;
+#user-first-name, #user-family-name, #user-email, #user-fn {
+    margin: 7px 0 3px 0;
 }
 
-#attendance-list {
-    max-height: 200px;
-    width: 60vw;
-    overflow-y: auto;
-
-    margin: 20px 0;
-    padding: 16px 24px;
-    border: 2px solid #1173d4;
-    border-radius: 4px;
-    box-shadow: 0 0 6px 3px #e6e6e6;
-
-    font-size: 0.88em;
-    line-height: 1.4;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+textarea{
+    display: block;
 }
 
 .hidden {

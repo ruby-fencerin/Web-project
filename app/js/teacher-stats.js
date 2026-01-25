@@ -43,9 +43,12 @@ async function loadStats() {
     // Добавяме всяко събитие и всяка бройка присъствали в масивите eventNames и percentages
     data.stats.forEach(stat => {
         eventNames.push(stat.event_title);
-        const percent = (stat.count_students / data.total) * 100;
-        // Закръгляме процентите до цяло число
-        percentages.push(percent.toFixed(0));
+        // Закръгляме процентите до цяло число и внимаваме да не делим на 0
+        const percent = (data.total !== 0)
+                        ? ((stat.count_students / data.total) * 100).toFixed(0)
+                        : '0';
+        
+        percentages.push(percent);
     });
 
     // За графиката на последните 10 събития правим също масиви

@@ -16,8 +16,12 @@
                 За мен
             </div>
 
-            <div class = "menu-option chosen" id = "my-events">
+            <div class = "menu-option" id = "my-events">
                 Мои събития
+            </div>
+
+             <div class = "menu-option chosen" id = "list-all-students">
+                Студенти
             </div>
         </nav>
     </div>

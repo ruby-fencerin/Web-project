@@ -4,22 +4,35 @@
     align-items: flex-start;
 }
 
+/* Използваме grid layout за контейнерите на събитията */
 .event {
     width: 65vw;
-    padding: 16px 2px;
+    padding: 16px 1em 16px 2em;
     margin: 5px 10px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
 
     box-shadow: 0 0 6px 3px #e6e6e6;
     
     cursor: pointer;
 }
 
+/* Подравняваме заглавията, датите и началните часове 
+   на събитията в списъка */
+.event-title {
+    justify-self: start;
+}
+
+.event-date {
+    justify-self: center;
+}
+
+.event-time {
+    justify-self: end;
+}
+
 .lecture {
-    padding-left: 2.5em;
     background-color: #e7fefe;
     border-radius: 5px;
     border: 2px solid #08c4c4;
