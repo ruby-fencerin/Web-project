@@ -57,4 +57,7 @@ async function loadStudents() {
 
 loadStudents();
 
-
+// Студенти → „Добави студенти“
+document.getElementById("add-student").addEventListener("click", () => {
+  window.location.href = `add_users_page.php`;
+});
