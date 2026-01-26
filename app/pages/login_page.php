@@ -15,6 +15,8 @@
     <link rel="manifest" href="/images/site.webmanifest" />
 </head>
 <body>
+    <img id="logo" type="image/png" src="/images/weblogo_colorful.png" />
+
     <form id = "login-form">
         <h2>Влизане в профил</h2>
 

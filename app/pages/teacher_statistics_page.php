@@ -19,6 +19,7 @@
 <body>
     <div id = "nav-div">
         <nav id = "menu">
+            <img id="logo" type="image/png" src="/images/weblogo.png" />
             <div class = "menu-option" id = "for-me">
                 За мен
             </div>

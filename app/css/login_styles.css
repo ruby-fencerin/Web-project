@@ -8,9 +8,16 @@ h2 {
     font-size: 1.4em;
 }
 
+#logo{
+    margin: 1vh auto;
+    width: 200px;
+    height: 200px;
+    display: block;
+}
+
 form { 
     width: 540px; 
-    margin: 14vh auto; 
+    margin: 1vh auto; 
     padding: 9px 30px;
 
     border: 2px solid #0e5ca4;

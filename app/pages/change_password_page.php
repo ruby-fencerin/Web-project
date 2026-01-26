@@ -15,6 +15,8 @@
     <link rel="manifest" href="/images/site.webmanifest" />
 </head>
 <body>
+    <img id="logo" type="image/png" src="/images/weblogo_colorful.png" />
+
     <form id = "change-password-form">
         <h2>Промяна на парола</h2>
 
