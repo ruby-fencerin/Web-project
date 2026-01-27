@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 27, 2026 at 07:48 PM
+-- Generation Time: Jan 27, 2026 at 10:38 PM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -80,7 +80,9 @@ INSERT INTO `attendances` (`id`, `event_id`, `student_id`, `present`, `added_by`
 (131, 12, 16, 1, 11, '2026-01-14 22:51:32'),
 (132, 12, 22, 1, 11, '2026-01-14 22:51:32'),
 (133, 12, 17, 1, 11, '2026-01-14 22:51:32'),
-(134, 17, 22, 1, 9, '2026-01-23 12:31:00');
+(134, 17, 22, 1, 9, '2026-01-23 12:31:00'),
+(135, 7, 22, 1, 1, '2026-01-27 22:25:36'),
+(137, 7, 2, 1, 1, '2026-01-27 22:26:18');
 
 -- --------------------------------------------------------
 
@@ -126,7 +128,6 @@ INSERT INTO `comments` (`id`, `event_id`, `user_id`, `body`, `created_at`) VALUE
 (28, 15, 22, 'Примерите с fopen и fwrite бяха полезни.', '2026-01-14 23:12:51'),
 (29, 16, 16, 'Задачите за четене от файл бяха полезни.', '2026-01-14 23:12:51'),
 (30, 16, 17, 'Сега ми е по-ясно как се работи с файлове в PHP.', '2026-01-14 23:12:51'),
-(31, 3, 9, 'aaaaaaaaaaa', '2026-01-19 21:14:52'),
 (32, 1, 2, 'Много полезна лекция, благодаря!', '2026-01-19 21:17:07'),
 (33, 1, 3, 'Може ли да качите слайдовете като PDF?', '2026-01-19 21:17:07'),
 (34, 1, 4, 'Имам въпрос относно задачата — ще има ли примерен проект?', '2026-01-19 21:17:07'),
@@ -258,7 +259,7 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `faculty_number`, 
 (13, 'student', 'Борис', 'Велинов', '1MI0800182', 'boris.velinov@gmail.com', '$2y$12$cfuq4Tb0PbZiyrg0QPYJ7u9PBi.hKlKBtovIpQC6mucf.4IlagQte', '2026-01-14 22:44:29', NULL),
 (14, 'student', 'Весела', 'Иванова', '1MI0800183', 'vesela.ivanova@gmail.com', '$2y$12$M2dPxgo2C.bK/HTgynjNyO23NVvUAxPWCxZnG0/0fPIK5iOw9bEnu', '2026-01-14 22:44:29', NULL),
 (15, 'student', 'Иван', 'Георгиев', '1MI0800184', 'ivan.georgiev@gmail.com', '$2y$12$8d1rjakItTO6NuaBYQmRkO37wp.TMDFE5I.vxcYoBK3oXNFHPNmIG', '2026-01-14 22:44:29', NULL),
-(16, 'student', 'Мария', 'Николова', '1MI0800185', 'maria.nikolova@gmail.com', '$2y$12$e.bPFPze5WekK0qRb9ypi.q7phyXZb.7iHx2qdsSzvC8ePouPbJyG', '2026-01-14 22:44:29', NULL),
+(16, 'student', 'Мария', 'Николова', '1MI0800185', 'maria.nikolova@gmail.com', '$2y$12$Fy/gDCc47T7kmIZmaJ0pdufleW5xrUdKfms68GliOxoMTXMJgFJB2', '2026-01-14 22:44:29', NULL),
 (17, 'student', 'Георги', 'Димитров', '1MI0800186', 'georgi.dimitrov@gmail.com', '$2y$12$RdxDb394pfwDJzH43rtXj.DLFRWfeIJC.hz1EyIsCTyFG5B4qhzYy', '2026-01-14 22:44:29', NULL),
 (18, 'student', 'Николай', 'Петров', '1MI0800187', 'nikolay.petrov@gmail.com', '$2y$12$IZVk.kFqFOGNSErWSYdxLeAobB.p34B5rsmB1SjPYcNkM3ZbgnaLO', '2026-01-14 22:44:29', NULL),
 (19, 'student', 'Силвия', 'Маринова', '1MI0800188', 'silvia.marinova@gmail.com', '$2y$12$QjSeiPXEyQ1XEpk6HpTNgOJCQXiIJLFwwDejXSQ4fxUD2ZyvXyNVS', '2026-01-14 22:44:29', NULL),
@@ -321,13 +322,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `events`
