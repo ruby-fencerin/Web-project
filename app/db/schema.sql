@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 27, 2026 at 10:38 PM
+-- Generation Time: Jan 27, 2026 at 10:41 PM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -219,7 +219,8 @@ INSERT INTO `resources` (`id`, `event_id`, `type`, `title`, `url`, `created_by`,
 (50, 14, 'pdf', 'Задачи: функции и масиви', 'https://example.com/php_functions_tasks.pdf', 11, '2026-01-14 23:19:01'),
 (51, 15, 'pdf', 'Работа с файлове в PHP', 'https://example.com/php_files.pdf', 10, '2026-01-14 23:19:01'),
 (52, 16, 'pdf', 'Задачи: файлове в PHP', 'https://example.com/php_files_tasks.pdf', 11, '2026-01-14 23:19:01'),
-(53, 13, 'pdf', 'New', 'http://localhost:8080/pages/event_details_page.php?eventid=13', 1, '2026-01-24 20:16:37');
+(53, 13, 'pdf', 'New', 'http://localhost:8080/pages/event_details_page.php?eventid=13', 1, '2026-01-24 20:16:37'),
+(54, 7, 'pdf', 'Документация', 'https://docs.google.com/document/d/1x21xljPt7bT9c1GU-eRjjiZolBSJ6EpTGFvDbJXZIbE/edit?usp=sharing', 16, '2026-01-27 22:40:47');
 
 -- --------------------------------------------------------
 
@@ -340,7 +341,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `resources`
 --
 ALTER TABLE `resources`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `users`
