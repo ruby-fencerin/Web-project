@@ -51,9 +51,11 @@ async function loadEvent() {
     count.textContent = data.attendance.count;
 
     // Изобразяваме списъка със студенти (функцията е дефинирана в attendance-list.js)
-    loadAttendanceList(data.attendance.students);
-}
+    loadAttendanceList(data.attendance.students, data.role);
 
+    makeFunctionalShowAttending(data.role);
+}
+    
 // Първоначално зареждане на данните
 loadEvent();
 
@@ -67,20 +69,25 @@ makeFunctionalAddResource(eventID);
 loadComments(eventID);
 makeFunctionalAddComment(eventID);
 
-// Показване / скриване на списъка с присъстващи
-document.getElementById("show-attending")
-    .addEventListener("click", () => {
-        list.classList.toggle("hidden");
-        // Показване / скриване на инструкцията 
-        // за премахване / повторно добавяне на студент
-        const instruction = document.getElementById("remove-student-instruction");
-        instruction.classList.toggle("hidden");
+function makeFunctionalShowAttending(userRole) {
+    // Показване / скриване на списъка с присъстващи
+    document.getElementById("show-attending")
+        .addEventListener("click", () => {
+            list.classList.toggle("hidden");
+            
+            if (userRole == 'teacher') {
+                // Показване / скриване на инструкцията 
+                // за премахване / повторно добавяне на студент
+                const instruction = document.getElementById("remove-student-instruction");
+                instruction.classList.toggle("hidden");
 
-        // Показване / скриване на формата за записване на студент към събитието
-        // Засега е скрита с бутона "Присъствали", може да се промени
-        const addStudentDiv = document.getElementById("add-student-div");
-        addStudentDiv.classList.toggle("hidden");
-    });
+                // Показване / скриване на формата за записване на студент към събитието
+                // Засега е скрита с бутона "Присъствали", може да се промени
+                const addStudentDiv = document.getElementById("add-student-div");
+                addStudentDiv.classList.toggle("hidden");
+            }
+        });
+}
 
 // Навигация – връщане към списъка със събития
 document.getElementById("back").addEventListener("click", () => {

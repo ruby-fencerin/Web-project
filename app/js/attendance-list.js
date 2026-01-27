@@ -1,5 +1,5 @@
 // Помощна функция, която по подаден списък от студенти ги изобразява в div-а с id = "attendance-list"
-function loadAttendanceList(attendingStudents) {
+function loadAttendanceList(attendingStudents, role) {
     // Вземаме div-а с id = "attendance-list"
     const list = document.getElementById("attendance-list")
     const count = document.getElementById("count-attendance");
@@ -32,40 +32,42 @@ function loadAttendanceList(attendingStudents) {
         div.appendChild(spanFN);
 
         // При клик отбелязваме, че студентът всъщност не е присъствал
-        div.addEventListener("click", async () => {
-            // Подготвяме данните за POST заявката
-            const toggledStudent = new FormData();
-            toggledStudent.append("eventid", eventID);     
-            toggledStudent.append("studentid", st.id);
+        // Само при преподавателски профил
+        if (role === 'teacher') {
+            div.addEventListener("click", async () => {
+                // Подготвяме данните за POST заявката
+                const toggledStudent = new FormData();
+                toggledStudent.append("eventid", eventID);     
+                toggledStudent.append("studentid", st.id);
 
-            // Изпращаме заявка към backend-а
-            const res = await fetch("../php/toggle_attendance.php", {
-                method: "POST",
-                body: toggledStudent
+                // Изпращаме заявка към backend-а
+                const res = await fetch("../php/toggle_attendance.php", {
+                    method: "POST",
+                    body: toggledStudent
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert(data.error || "Грешка при промяна на присъствието");
+                    return;
+                }
+
+                // Обновяваме локалното състояние
+                st.present = data.present;
+                
+                // Показваме броя на присъствалите, с корекция спрямо промяната
+                if (st.present == 0){
+                    count.textContent --;
+                }else{
+                    count.textContent ++;
+                }
+
+                // Променяме стила на div-а
+                div.classList.toggle("not-present");
             });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.error || "Грешка при промяна на присъствието");
-                return;
-            }
-
-            // Обновяваме локалното състояние
-            st.present = data.present;
-            
-            // Показваме броя на присъствалите, с корекция спрямо промяната
-            if (st.present == 0){
-                count.textContent --;
-            }else{
-                count.textContent ++;
-            }
-
-            // Променяме стила на div-а
-            div.classList.toggle("not-present");
-        });
-
-        // Добавяме студента към списъка
-        list.appendChild(div);
+        }
+            // Добавяме студента към списъка
+            list.appendChild(div);
     });
 }

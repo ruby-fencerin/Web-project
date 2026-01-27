@@ -139,5 +139,6 @@ echo json_encode([
   'attendance' => [
     'count' => $presentCount,   // брой присъствали
     'students' =>  $students,        // списък с имена
-  ]
+  ],
+  'role' => $role,
 ]);
