@@ -45,6 +45,14 @@ document.getElementById("add-one").addEventListener("click", async () =>{
         alert(data.error || "Събитието не можа да бъде добавен");
         return;
     }
+
+    document.getElementById("success-one").textContent = "Студентът беше добавен успешно.";
+
+    document.getElementById("first-name").value = "";
+    document.getElementById("family-name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("fn").value = "";
+
 });
 
 document.getElementById("add-multiple").addEventListener("click", async () => {
@@ -69,6 +77,8 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
     // Изчистваме полето и презареждаме коментарите
     editor.value = "";
     importer.value = "";
+
+    document.getElementById("success-many").textContent = "Студентите бяха добавени успешно.";
 });
 
 const backButton = document.getElementById("back");

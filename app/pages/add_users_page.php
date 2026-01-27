@@ -3,7 +3,7 @@
 <head>
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-    <title>Event creation page</title>
+    <title>Add users page</title>
     
     <link rel = "stylesheet" href = "../css/menu_styles.css">
     <link rel = "stylesheet" href = "../css/add_users_styles.css">
@@ -54,9 +54,12 @@
                 <div id = "user-fn">Факултетен номер</div>
                 <input type="text" id="fn" placeholder="1234567 или 0ab1234567" />
             </div>
+
             <div id = "add-one">
                 Импорт
             </div>
+
+             <div id = "success-one"></div>
 
             <h1> Вмъкване на мнозина студенти </h1>
             <input type="file" id="users-import" name="users-import" accept=".csv" />
@@ -64,6 +67,9 @@
             <div id = "add-multiple">
                 Импорт
             </div>
+
+            <div id = "success-many"></div>
+
             </div>
         </main>
     </div>
