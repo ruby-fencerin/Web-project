@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 20, 2026 at 05:20 PM
+-- Generation Time: Jan 27, 2026 at 07:48 PM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -64,8 +64,8 @@ INSERT INTO `attendances` (`id`, `event_id`, `student_id`, `present`, `added_by`
 (115, 6, 12, 1, 11, '2026-01-14 22:51:32'),
 (116, 6, 13, 1, 11, '2026-01-14 22:51:32'),
 (117, 7, 16, 1, 10, '2026-01-14 22:51:32'),
-(118, 7, 14, 1, 10, '2026-01-14 22:51:32'),
-(119, 7, 20, 1, 10, '2026-01-14 22:51:32'),
+(118, 7, 14, 0, 10, '2026-01-14 22:51:32'),
+(119, 7, 20, 0, 10, '2026-01-14 22:51:32'),
 (120, 7, 18, 1, 10, '2026-01-14 22:51:32'),
 (121, 8, 17, 1, 11, '2026-01-14 22:51:32'),
 (122, 8, 15, 1, 11, '2026-01-14 22:51:32'),
@@ -79,7 +79,8 @@ INSERT INTO `attendances` (`id`, `event_id`, `student_id`, `present`, `added_by`
 (130, 11, 22, 1, 10, '2026-01-14 22:51:32'),
 (131, 12, 16, 1, 11, '2026-01-14 22:51:32'),
 (132, 12, 22, 1, 11, '2026-01-14 22:51:32'),
-(133, 12, 17, 1, 11, '2026-01-14 22:51:32');
+(133, 12, 17, 1, 11, '2026-01-14 22:51:32'),
+(134, 17, 22, 1, 9, '2026-01-23 12:31:00');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,16 @@ INSERT INTO `comments` (`id`, `event_id`, `user_id`, `body`, `created_at`) VALUE
 (28, 15, 22, 'Примерите с fopen и fwrite бяха полезни.', '2026-01-14 23:12:51'),
 (29, 16, 16, 'Задачите за четене от файл бяха полезни.', '2026-01-14 23:12:51'),
 (30, 16, 17, 'Сега ми е по-ясно как се работи с файлове в PHP.', '2026-01-14 23:12:51'),
-(31, 4, 9, 'testing', '2026-01-20 11:43:31');
+(31, 3, 9, 'aaaaaaaaaaa', '2026-01-19 21:14:52'),
+(32, 1, 2, 'Много полезна лекция, благодаря!', '2026-01-19 21:17:07'),
+(33, 1, 3, 'Може ли да качите слайдовете като PDF?', '2026-01-19 21:17:07'),
+(34, 1, 4, 'Имам въпрос относно задачата — ще има ли примерен проект?', '2026-01-19 21:17:07'),
+(35, 1, 1, 'Ще кача материалите по-късно днес. Благодаря за въпросите!', '2026-01-19 21:17:07'),
+(36, 2, 2, 'Календарният изглед е супер удобен.', '2026-01-19 21:17:19'),
+(37, 2, 5, 'Линкът към записа работи ли? При мен дава грешка.', '2026-01-19 21:17:19'),
+(38, 2, 1, 'Проверих — обнових линка. Опитайте отново.', '2026-01-19 21:17:19'),
+(39, 2, 9, 'Кога ше има консултация по материала?', '2026-01-20 09:20:39'),
+(40, 17, 9, 'Благодаря за активното участие!', '2026-01-23 12:35:58');
 
 -- --------------------------------------------------------
 
@@ -153,17 +163,18 @@ INSERT INTO `events` (`id`, `title`, `description`, `start_at`, `end_at`, `creat
 (3, 'Лекция 04.01', 'SQL – основни заявки', '2026-01-04 10:00:00', NULL, 9, '2026-01-14 23:14:03'),
 (4, 'Лекция 04.01 (част 2)', 'Връзки между таблици', '2026-01-04 12:00:00', NULL, 9, '2026-01-14 23:14:03'),
 (5, 'Лекция 05.01', 'Основи на PHP', '2026-01-05 15:00:00', NULL, 1, '2026-01-14 22:47:27'),
-(6, 'Упражнение 06.01', 'PHP променливи и оператори', '2026-01-06 12:00:00', NULL, 11, '2026-01-14 22:47:27'),
+(6, 'Упражнение 06.01', 'PHP променливи и оператори', '2026-01-06 12:00:00', NULL, 3, '2026-01-14 22:47:27'),
 (7, 'Лекция 07.01', 'Условни конструкции', '2026-01-07 10:00:00', NULL, 1, '2026-01-14 22:47:27'),
-(8, 'Упражнение 08.01', 'Условни конструкции – задачи', '2026-01-08 18:00:00', NULL, 11, '2026-01-14 22:47:27'),
-(9, 'Лекция 09.01', 'Цикли в PHP', '2026-01-09 11:00:00', NULL, 10, '2026-01-14 22:47:27'),
-(10, 'Упражнение 11.01', 'Цикли – упражнения', '2026-01-11 15:00:00', NULL, 11, '2026-01-14 22:47:27'),
-(11, 'Лекция 13.01', 'Масиви в PHP', '2026-01-13 08:00:00', NULL, 10, '2026-01-14 22:47:27'),
-(12, 'Упражнение 14.01', 'Работа с масиви', '2026-01-14 09:00:00', NULL, 11, '2026-01-14 22:47:27'),
+(8, 'Упражнение 08.01', 'Условни конструкции – задачи', '2026-01-08 18:00:00', NULL, 3, '2026-01-14 22:47:27'),
+(9, 'Лекция 09.01', 'Цикли в PHP', '2026-01-09 11:00:00', NULL, 2, '2026-01-14 22:47:27'),
+(10, 'Упражнение 11.01', 'Цикли – упражнения', '2026-01-11 15:00:00', NULL, 3, '2026-01-14 22:47:27'),
+(11, 'Лекция 13.01', 'Масиви в PHP', '2026-01-13 08:00:00', NULL, 2, '2026-01-14 22:47:27'),
+(12, 'Упражнение 14.01', 'Работа с масиви', '2026-01-14 09:00:00', NULL, 3, '2026-01-14 22:47:27'),
 (13, 'Лекция 14.01', 'Функции в PHP', '2026-01-14 16:00:00', NULL, 1, '2026-01-14 22:47:27'),
-(14, 'Упражнение 15.01', 'Функции – упражнения', '2026-01-15 10:00:00', NULL, 11, '2026-01-14 22:47:27'),
-(15, 'Лекция 15.01', 'Файлове в PHP', '2026-01-15 13:00:00', NULL, 10, '2026-01-14 22:47:27'),
-(16, 'Упражнение 16.01', 'Файлове – упражнения', '2026-01-16 11:00:00', NULL, 11, '2026-01-14 22:47:27');
+(14, 'Упражнение 15.01', 'Функции – упражнения', '2026-01-15 10:00:00', NULL, 3, '2026-01-14 22:47:27'),
+(15, 'Лекция 15.01', 'Файлове в PHP', '2026-01-15 13:00:00', NULL, 2, '2026-01-14 22:47:27'),
+(16, 'Упражнение 16.01', 'Файлове – упражнения', '2026-01-16 11:00:00', NULL, 3, '2026-01-14 22:47:27'),
+(17, 'Лекция 31.01', 'Подготовка за проект', '2026-01-23 14:30:00', '2026-01-23 14:36:00', 9, '2026-01-23 12:31:00');
 
 -- --------------------------------------------------------
 
@@ -206,37 +217,8 @@ INSERT INTO `resources` (`id`, `event_id`, `type`, `title`, `url`, `created_by`,
 (49, 13, 'pdf', 'Функции в PHP', 'https://example.com/php_functions.pdf', 9, '2026-01-14 23:19:01'),
 (50, 14, 'pdf', 'Задачи: функции и масиви', 'https://example.com/php_functions_tasks.pdf', 11, '2026-01-14 23:19:01'),
 (51, 15, 'pdf', 'Работа с файлове в PHP', 'https://example.com/php_files.pdf', 10, '2026-01-14 23:19:01'),
-(52, 16, 'pdf', 'Задачи: файлове в PHP', 'https://example.com/php_files_tasks.pdf', 11, '2026-01-14 23:19:01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `resource_visibility`
---
-
-CREATE TABLE `resource_visibility` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `resource_id` int(10) UNSIGNED NOT NULL,
-  `student_id` int(10) UNSIGNED NOT NULL,
-  `is_visible` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `resource_visibility`
---
-
-INSERT INTO `resource_visibility` (`id`, `resource_id`, `student_id`, `is_visible`) VALUES
-(4, 41, 12, 1),
-(5, 41, 13, 1),
-(6, 41, 16, 1),
-(7, 41, 22, 1),
-(11, 37, 13, 1),
-(12, 37, 14, 1),
-(13, 37, 20, 1),
-(14, 37, 21, 1),
-(18, 35, 12, 1),
-(19, 35, 16, 1),
-(20, 35, 17, 1);
+(52, 16, 'pdf', 'Задачи: файлове в PHP', 'https://example.com/php_files_tasks.pdf', 11, '2026-01-14 23:19:01'),
+(53, 13, 'pdf', 'New', 'http://localhost:8080/pages/event_details_page.php?eventid=13', 1, '2026-01-24 20:16:37');
 
 -- --------------------------------------------------------
 
@@ -269,7 +251,7 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `faculty_number`, 
 (6, 'student', 'Даниел', 'Колев', '625984', 'daniel@example.com', '$2y$12$0QHh6zzE6ZaDTCZuKxt/Pej7JQhCaTL5b1tJaCUmff.6tQ6auIarK', '2026-01-14 19:40:56', NULL),
 (7, 'student', 'Никол', 'Христова', '633634', 'nikol@example.com', '$2y$12$MzpvLlaQzSqbyX3Um5wZx.8SYO3W1ISTIsB35x7WO21Sd48X4F5sG', '2026-01-14 19:40:56', NULL),
 (8, 'student', 'Мартин', 'Георгиев', '444212', 'martin@example.com', '$2y$12$L1HSp/o39/t.8YcO0e9GNuDRRsznsvCRXDCcIbryP91hnggXG1WHa', '2026-01-14 19:40:56', NULL),
-(9, 'teacher', 'Иван', 'Иванов', NULL, 'ivan.ivanov@uni.bg', '$2y$12$v/q8HFVbncdq2YRlFkjpsu0X9J0EM.sJ9XEAFdl.pSjRM6pUeHiSi', '2026-01-14 22:43:01', 'Информатика'),
+(9, 'teacher', 'Иван', 'Иванов', NULL, 'ivan.ivanov@uni.bg', '$2y$12$i6r9xRBOzcfT/nM5IjcVs.iHBIM1BdtRbr7HWzQc/llmq5UFWYgFe', '2026-01-14 22:43:01', 'Информатика'),
 (10, 'teacher', 'Мария', 'Петрова', NULL, 'maria.petrova@uni.bg', '$2y$12$v/q8HFVbncdq2YRlFkjpsu0X9J0EM.sJ9XEAFdl.pSjRM6pUeHiSi', '2026-01-14 22:43:01', 'Софтуерни технологии'),
 (11, 'teacher', 'Георги', 'Георгиев', NULL, 'georgi.georgiev@uni.bg', '$2y$12$v/q8HFVbncdq2YRlFkjpsu0X9J0EM.sJ9XEAFdl.pSjRM6pUeHiSi', '2026-01-14 22:43:01', 'Компютърни науки'),
 (12, 'student', 'Ана', 'Петрова', '1MI0800181', 'ana.petrova@gmail.com', '$2y$12$XbPLyusUrDy7nIg8JmbbaeOCgbXmPhSf7nb5gkx0bFSkS.5/mDoS2', '2026-01-14 22:44:29', NULL),
@@ -282,8 +264,7 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `faculty_number`, 
 (19, 'student', 'Силвия', 'Маринова', '1MI0800188', 'silvia.marinova@gmail.com', '$2y$12$QjSeiPXEyQ1XEpk6HpTNgOJCQXiIJLFwwDejXSQ4fxUD2ZyvXyNVS', '2026-01-14 22:44:29', NULL),
 (20, 'student', 'Петър', 'Стоянов', '1MI0800191', 'petar.stoyanov@gmail.com', '$2y$12$nBQYjmjWARypQXRh2ebIDeMXNYZP7Hle8iDiObcTzm5vOhMKZRiJe', '2026-01-14 22:44:29', NULL),
 (21, 'student', 'Радослав', 'Колев', '1MI0800190', 'radoslav.kolev@gmail.com', '$2y$12$WsfZYvxkPcQsGcHgeWyMw.vbGUVLExs7VNhj6qgZVoFdmG6lRSYaK', '2026-01-14 22:44:29', NULL),
-(22, 'student', 'Стефанка', 'Манахова', '1MI0800189', 'fani.manahova@gmail.com', '$2y$12$SDVf7.03WWTvz3JhMJJqr.S8SFp1Tnc5ms9AomjZIp/iGNaJ2zG9K', '2026-01-14 22:44:29', NULL),
-(23, 'student', 'Момчил', 'Младенов', '5MI0800232', 'bugybon1@gmail.com', '$2y$12$v/q8HFVbncdq2YRlFkjpsu0X9J0EM.sJ9XEAFdl.pSjRM6pUeHiSi', '2026-01-20 13:31:18', NULL);
+(22, 'student', 'Стефанка', 'Манахова', '1MI0800189', 'fani.manahova@gmail.com', '$2y$12$SDVf7.03WWTvz3JhMJJqr.S8SFp1Tnc5ms9AomjZIp/iGNaJ2zG9K', '2026-01-14 22:44:29', NULL);
 
 --
 -- Indexes for dumped tables
@@ -324,14 +305,6 @@ ALTER TABLE `resources`
   ADD KEY `fk_resources_created_by` (`created_by`);
 
 --
--- Indexes for table `resource_visibility`
---
-ALTER TABLE `resource_visibility`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `uq_visibility_resource_student` (`resource_id`,`student_id`),
-  ADD KEY `idx_visibility_student` (`student_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -348,37 +321,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `resources`
 --
 ALTER TABLE `resources`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
---
--- AUTO_INCREMENT for table `resource_visibility`
---
-ALTER TABLE `resource_visibility`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -411,13 +378,6 @@ ALTER TABLE `events`
 ALTER TABLE `resources`
   ADD CONSTRAINT `fk_resources_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_resources_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `resource_visibility`
---
-ALTER TABLE `resource_visibility`
-  ADD CONSTRAINT `fk_vis_resource` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_vis_student` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
