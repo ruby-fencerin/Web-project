@@ -3,10 +3,11 @@ const editor = document.querySelector("#imported-user-list");
 const text = "";
 
 importer.addEventListener("change", async () => {
-    importer.disabled = true;
+    //importer.disabled = true;
     const file = importer.files[0];
     if (!file){
         editor.value = 'not a valid file';
+        importer.input = "";
         return;
     }
 
@@ -18,6 +19,7 @@ importer.addEventListener("change", async () => {
     reader.onerror = function () {
         editor.value = 'error reading file';
     }
+    importer.input = "";
 });
 
 document.getElementById("add-one").addEventListener("click", async () =>{
@@ -66,6 +68,7 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
     }
     // Изчистваме полето и презареждаме коментарите
     editor.value = "";
+    importer.value = "";
 });
 
 const backButton = document.getElementById("back");

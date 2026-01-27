@@ -4,10 +4,12 @@ declare(strict_types=1);
 // Настройки за свързване с базата данни
 // Първо се опитваме да ги вземем от environment променлива от докера иначе използваме по подразбиране
 
-$host = getenv('DB_HOST') ?: 'db';
+$host = getenv('DB_HOST') ?: 'localhost'; // PHP
+// $host = getenv('DB_HOST') ?: 'db'; // Docker
 $db   = getenv('DB_NAME') ?: 'my_webapp';
-$user = getenv('DB_USER') ?: 'user';
-$pass = getenv('DB_PASS') ?: 'user_password';
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: ''; // PHP
+// $pass = getenv('DB_PASS') ?: 'root_password'; // Docker
 
 // създаване на PDO връзка
 

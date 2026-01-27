@@ -60,7 +60,7 @@
 
             <h1> Вмъкване на мнозина студенти </h1>
             <input type="file" id="users-import" name="users-import" accept=".csv" />
-            <textarea id="imported-user-list" placeholder="Списък със студенти" readonly></textarea>
+            <textarea id="imported-user-list" placeholder="Първо име,Фамилия,емайл,ФН "></textarea>
             <div id = "add-multiple">
                 Импорт
             </div>

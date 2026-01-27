@@ -54,7 +54,7 @@
 
 
             <input type="file" id="bbb-import" name="bbb-import" accept=".txt" />
-            <textarea id="imported-user-list" placeholder="Списък със студенти" readonly></textarea>
+            <textarea id="imported-user-list" placeholder="Списък със студенти"></textarea>
             <div id = "add">
                 Импорт
             </div>

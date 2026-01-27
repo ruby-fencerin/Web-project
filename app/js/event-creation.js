@@ -3,9 +3,8 @@ const editor = document.querySelector("#imported-user-list");
 const text = "";
 
 importer.addEventListener("change", async () => {
-    importer.disabled = true;
+    // importer.disabled = true;
     const file = importer.files[0];
-    importer.removeChild
     if (!file){
         editor.value = 'not a valid file';
         return;
@@ -73,6 +72,7 @@ document.getElementById("add").addEventListener("click", async () => {
         return;
     }
     // Изчистваме полето и презареждаме коментарите
+    importer.value = "";
     editor.value = "";
     window.location.href = "event_list_page.php";
 });
