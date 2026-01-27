@@ -73,7 +73,7 @@
                         <input type = "text" id = "new-fn" name = "new-fn" required>
                     </label>
             
-                    <button id = "add-student">
+                    <button id = "add-student" type="button">
                         + Добави
                     </button>
                 </form>
@@ -160,7 +160,8 @@
     <script src = "../js/attendance-list.js"></script>
     <script src = "../js/add-resource.js"></script>
     <script src = "../js/add-comment.js"></script>
-    
+    <script src = "../js/add-attendance.js"></script>
+
     <script src= "../js/event-details.js"></script>
     <script src= "../js/menu.js" defer></script>
 

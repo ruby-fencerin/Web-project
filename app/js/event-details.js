@@ -58,6 +58,7 @@ async function loadEvent() {
     
 // Първоначално зареждане на данните
 loadEvent();
+makeFunctionalAddStudent(eventID);
 
 // Зареждаме ресурсите и добавяме функционалност на бутона за
 // добавяне на ресурси - функциите са дефинирани в add-resource.js
@@ -68,6 +69,7 @@ makeFunctionalAddResource(eventID);
 // добавяне на коментари - функциите са дефинирани в add-comment.js
 loadComments(eventID);
 makeFunctionalAddComment(eventID);
+
 
 function makeFunctionalShowAttending(userRole) {
     // Показване / скриване на списъка с присъстващи
