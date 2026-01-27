@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 #events {
     display: flex;
     flex-direction: column;
