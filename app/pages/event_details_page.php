@@ -78,6 +78,21 @@
                     </button>
                 </form>
 
+                <p id = "add-student-title">Добавяне на студенти от Big Blue Button</p>
+
+                <form id = "add-student-form-bbb">
+                    <label>
+                        <div class = "input-label">Файл:</div>
+                        <input type="file" id="bbb-import" name="bbb-import" accept=".txt" />
+                    </label>
+
+                    <textarea id="imported-user-list" placeholder="Списък със студенти"></textarea>
+            
+                    <button id = "add-student-bbb" type="button">
+                        + Вмъкни
+                    </button>
+                </form>
+
                 <div id = "add-student-succes"></div>
                 <div id = "add-student-error"></div>
              </div>
