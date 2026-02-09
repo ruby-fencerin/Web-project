@@ -34,12 +34,18 @@ if ($studentId <= 0) {
 // Заявка към базата – взимаме само студенти
 $stmt = $pdo->prepare("
   SELECT id,
-         'student' AS role,
-         CONCAT(first_name, ' ', last_name) AS name,
-         faculty_number AS fn,
-         email
-  FROM users
-  WHERE id = ? AND role = 'student'
+          u.role,
+          CONCAT(u.first_name, ' ', u.last_name) AS name, 
+          u.faculty_number AS fn,
+          u.department,                      
+          u.email,                                   
+          s.major,
+          s.student_group,
+          s.study_year,
+          s.start_year
+  FROM users u
+  LEFT JOIN student_academic_info s ON s.student_id = u.id
+  WHERE id = ?  
 ");
 $stmt->execute([$studentId]);
 

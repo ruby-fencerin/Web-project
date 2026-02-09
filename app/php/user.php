@@ -24,12 +24,17 @@ $userId = (int)$_SESSION['user_id'];
 // Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
   SELECT id,
-         role,
-         CONCAT(first_name, ' ', last_name) AS name, 
-         faculty_number AS fn,
-         department,                      
-         email                                   
-  FROM users
+          u.role,
+          CONCAT(u.first_name, ' ', u.last_name) AS name, 
+          u.faculty_number AS fn,
+          u.department,                      
+          u.email,                                   
+          s.major,
+          s.student_group,
+          s.study_year,
+          s.start_year
+  FROM users u
+  LEFT JOIN student_academic_info s ON s.student_id = u.id
   WHERE id = ?              
 ");
 

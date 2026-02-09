@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 27, 2026 at 10:41 PM
+-- Generation Time: Feb 09, 2026 at 05:02 PM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -225,6 +225,44 @@ INSERT INTO `resources` (`id`, `event_id`, `type`, `title`, `url`, `created_by`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_academic_info`
+--
+
+CREATE TABLE `student_academic_info` (
+  `student_id` int(10) UNSIGNED NOT NULL,
+  `major` varchar(100) NOT NULL,
+  `student_group` varchar(20) NOT NULL,
+  `study_year` tinyint(3) UNSIGNED NOT NULL,
+  `start_year` year(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `student_academic_info`
+--
+
+INSERT INTO `student_academic_info` (`student_id`, `major`, `student_group`, `study_year`, `start_year`) VALUES
+(2, 'Компютърни науки', '1', 2, '2024'),
+(3, 'Компютърни науки', '1', 2, '2024'),
+(4, 'Компютърни науки', '2', 3, '2023'),
+(5, 'Компютърни науки', '1', 1, '2025'),
+(6, 'Компютърни науки', '2', 2, '2024'),
+(7, 'Компютърни науки', '1', 3, '2023'),
+(8, 'Софтуерни технологии', '2', 1, '2025'),
+(12, 'Компютърни науки', '1', 1, '2025'),
+(13, 'Компютърни науки', '1', 1, '2025'),
+(14, 'Компютърни науки', '2', 1, '2025'),
+(15, 'Компютърни науки', '2', 1, '2025'),
+(16, 'Компютърни науки', '1', 1, '2025'),
+(17, 'Компютърни науки', '2', 1, '2025'),
+(18, 'Компютърни науки', '1', 1, '2025'),
+(19, 'Компютърни науки', '2', 1, '2025'),
+(20, 'Математика и информатика', '1', 1, '2025'),
+(21, 'Компютърни науки', '2', 1, '2025'),
+(22, 'Компютърни науки', '1', 1, '2025');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -307,6 +345,12 @@ ALTER TABLE `resources`
   ADD KEY `fk_resources_created_by` (`created_by`);
 
 --
+-- Indexes for table `student_academic_info`
+--
+ALTER TABLE `student_academic_info`
+  ADD PRIMARY KEY (`student_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -380,6 +424,12 @@ ALTER TABLE `events`
 ALTER TABLE `resources`
   ADD CONSTRAINT `fk_resources_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_resources_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `student_academic_info`
+--
+ALTER TABLE `student_academic_info`
+  ADD CONSTRAINT `fk_student_academic_user` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

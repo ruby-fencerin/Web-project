@@ -29,29 +29,58 @@ async function loadStudents() {
 
     // Обхождаме всички студенти, върнати от базата
     data.students.forEach(st => {
-        // Създаваме div за един студент
+
+        // Основен контейнер за един студент
         const div = document.createElement("div");
-        div.dataset.id = st.id;
-        // Запазваме student id като data-атрибут
+        div.dataset.id = st.id;          // student id като data-атрибут
         div.className = "student-page";
 
+        // Име
         const spanName = document.createElement("span");
+        spanName.className = "student-name";
         spanName.textContent = st.name;
 
+        // Факултетен номер
         const spanFN = document.createElement("span");
-        spanFN.textContent = st.fn ?? "-";
+        spanFN.className = "student-fn";
+        spanFN.textContent = (st.fn ?? "-");
 
+        // Специалност
+        const divMajor = document.createElement("div");
+        divMajor.className = "student-major";
+        divMajor.textContent = (st.major ?? "-");
+
+        // Група и курс
+        const divGroupYear = document.createElement("div");
+        divGroupYear.className = "student-group-year";
+        divGroupYear.textContent =
+            "Група " + (st.student_group ?? "-") +
+            " · " + (st.study_year ?? "-") + " курс";
+
+        // Година на прием
+        const divStartYear = document.createElement("div");
+        divStartYear.className = "student-start-year";
+        divStartYear.textContent =
+            "Приет " + (st.start_year ?? "-");
+
+        // Добавяме всички елементи към контейнера на студента
         div.appendChild(spanName);
         div.appendChild(spanFN);
+        div.appendChild(divMajor);
+        div.appendChild(divGroupYear);
+        div.appendChild(divStartYear);
 
-        // При клик върху студент:
-        // отваряме страница за преглед на студента от преподавател в нов таб
+        // При клик – отваряме страницата на студента в нов таб
         div.addEventListener("click", () => {
-            window.open(`../pages/user_page.php?studentid=${encodeURIComponent(st.id)}`, "_blank");
+            window.open(
+                `../pages/user_page.php?studentid=${encodeURIComponent(st.id)}`,
+                "_blank"
+            );
         });
 
-        container.appendChild(div);
-    });
+    // Добавяме студента към основния контейнер
+    container.appendChild(div);
+});
 
     if (data.students.length === 0) {
         container.innerHTML = "<div>Няма намерени студенти.</div>";

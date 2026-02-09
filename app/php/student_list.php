@@ -19,15 +19,20 @@ if (!isset($_SESSION['user_id'], $_SESSION['role']) || $_SESSION['role'] !== 'te
   exit;
 }
 
-// Взимаме всички студенти
+// Взимаме всички студенти + академичната им информация
 $stmt = $pdo->prepare("
   SELECT
-    id,
-    CONCAT(first_name, ' ', last_name) AS name,
-    faculty_number AS fn
-  FROM users
-  WHERE role = 'student'
-  ORDER BY last_name, first_name
+    u.id,
+    CONCAT(u.first_name, ' ', u.last_name) AS name,
+    u.faculty_number AS fn,
+    s.major,
+    s.student_group,
+    s.study_year,
+    s.start_year
+  FROM users u
+  LEFT JOIN student_academic_info s ON s.student_id = u.id
+  WHERE u.role = 'student'
+  ORDER BY u.last_name, u.first_name
 ");
 $stmt->execute();
 

@@ -41,6 +41,13 @@ async function loadUser() {
     // попълваме информацията за потребител
     document.getElementById("name").textContent = data.name;
     document.getElementById("fn/dep").textContent =  (isStudent) ? "ФН: " + data.fn : "Катедра: " + data.department;
+    if (isStudent){
+       document.getElementById("academic-info").innerHTML =
+                    "Специалност: " + data.major + "<br>" +
+                    "Група: " + data.student_group + " " + 
+                    "Курс: " + data.study_year + "<br>" +
+                    "Приет: " + data.start_year + "<br>" ;
+    }
     document.getElementById("email").textContent = data.email;
 
     if (ctx.mode === "me" && isStudent) {

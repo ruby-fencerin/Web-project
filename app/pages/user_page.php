@@ -41,6 +41,7 @@
                 <div id = "personal-info">
                     <h3 id = "name"></h3>
                     <span id = "fn/dep"></span><br>
+                    <span id = "academic-info"></span><br>
                     e-mail: <span id = "email"></span><br>
                 </div>
             </div>
