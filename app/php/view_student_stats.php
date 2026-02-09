@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id'], $_SESSION['role']) || $_SESSION['role'] !== 'te
 }
 
 // Взимаме user_id от текуща сесия
-$userId = (int)$_SESSION['user_id'];
+$teacherId = (int)$_SESSION['user_id'];
 
 // Взимаме studentid от URL
 $studentId = isset($_GET['studentid']) ? (int)$_GET['studentid'] : 0;
@@ -36,58 +36,44 @@ if ($studentId <= 0) {
 
 // Подготвяме SQL заявка за извличане на броя на събитията, посетени от студента
 // Използваме prepared statement за защита от SQL Injection
-$stmt = $pdo->prepare("
-    SELECT COUNT(DISTINCT event_id)
-    FROM attendances
-    WHERE student_id = ? AND present = 1
+$stmtAll = $pdo->prepare("
+  SELECT
+    COUNT(*) AS total_count,
+    SUM(CASE WHEN present = 1 THEN 1 ELSE 0 END) AS present_count
+  FROM attendances
+  WHERE student_id = ?
 ");
 
+
 // Изпълняваме заявката със studentid от URL
-$stmt->execute([$studentId]);
+$stmtAll->execute([$studentId]);
 
 // Взимаме резултата
-$eventsCount = (int)$stmt->fetchColumn();
+$all = $stmtAll->fetch() ?: ['total_count' => 0, 'present_count' => 0];
+
 
 // Подготвяме SQL заявка за извличане на броя на събитията, посетени от студента,
 // които са създадени от текущия преподавател
 // Използваме prepared statement за защита от SQL Injection
 $stmtTeacher = $pdo->prepare("
-    SELECT COUNT(DISTINCT a.event_id)
-    FROM attendances a
-    JOIN events e on e.id = a.event_id
-    WHERE a.student_id = ? AND e.created_by = ? AND a.present = 1
+  SELECT
+    COUNT(*) AS total_teacher,
+    SUM(CASE WHEN a.present = 1 THEN 1 ELSE 0 END) AS present_teacher
+  FROM attendances a
+  JOIN events e ON e.id = a.event_id
+  WHERE a.student_id = ? AND e.created_by = ?
 ");
 
 // Изпълняваме заявката със studentid от URL и user_id от сесията
-$stmtTeacher->execute([$studentId, $userId]);
+$stmtTeacher->execute([$studentId, $teacherId]);
 
-// Вземаме резултата
-$eventsCountTeacher = (int)$stmtTeacher->fetchColumn();
+$t = $stmtTeacher->fetch() ?: ['total_teacher' => 0, 'present_teacher' => 0];
 
-
-// Подготвяме заявка, за да намерим общия брой събития
-$totalStmt = $pdo->prepare("
-    SELECT COUNT(*)
-    FROM events
-");
-
-$totalStmt->execute();
-$total = (int)$totalStmt->fetchColumn();
-
-// Подготвяме заявка, за да намерим броя събития на текущия преподавател 
-$totalTeacherStmt = $pdo->prepare("
-    SELECT COUNT(*)
-    FROM events
-    WHERE created_by = ?
-");
-
-$totalTeacherStmt->execute([$userId]);
-$totalTeacher = (int)$totalTeacherStmt->fetchColumn();
 
 // Връщаме данните като JSON
 echo json_encode([
-    'events_count' => $eventsCount, 
-    'events_count_teacher' => $eventsCountTeacher, 
-    'total' => $total,
-    'total_teacher' => $totalTeacher,
+  'present' => (int)$all['present_count'],
+  'total' => (int)$all['total_count'],
+  'present_teacher' => (int)$t['present_teacher'],
+  'total_teacher' => (int)$t['total_teacher'],
 ]);

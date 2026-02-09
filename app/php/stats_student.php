@@ -35,25 +35,22 @@ $userId = (int)$_SESSION['user_id'];
 // Подготвяме SQL заявка за извличане на броя на събитията, посетени от студента
 // Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
-    SELECT COUNT(DISTINCT event_id)
+    SELECT
+        COUNT(*) AS total_count,
+        SUM(CASE WHEN present = 1 THEN 1 ELSE 0 END) AS present_count
     FROM attendances
-    WHERE student_id = ? AND present = 1
+    WHERE student_id = ?
 ");
 
 // Изпълняваме заявката с user_id от сесията на логнатия потребител
 $stmt->execute([$userId]);
 
-// Взимаме резултата
-$eventsCount = (int)$stmt->fetchColumn();
-
-// Подготвяме заявка, за да намерим общия брой събития
-$totalStmt = $pdo->prepare("
-    SELECT COUNT(*)
-    FROM events
-");
-
-$totalStmt->execute();
-$total = (int)$totalStmt->fetchColumn();
+$row = $stmt->fetch();
+$total = (int)($row['total_count'] ?? 0);
+$present = (int)($row['present_count'] ?? 0);
 
 // Връщаме данните като JSON
-echo json_encode(['events_count' => $eventsCount, 'total' => $total]);
+echo json_encode([
+    'present' => $present,
+    'total' => $total
+]);

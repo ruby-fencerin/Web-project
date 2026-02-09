@@ -23,7 +23,7 @@ async function loadStudentStats() {
 
     // Изчисляваме процента на присъствие на студента
     const attendance = (data.total !== 0)
-                        ? (100 * (data.events_count / data.total)).toFixed(0)
+                        ? (100 * (data.present / data.total)).toFixed(0)
                         : '0';
 
     // Избираме цвят за правоъгълника и за рамката му (hue-saturation-lightness-alpha)
@@ -115,15 +115,15 @@ async function loadStudentStatsTeacherView(studentid) {
         alert("Сървърна грешка – отговорът не е JSON.");
         return;
     }
-
-    // Изчисляваме процента на общо присъствие на студента
+    
+    // Процент присъствие = брой present=1 / общ брой записи в attendances
     const attendance = (data.total !== 0)
-                        ? (100 * (data.events_count / data.total)).toFixed(0)
-                        : '0';
+    ? (100 * (data.present / data.total)).toFixed(0)
+    : '0';
 
     // Изчисляваме процента на присъствие на студента на събития, създадени от текущия преподавател
     const attendanceTeacher = (data.total_teacher !== 0) 
-                            ? (100 * (data.events_count_teacher / data.total_teacher)).toFixed(0)
+                            ? (100 * (data.present_teacher / data.total_teacher)).toFixed(0)
                             : '0';
     
     // Избираме цвят за правоъгълника и за рамката му (hue-saturation-lightness-alpha)
