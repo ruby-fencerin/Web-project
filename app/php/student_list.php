@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'], $_SESSION['role']) || $_SESSION['role'] !== 'te
   exit;
 }
 
-// Взимаме всички студенти + академичната им информация
+// Взимаме всички студенти + статистика за присъствие (present=1 / всички записи)
 $stmt = $pdo->prepare("
   SELECT
     u.id,
@@ -28,10 +28,15 @@ $stmt = $pdo->prepare("
     s.major,
     s.student_group,
     s.study_year,
-    s.start_year
+    s.start_year,
+
+    COUNT(a.event_id) AS total_att, -- всички attendance записи за студента
+    SUM(CASE WHEN a.present = 1 THEN 1 ELSE 0 END) AS present_att -- само present=1
   FROM users u
   LEFT JOIN student_academic_info s ON s.student_id = u.id
+  LEFT JOIN attendances a ON a.student_id = u.id
   WHERE u.role = 'student'
+  GROUP BY u.id, u.first_name, u.last_name, u.faculty_number, s.major, s.student_group, s.study_year, s.start_year
   ORDER BY u.last_name, u.first_name
 ");
 $stmt->execute();

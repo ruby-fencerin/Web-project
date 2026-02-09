@@ -40,3 +40,24 @@
 .student-page:hover {
     background-color: #b6fcfc;
 } 
+
+.student-row-wrap {
+  display: grid;
+  grid-template-columns: 1fr 70px; 
+  align-items: center;
+  gap: 10px;
+
+  width: 65vw;
+  margin: 10px 10px; 
+}
+
+.student-page {
+  margin: 0;
+}
+
+.attendance-percent {
+  text-align: right;
+  font-weight: bold;
+  font-size: 0.95em;
+  padding-right: 6px;
+}

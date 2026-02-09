@@ -30,6 +30,10 @@ async function loadStudents() {
     // Обхождаме всички студенти, върнати от базата
     data.students.forEach(st => {
 
+        // Wrapper ред: tile + процент (процентът е извън tile-а)
+        const row = document.createElement("div");
+        row.className = "student-row-wrap";
+
         // Основен контейнер за един студент
         const div = document.createElement("div");
         div.dataset.id = st.id;          // student id като data-атрибут
@@ -78,8 +82,27 @@ async function loadStudents() {
             );
         });
 
-    // Добавяме студента към основния контейнер
-    container.appendChild(div);
+        // Процентът извън tile
+        const percentDiv = document.createElement("div");
+        percentDiv.className = "attendance-percent";
+
+        // Данни от backend-a
+        const total = Number(st.total_att ?? 0);
+        const present = Number(st.present_att ?? 0);
+        const percent = total > 0 ? Math.round((present / total) * 100) : 0;
+
+        percentDiv.textContent = `${percent}%`;
+        percentDiv.title = `Присъствал: ${present} от ${total}`;
+
+        const hue = Math.round((percent / 100) * 120);
+        percentDiv.style.color = `hsl(${hue}, 85%, 40%)`;
+
+        // Слагаме tile + процент в wrapper реда
+        row.appendChild(div);
+        row.appendChild(percentDiv);
+
+        // Добавяме wrapper реда в контейнера на страницата
+        container.appendChild(row);
 });
 
     if (data.students.length === 0) {
