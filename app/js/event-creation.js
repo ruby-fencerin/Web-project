@@ -1,3 +1,7 @@
+// Търсеният израз при обработването на входа от BBB файл.
+// Трябва да е последния ред преди да започне последния списък от имена на потребители разделени с нов ред
+const search_term = "Sorted by last name:\r\n";
+
 const importer = document.querySelector("#bbb-import");
 const editor = document.querySelector("#imported-user-list");
 const text = "";
@@ -13,7 +17,6 @@ importer.addEventListener("change", async () => {
     const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
     reader.onload = function ({ target }) {
-        const search_term = "Sorted by last name:\r\n"
         const index = target.result.indexOf(search_term) + search_term.length;
         editor.value = target.result.slice(index);
     }

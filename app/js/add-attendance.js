@@ -1,3 +1,7 @@
+// Търсеният израз при обработването на входа от BBB файл.
+// Трябва да е последния ред преди да започне последния списък от имена на потребители разделени с нов ред
+const search_term = "Sorted by last name:\r\n";
+
 
 // Функция, която добавя функционалност за ръчно добавяне на студент към събитие
 function makeFunctionalAddStudent(eventID) {
@@ -64,6 +68,59 @@ function makeFunctionalAddStudent(eventID) {
         // Изчистваме textarea-та
         document.getElementById("new-name").value = "";
         document.getElementById("new-fn").value = "";
+
+        // Презареждаме данните за събитието,
+        // за да се обновят списъкът и броят присъствали
+        loadEvent();
+    });
+}
+
+function makeFunctionalAddStudentBBB(eventID){
+    const importer = document.querySelector("#bbb-import");
+    const editor = document.querySelector("#imported-user-list");
+
+    importer.addEventListener("change", async () => {
+        // importer.disabled = true;
+        const file = importer.files[0];
+        if (!file){
+            editor.value = 'not a valid file';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = function ({ target }) {
+            const index = target.result.indexOf(search_term) + search_term.length;
+            editor.value = target.result.slice(index);
+        }
+        reader.onerror = function () {
+            editor.value = 'error reading file';
+        }
+    });
+
+    document.getElementById("add-student-bbb").addEventListener("click", async () => {
+        const formUsers = new FormData();
+        const users = editor.value.trim();
+
+        if (!users) return;
+        formUsers.append("users", users);
+        formUsers.append("eventid", eventID);
+        const resUsers = await fetch("../php/event_add_users.php", {
+            method: "POST",
+            body: formUsers
+        });
+
+        
+        const dataUsers = await resUsers.json();
+        
+        // Проверка за грешка
+        if (!resUsers.ok) {
+            alert(dataUsers.error || "Събитието не можа да бъде добавен");
+            return;
+        }
+        // Изчистваме полето и презареждаме коментарите
+        importer.value = "";
+        editor.value = "";
 
         // Презареждаме данните за събитието,
         // за да се обновят списъкът и броят присъствали

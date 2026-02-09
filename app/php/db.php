@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 $host = getenv('DB_HOST') ?: 'localhost'; // PHP
 //$host = getenv('DB_HOST') ?: 'db'; // Docker
+$port = getenv('DB_PORT') ?: '3306';
 $db   = getenv('DB_NAME') ?: 'my_webapp';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: ''; // PHP
@@ -15,7 +16,7 @@ $pass = getenv('DB_PASS') ?: ''; // PHP
 
 // DSN (Data Source Name) описва типа на базата,
 // адреса, името на базата и използваното кодиране
-$dsn = "mysql:host={$host};dbname={$db};charset=utf8mb4";
+$dsn = "mysql:host={$host};port={$port};dbname={$db};charset=utf8mb4";
 $options = [
   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

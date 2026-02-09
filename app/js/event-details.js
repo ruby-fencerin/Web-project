@@ -59,6 +59,7 @@ async function loadEvent() {
 // Първоначално зареждане на данните
 loadEvent();
 makeFunctionalAddStudent(eventID);
+makeFunctionalAddStudentBBB(eventID);
 
 // Зареждаме ресурсите и добавяме функционалност на бутона за
 // добавяне на ресурси - функциите са дефинирани в add-resource.js
