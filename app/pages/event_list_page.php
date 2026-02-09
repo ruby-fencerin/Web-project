@@ -9,17 +9,17 @@
     <link rel = "stylesheet" href = "../css/event_list_styles.css">
     
     <!-- The images that are needed for all sorts of icons in browsers -->
-    <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
-    <link rel="shortcut icon" href="/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="../images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg" />
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MyWebSite" />
-    <link rel="manifest" href="/images/site.webmanifest" />
+    <link rel="manifest" href="../images/site.webmanifest" />
 </head>
 <body>
     <div id = "nav-div">
         <nav id = "menu">
-            <img id="logo" type="image/png" src="/images/weblogo.png" />
+            <img id="logo" type="image/png" src="../images/weblogo.png" />
 
             <div class = "menu-option" id = "for-me">
                 За мен
