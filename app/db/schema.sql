@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 09, 2026 at 05:02 PM
+-- Generation Time: Feb 10, 2026 at 11:26 AM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -82,7 +82,9 @@ INSERT INTO `attendances` (`id`, `event_id`, `student_id`, `present`, `added_by`
 (133, 12, 17, 1, 11, '2026-01-14 22:51:32'),
 (134, 17, 22, 1, 9, '2026-01-23 12:31:00'),
 (135, 7, 22, 1, 1, '2026-01-27 22:25:36'),
-(137, 7, 2, 1, 1, '2026-01-27 22:26:18');
+(137, 7, 2, 1, 1, '2026-01-27 22:26:18'),
+(138, 17, 5, 1, 9, '2026-02-10 11:18:28'),
+(139, 17, 2, 1, 9, '2026-02-10 11:18:29');
 
 -- --------------------------------------------------------
 
@@ -298,7 +300,7 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `faculty_number`, 
 (13, 'student', 'Борис', 'Велинов', '1MI0800182', 'boris.velinov@gmail.com', '$2y$12$cfuq4Tb0PbZiyrg0QPYJ7u9PBi.hKlKBtovIpQC6mucf.4IlagQte', '2026-01-14 22:44:29', NULL),
 (14, 'student', 'Весела', 'Иванова', '1MI0800183', 'vesela.ivanova@gmail.com', '$2y$12$M2dPxgo2C.bK/HTgynjNyO23NVvUAxPWCxZnG0/0fPIK5iOw9bEnu', '2026-01-14 22:44:29', NULL),
 (15, 'student', 'Иван', 'Георгиев', '1MI0800184', 'ivan.georgiev@gmail.com', '$2y$12$8d1rjakItTO6NuaBYQmRkO37wp.TMDFE5I.vxcYoBK3oXNFHPNmIG', '2026-01-14 22:44:29', NULL),
-(16, 'student', 'Мария', 'Николова', '1MI0800185', 'maria.nikolova@gmail.com', '$2y$12$Fy/gDCc47T7kmIZmaJ0pdufleW5xrUdKfms68GliOxoMTXMJgFJB2', '2026-01-14 22:44:29', NULL),
+(16, 'student', 'Мария', 'Николова', '0MI0000000', 'maria.nikolova@gmail.com', '$2y$12$UT7aQcUK9WafacHKlXcAYuhWmnPNb/8GBk2ZrggciXclm3qNPAcA.', '2026-01-14 22:44:29', NULL),
 (17, 'student', 'Георги', 'Димитров', '1MI0800186', 'georgi.dimitrov@gmail.com', '$2y$12$RdxDb394pfwDJzH43rtXj.DLFRWfeIJC.hz1EyIsCTyFG5B4qhzYy', '2026-01-14 22:44:29', NULL),
 (18, 'student', 'Николай', 'Петров', '1MI0800187', 'nikolay.petrov@gmail.com', '$2y$12$IZVk.kFqFOGNSErWSYdxLeAobB.p34B5rsmB1SjPYcNkM3ZbgnaLO', '2026-01-14 22:44:29', NULL),
 (19, 'student', 'Силвия', 'Маринова', '1MI0800188', 'silvia.marinova@gmail.com', '$2y$12$QjSeiPXEyQ1XEpk6HpTNgOJCQXiIJLFwwDejXSQ4fxUD2ZyvXyNVS', '2026-01-14 22:44:29', NULL),
@@ -367,7 +369,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `comments`

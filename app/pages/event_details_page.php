@@ -70,7 +70,7 @@
 
                     <label>
                         <div class = "input-label">ФН:</div>
-                        <input type = "text" id = "new-fn" name = "new-fn" required>
+                        <input type = "text" id = "new-fn" name = "new-fn" placeholder="напр. 654416, 999999, 1MI0800185" required>
                     </label>
             
                     <button id = "add-student" type="button">

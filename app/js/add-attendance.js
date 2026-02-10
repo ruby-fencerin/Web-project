@@ -20,50 +20,62 @@ function makeFunctionalAddStudent(eventID) {
 
         // Взимаме стойностите от двете полета
         const nameInput = document.getElementById("new-name").value.trim();
-        const fnInput   = document.getElementById("new-fn").value.trim();
+        const fnInput = document.getElementById("new-fn").value.trim();
 
-        // Базова валидация
-        if (!fnInput) {
-        errorDiv.textContent = "Моля, въведете ФН.";
+        // Разделяме ФН-тата по запетая
+        const fnList = fnInput
+        .split(",")
+        .map(fn => fn.trim())
+        .filter(fn => fn.length > 0);
+
+        if (fnList.length === 0) {
+        errorDiv.textContent = "Моля, въведете поне един ФН.";
         return;
         }
 
-        const form = new FormData();
-        form.append("eventid", eventID);
-        form.append("name", nameInput); // за проверка
-        form.append("fn", fnInput);
 
+        let added = [];
+        let failed = [];
 
-        // Изпращаме POST заявка към PHP backend-а
-         const res = await fetch("../php/add_student_to_event.php", {
-            method: "POST",
-            body: form
-        });
+        for (const fn of fnList) {
+            const form = new FormData();
+            form.append("eventid", eventID);
+            form.append("name", nameInput); // optional
+            form.append("fn", fn);
+            
+            // Изпращаме POST заявка към PHP backend-а
+            try {
+                const res = await fetch("../php/add_student_to_event.php", {
+                method: "POST",
+                body: form
+                });
 
-        // Четем суровия отговор
-        const text = await res.text();
-        let data;
+                // Четем суровия отговор
+                const text = await res.text();
+                // Опитваме се да парснем JSON отговора
+                const data = JSON.parse(text);
 
-        // Опитваме се да парснем JSON отговора
-        try {
-            data = JSON.parse(text);
-        } catch {
-            console.error("Non-JSON response:", text);
-            alert("Сървърна грешка при добавяне на студент.");
-            return;
+                if (!res.ok) {
+                failed.push(fn);
+                } else {
+                added.push(fn);
+                }
+
+            } catch (e) {
+                failed.push(fn);
+            }
         }
 
 
         // Грешка (напр. студентът не съществува)
-        if (!res.ok) {
-            errorDiv.textContent =
-                data.error || "Грешка при добавяне на студент.";
-            return;
+        if (failed.length > 0) {
+            errorDiv.textContent = `Неуспешно добавяне за ФН: ${failed.join(", ")}`;
         }
 
         // Успех
-        successDiv.textContent =
-            `Добавен студент: ${data.student.name} (${data.student.fn ?? "-"})`;
+        if (added.length > 0) {
+            successDiv.textContent = `Добавени ФН: ${added.join(", ")}`;
+        }
 
         // Изчистваме textarea-та
         document.getElementById("new-name").value = "";
