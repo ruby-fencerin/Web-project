@@ -23,13 +23,21 @@ importer.addEventListener("change", async () => {
 });
 
 document.getElementById("add-one").addEventListener("click", async () =>{
-    const first_name = document.getElementById("first-name").value;
-    const family_name = document.getElementById("family-name").value;
-    const email = document.getElementById("email").value;
-    const fn = document.getElementById("fn").value;
+    const first_name = document.getElementById("first-name").value.trim();
+    const family_name = document.getElementById("family-name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const fn = document.getElementById("fn").value.trim();
+    const major = document.getElementById("major").value.trim();
+    const group = document.getElementById("group").value.trim();
+    const start_year = document.getElementById("start-year").value.trim();
+    const study_year = document.getElementById("study-year").value.trim();
+
     // Подготвяме данните за POST заявката
+    const line = `${first_name},${family_name},${email},${fn},${major},${group},${start_year},${study_year}`;
+
     const form = new FormData();
-    form.append("users", first_name+","+family_name+","+email+","+fn);
+    form.append("users", line);
+
     
     // Изпращаме заявката към сървъра
     const res = await fetch("../php/add_users.php", {
@@ -52,6 +60,11 @@ document.getElementById("add-one").addEventListener("click", async () =>{
     document.getElementById("family-name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("fn").value = "";
+    document.getElementById("major").value = "";
+    document.getElementById("group").value = "";
+    document.getElementById("start-year").value = "";
+    document.getElementById("study-year").value = "";
+
 
 });
 
@@ -74,9 +87,10 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
         alert(dataUsers.error || "Събитието не можа да бъде добавен");
         return;
     }
-    // Изчистваме полето и презареждаме коментарите
+    // Изчистваме полето и презареждаме
     editor.value = "";
     importer.value = "";
+
 
     document.getElementById("success-many").textContent = "Студентите бяха добавени успешно.";
 });

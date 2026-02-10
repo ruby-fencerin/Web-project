@@ -53,6 +53,14 @@
                 <input type="text" id="email" placeholder="user@example.com" />
                 <div id = "user-fn">Факултетен номер</div>
                 <input type="text" id="fn" placeholder="1234567 или 0ab1234567" />
+                <div id = "user-major">Спецялност</div>
+                <input type="text" id="major" placeholder="напр. Информатика" />
+                <div id = "user-study-year">Курс</div>
+                <input type="number" id="study-year" min="1" max="4"/>
+                <div id = "user-group">Група</div>
+                <input type="number" id="group" min="1" max="12"/>
+                <div id = "user-start-year">Година на прием</div>
+                <input type="number" id="start-year" min="1900" max="2025"/>
             </div>
 
             <div id = "add-one">

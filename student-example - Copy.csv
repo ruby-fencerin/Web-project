@@ -1,10 +1,8 @@
-Иван,Иванов,ivan.ivanov@example.com,1MI1234567
-Мария,Петрова,m.petrova@mail.bg,2MI9876543
-Георги,Димитров,g_dimitrov@provider.net,8MI1122334
-Елена,Стоянова,elena.s@company.org,3MI5566778
-Николай,Ангелов,n.angelov@service.com,1MI9988776
-Радослава,Георгиева,radost_g@email.com,7MI4433221
-Стефан,Колев,stefan.kolev@test.io,4MI6677889
-Десислава,Тодорова,desi.todorova@web.bg,9MI2233445
-Александър,Михов,alex.mihov@fastmail.com,6MI8877665
-Виктория,Павлова,vicky.p@domain.net,0MI1100223
+Иван,Иванов,ivan.ivanov@uni.bg,3MI0800111,Компютърни науки,1,2024,1
+Мария,Петрова,maria.petrova@uni.bg,3MI0800112,Компютърни науки,1,2024,1
+Георги,Георгиев,georgi.georgiev@uni.bg,3MI0800113,Компютърни науки,2,2024,1
+Елена,Димитрова,elena.dimitrova@uni.bg,3MI0800114,Компютърни науки,2,2024,1
+Петър,Николов,petar.nikolov@uni.bg,3MI0800215,Компютърни науки,3,2023,2
+Анна,Стоянова,anna.stoyanova@uni.bg,3MI0800216,Компютърни науки,3,2023,2
+Николай,Костов,nikolay.kostov@uni.bg,3MI0800317,Компютърни науки,4,2022,3
+Десислава,Тодорова,desislava.todorova@uni.bg,3MI0800318,Компютърни науки,4,2022,3

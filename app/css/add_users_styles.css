@@ -47,7 +47,7 @@ h1, h2 {
     background-color: #1173d4;
 }
 
-#user-first-name, #user-family-name, #user-email, #user-fn {
+#user-first-name, #user-family-name, #user-email, #user-fn, #user-major, #user-group, #user-study-year, #user-start-year {
     margin: 7px 0 3px 0;
 }
 
