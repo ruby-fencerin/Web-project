@@ -131,7 +131,7 @@ document.getElementById("add").addEventListener("click", async () => {
     // Изчистваме полето и презареждаме коментарите
     importer.value = "";
     editor.value = "";
-    //window.location.href = "event_list_page.php";
+    window.location.href = "event_list_page.php";
 });
 
 const backButton = document.getElementById("back");
