@@ -68,6 +68,12 @@
             <div id = "add">
                 Импорт
             </div>
+
+            <input type="file" id="event-import" name="event-import" accept=".txt" />
+            <textarea id="imported-event-list" placeholder="Списък с събития"></textarea>
+            <div id = "add-multiple">
+                Импорт няколко събития
+            </div>
             </div>
         </main>
     </div>

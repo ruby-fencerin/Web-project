@@ -60,6 +60,28 @@ importer.addEventListener("change", async () => {
     }
 });
 
+async function addUsersToEvent(data, users, i){
+    let formUsers = new FormData();
+    formUsers.append("users", users);
+    let event = JSON.parse(data.eventId[i]);
+    // console.log(event[event.length - 1].id);
+    formUsers.append("eventid", event[event.length - 1].id);
+
+    let resUsers = await fetch("../php/event_add_users.php", {
+        method: "POST",
+        body: formUsers
+    });
+
+    
+    let dataUsers = await resUsers.json();
+    
+    // Проверка за грешка
+    if (!resUsers.ok) {
+        alert(dataUsers.error || "В събитие " + event[event.length - 1].id + " не могат да бъдат добавени потребители.");
+        return;
+    }
+}
+
 document.getElementById("add").addEventListener("click", async () => {
     const title = (document.getElementById("event-title")?.value || "").trim();
     const description = (document.getElementById("event-description")?.value || "").trim();
@@ -83,10 +105,10 @@ document.getElementById("add").addEventListener("click", async () => {
     if (!year)  return alert("Моля, въведете курс.");
     
     const form = new FormData();
-    form.append("title", title);
-    form.append("description", description);
-    form.append("start_at", `${start_date} ${start_time}:00`);
-    form.append("end_at", `${end_date} ${end_time}:00`);
+    form.append("title", JSON.stringify([title]));
+    form.append("description", JSON.stringify([description]));
+    form.append("start_at", JSON.stringify([`${start_date} ${start_time}:00`]));
+    form.append("end_at", JSON.stringify([`${end_date} ${end_time}:00`]));
     form.append("major", major);
     form.append("year", year);  
     form.append("groups", groupsRaw); // may be empty
@@ -106,32 +128,71 @@ document.getElementById("add").addEventListener("click", async () => {
         return;
     }
 
-    const formUsers = new FormData();
     const users = editor.value.trim();
-
+    
     if (!users) return;
-    formUsers.append("users", users);
-    console.log(data.eventId);
-    formUsers.append("eventid", data.eventId);
-    
-    
-    const resUsers = await fetch("../php/event_add_users.php", {
-        method: "POST",
-        body: formUsers
-    });
+    // console.log(data.eventId);
+    addUsersToEvent(data, users, 0);
 
-    
-    const dataUsers = await resUsers.json();
-    
-    // Проверка за грешка
-    if (!resUsers.ok) {
-        alert(dataUsers.error || "Събитието не можа да бъде добавено");
-        return;
-    }
     // Изчистваме полето и презареждаме коментарите
     importer.value = "";
     editor.value = "";
-    window.location.href = "event_list_page.php";
+    // window.location.href = "event_list_page.php";
+});
+
+function transpose(matrix) {
+  return matrix[0].map((col, i) => matrix.map(row => row[i]));
+}
+
+function mapDayTime(datearr, timearr){
+    return datearr.map((date, ind) => {return date + " " + timearr[ind] + ":00"});
+}
+
+document.getElementById("add-multiple").addEventListener("click", async () => {
+    const events_list_value = document.querySelector("#imported-event-list").value;
+    const events_list = events_list_value.split("\n").map(t => t.split(","));
+    //console.log(events_list);
+    const events_transpose = transpose(events_list);
+    const major = (document.getElementById("major-select")?.value || "").trim();
+    const year  = (document.getElementById("year-select")?.value || "").trim();
+    const groupsRaw = (document.getElementById("group-select")?.value || "").trim();
+    
+    // Подготвяме данните за POST заявката
+    const form = new FormData();
+    form.append("title", JSON.stringify(events_transpose[0]));
+    form.append("description", JSON.stringify(events_transpose[1]));
+    form.append("start_at", JSON.stringify(mapDayTime(events_transpose[2], events_transpose[3])));
+    form.append("end_at", JSON.stringify(mapDayTime(events_transpose[4], events_transpose[5])));
+    form.append("major", major);
+    form.append("year", year);  
+    form.append("groups", groupsRaw);
+    // Изпращаме заявката към сървъра
+    const res = await fetch("../php/event_create.php", {
+        method: "POST",
+        body: form
+    });
+
+    
+    const data = await res.json();
+    
+    // Проверка за грешка
+    if (!res.ok) {
+        alert(data.error || "Събитието не можа да бъде добавен");
+        return;
+    }
+
+    const users = editor.value.trim();
+    
+    if (!users) return;
+    // console.log(data.eventId);
+    for(let i = 0; i < data.eventId.length; i++){
+        addUsersToEvent(data, users, i);
+    }
+
+    // Изчистваме полето и презареждаме коментарите
+    importer.value = "";
+    editor.value = "";
+    // window.location.href = "event_list_page.php";
 });
 
 const backButton = document.getElementById("back");

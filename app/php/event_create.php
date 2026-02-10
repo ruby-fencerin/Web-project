@@ -15,10 +15,10 @@ require_once __DIR__ . '/db.php';
 
 
 // Взимаме данните от POST заявката
-$title    = trim($_POST['title'] ?? '');
-$description    = trim($_POST['description'] ?? '');
-$start_at    = trim($_POST['start_at'] ?? '');
-$end_at    = trim($_POST['end_at'] ?? '');
+$title    = json_decode($_POST['title'],true) ?? '';
+$description    = json_decode($_POST['description'],true) ?? '';
+$start_at    = json_decode($_POST['start_at'],true) ?? '';
+$end_at    = json_decode($_POST['end_at'],true) ?? '';
 
 // Валидация
 if ($title === '' || $description === '' || $start_at === '' || $end_at === '') {
@@ -63,54 +63,55 @@ if ($groupsRaw !== '') {
   $groups = array_values(array_unique(array_filter(array_map('trim', explode(',', $groupsRaw)), fn($x) => $x !== '')));
 }
 
+$eventID = [];
 // Create event
 $stmt = $pdo->prepare("
   INSERT INTO events(`title`, `description`, `start_at`, `end_at`, `created_by`, `created_at`)
   VALUES (?, ?, ?, ?, ?, NOW())
 ");
-$stmt->execute([$title, $description, $start_at, $end_at, $userId]);
+for ($i = 0; $i < count($title); $i++) {
+  $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
+  $eventId[] = (int)$pdo->lastInsertId();
+  echo end($eventId);
+  // Add ALL students from this major and group with present=0
 
-$eventId = (int)$pdo->lastInsertId();
+  if (count($groups) === 0) {
+    // No group filter => whole major
+    $stmt1 = $pdo->prepare("
+      INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
+      SELECT ?, u.id, 0, ?, NOW()
+      FROM users u
+      JOIN student_academic_info sai ON sai.student_id = u.id
+      WHERE u.role = 'student'
+        AND sai.major = ?
+        AND sai.study_year = ?
+      ON DUPLICATE KEY UPDATE
+        present = present
+    ");
+    $stmt1->execute([$eventId[$i], $userId, $major, $year]);
+    
+  } else {
+    // Filter by groups list
+    $placeholders = implode(',', array_fill(0, count($groups), '?'));
 
-// Add ALL students from this major and group with present=0
+    $sql = "
+      INSERT INTO attendances (event_id, student_id, present, added_by, added_at)
+      SELECT ?, u.id, 0, ?, NOW()
+      FROM users u
+      JOIN student_academic_info sai ON sai.student_id = u.id
+      WHERE u.role = 'student'
+        AND sai.major = ?
+        AND sai.study_year = ?
+        AND sai.student_group IN ($placeholders)
+      ON DUPLICATE KEY UPDATE present = present
+    ";
 
-if (count($groups) === 0) {
-  // No group filter => whole major
-  $stmt = $pdo->prepare("
-    INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
-    SELECT ?, u.id, 0, ?, NOW()
-    FROM users u
-    JOIN student_academic_info sai ON sai.student_id = u.id
-    WHERE u.role = 'student'
-      AND sai.major = ?
-      AND sai.study_year = ?
-    ON DUPLICATE KEY UPDATE
-      present = present
-  ");
-  $stmt->execute([$eventId, $userId, $major, $year]);
-  
-} else {
-  // Filter by groups list
-  $placeholders = implode(',', array_fill(0, count($groups), '?'));
+    $params = array_merge([$eventId[$i], $userId, $major, $year], $groups);
 
-  $sql = "
-    INSERT INTO attendances (event_id, student_id, present, added_by, added_at)
-    SELECT ?, u.id, 0, ?, NOW()
-    FROM users u
-    JOIN student_academic_info sai ON sai.student_id = u.id
-    WHERE u.role = 'student'
-      AND sai.major = ?
-      AND sai.study_year = ?
-      AND sai.student_group IN ($placeholders)
-    ON DUPLICATE KEY UPDATE present = present
-  ";
-
-  $params = array_merge([$eventId, $userId, $major, $year], $groups);
-
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute($params);
+    $stmt2 = $pdo->prepare($sql);
+    $stmt2->execute($params);
+  }
 }
-
 
 // Успешен отговор
 echo json_encode(['success' => true, 'eventId' => $eventId]);
