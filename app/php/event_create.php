@@ -27,9 +27,6 @@ if ($title === '' || $description === '' || $start_at === '' || $end_at === '') 
   exit;
 }
 
-// Превръщане към време
-$start_at = $start_at;
-$end_at = $end_at;
 // Проверка дали потребителят е логнат
 if (!isset($_SESSION['user_id'], $_SESSION['role'])) {
   http_response_code(401);
@@ -45,22 +42,36 @@ if($role !== 'teacher'){
   echo json_encode(['error' => 'Нямате права за създаване на събитие']);
   exit;
 }
-// Записваме коментара в базата
+
+$major = trim($_POST['major'] ?? '');
+if ($major === '') {
+  http_response_code(400);
+  echo json_encode(['error' => 'Липсва специалност']);
+  exit;
+}
+
+// Create event
 $stmt = $pdo->prepare("
   INSERT INTO events(`title`, `description`, `start_at`, `end_at`, `created_by`, `created_at`)
-  VALUES (?, ?, ?, ?, ? , NOW())
+  VALUES (?, ?, ?, ?, ?, NOW())
 ");
 $stmt->execute([$title, $description, $start_at, $end_at, $userId]);
 
+$eventId = (int)$pdo->lastInsertId();
 
+// Add ALL students from this major with present=0
 $stmt = $pdo->prepare("
-  SELECT 
-    id 
-  FROM events
-  WHERE title = ? AND description = ? AND start_at = ? AND end_at = ? AND created_by = ?
+  INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
+  SELECT ?, u.id, 0, ?, NOW()
+  FROM users u
+  JOIN student_academic_info sai ON sai.student_id = u.id
+  WHERE u.role = 'student'
+    AND sai.major = ?
+  ON DUPLICATE KEY UPDATE
+    present = present
 ");
-$stmt->execute([$title, $description, $start_at, $end_at, $userId]);
+$stmt->execute([$eventId, $userId, $major]);
 
-$eventId = $stmt->fetchAll();
+
 // Успешен отговор
 echo json_encode(['success' => true, 'eventId' => $eventId]);

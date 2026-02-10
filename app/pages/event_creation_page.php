@@ -50,6 +50,11 @@
                 <div id = "event-end-at">Приключва в</div>
                 <input type="time" id="event-end-time" />
                 <input type="date" id="event-end-date" />
+                <label for="major-select">Специалност</label>
+                <select id="major-select">
+                <option value="">-- Избери специалност --</option>
+                </select>
+
             </div>
 
 
