@@ -69,7 +69,7 @@
                 Импорт
             </div>
 
-            <input type="file" id="event-import" name="event-import" accept=".txt" />
+            <input type="file" id="event-import" name="event-import" accept=".csv" />
             <textarea id="imported-event-list" placeholder="Списък с събития"></textarea>
             <div id = "add-multiple">
                 Импорт няколко събития
