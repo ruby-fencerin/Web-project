@@ -50,6 +50,13 @@ if ($major === '') {
   exit;
 }
 
+$year = isset($_POST['year']) ? (int)$_POST['year'] : 0;
+if ($year <= 0) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Липсва или невалиден курс'], JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
 $groupsRaw = trim($_POST['groups'] ?? '');
 $groups = [];
 if ($groupsRaw !== '') {
@@ -76,10 +83,11 @@ if (count($groups) === 0) {
     JOIN student_academic_info sai ON sai.student_id = u.id
     WHERE u.role = 'student'
       AND sai.major = ?
+      AND sai.study_year = ?
     ON DUPLICATE KEY UPDATE
       present = present
   ");
-  $stmt->execute([$eventId, $userId, $major]);
+  $stmt->execute([$eventId, $userId, $major, $year]);
   
 } else {
   // Filter by groups list
@@ -92,11 +100,12 @@ if (count($groups) === 0) {
     JOIN student_academic_info sai ON sai.student_id = u.id
     WHERE u.role = 'student'
       AND sai.major = ?
+      AND sai.study_year = ?
       AND sai.student_group IN ($placeholders)
     ON DUPLICATE KEY UPDATE present = present
   ";
 
-  $params = array_merge([$eventId, $userId, $major], $groups);
+  $params = array_merge([$eventId, $userId, $major, $year], $groups);
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute($params);

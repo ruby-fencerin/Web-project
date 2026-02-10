@@ -68,6 +68,7 @@ document.getElementById("add").addEventListener("click", async () => {
     const end_time = (document.getElementById("event-end-time")?.value || "").trim();
     const end_date = (document.getElementById("event-end-date")?.value || "").trim();
     const major = (document.getElementById("major-select")?.value || "").trim();
+    const year  = (document.getElementById("year-select")?.value || "").trim();
     const groupsRaw = (document.getElementById("group-select")?.value || "").trim();
 
 
@@ -79,7 +80,7 @@ document.getElementById("add").addEventListener("click", async () => {
     if (!description) return alert("Моля, въведете описание.");
     if (!start_date || !start_time) return alert("Моля, въведете начало (дата и час).");
     if (!end_date || !end_time) return alert("Моля, въведете край (дата и час).");
-   
+    if (!year)  return alert("Моля, въведете курс.");
     
     const form = new FormData();
     form.append("title", title);
@@ -87,6 +88,7 @@ document.getElementById("add").addEventListener("click", async () => {
     form.append("start_at", `${start_date} ${start_time}:00`);
     form.append("end_at", `${end_date} ${end_time}:00`);
     form.append("major", major);
+    form.append("year", year);  
     form.append("groups", groupsRaw); // may be empty
 
     // Изпращаме заявката към сървъра
