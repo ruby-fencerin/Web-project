@@ -61,18 +61,34 @@
                 
 
             </div>  
+            <div id="textareas">
+                <h4>Вмъкване на участвали в Big Blue Button (Съвместимо с множествено и единично вкъкване)</h4>
+                <p>За момета търси редът "Sorted by last name:\r\n" и започва да чете след него ред по ред име и фамилия на потребител. Отбелязва ги като присъствали.</p>
+                <input type="file" id="bbb-import" name="bbb-import" accept=".txt" />
+                <textarea id="imported-user-list" placeholder="Списък със студенти"></textarea>
+                <div id = "add">
+                    Импорт
+                </div>
+                
+                <h4>Вмъкване на множество материали (Съвместимо с множествено и единично вкъкване)</h4>
+                <p>Приема CSV файл, в който редовете трябва да са подредени така:<br>
+                номер на събитието от множеството(изпуска се при ръчно създаване на събитие чрез GUI), <br>
+                име, линк, вид(Валидни са pdf,live_link,js,php,html,sql,recording)
+                </p>
+                <input type="file" id="material-import" name="material-import" accept=".csv" />
+                <textarea id="imported-material-list" placeholder="Списък с материали"></textarea>
 
-
-            <input type="file" id="bbb-import" name="bbb-import" accept=".txt" />
-            <textarea id="imported-user-list" placeholder="Списък със студенти"></textarea>
-            <div id = "add">
-                Импорт
-            </div>
-
-            <input type="file" id="event-import" name="event-import" accept=".txt" />
-            <textarea id="imported-event-list" placeholder="Списък с събития"></textarea>
-            <div id = "add-multiple">
-                Импорт няколко събития
+                <h4>Вмъкване на множество събития</h4>
+                <p>Приема CSV файл, в който редовете трябва да са подредени така:<br>
+                име, описание, дата начало(формат година-месец-ден), час начало(формат час:минути), дата край(формат година-месец-ден), час край(формат час:минути)
+                Т1,Тестване,2026-02-10,10:00,2026-02-10,12:00
+                </p>
+                <input type="file" id="event-import" name="event-import" accept=".csv" />
+                <textarea id="imported-event-list" placeholder="Списък с събития"></textarea>
+                
+                <div id = "add-multiple">
+                    Импорт няколко събития
+                </div>
             </div>
             </div>
         </main>

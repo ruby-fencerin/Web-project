@@ -37,15 +37,11 @@ loadMajors();
 // Трябва да е последния ред преди да започне последния списък от имена на потребители разделени с нов ред
 const search_term = "Sorted by last name:\r\n";
 
-const importer = document.querySelector("#bbb-import");
-const editor = document.querySelector("#imported-user-list");
-const text = "";
-
-importer.addEventListener("change", async () => {
-    // importer.disabled = true;
-    const file = importer.files[0];
+async function changeTextarea(importerInput, editorArea, search_term){
+    //importerInput.disabled = true;
+    const file = importerInput.files[0];
     if (!file){
-        editor.value = 'not a valid file';
+        editorArea.value = 'not a valid file';
         return;
     }
 
@@ -53,19 +49,29 @@ importer.addEventListener("change", async () => {
     reader.readAsText(file, 'UTF-8');
     reader.onload = function ({ target }) {
         const index = target.result.indexOf(search_term) + search_term.length;
-        editor.value = target.result.slice(index);
+        editorArea.value = target.result.slice(index);
     }
     reader.onerror = function () {
-        editor.value = 'error reading file';
+        editorArea.value = 'error reading file';
     }
-});
+}
+const importerBBB = document.querySelector("#bbb-import");
+const editorBBB = document.querySelector("#imported-user-list");
+importerBBB.addEventListener("change", () => changeTextarea(importerBBB, editorBBB,search_term));
+
+const importerEvents = document.querySelector("#event-import");
+const editorEvents = document.querySelector("#imported-event-list");
+importerEvents.addEventListener("change", () => changeTextarea(importerEvents, editorEvents, ""));
+
+const importerMaterials = document.querySelector("#material-import");
+const editorMaterials = document.querySelector("#imported-material-list");
+importerMaterials.addEventListener("change", () => changeTextarea(importerMaterials, editorMaterials, ""));
 
 async function addUsersToEvent(data, users, i){
     let formUsers = new FormData();
     formUsers.append("users", users);
-    let event = JSON.parse(data.eventId[i]);
     // console.log(event[event.length - 1].id);
-    formUsers.append("eventid", event[event.length - 1].id);
+    formUsers.append("eventid", data.eventId[i]);
 
     let resUsers = await fetch("../php/event_add_users.php", {
         method: "POST",
@@ -77,7 +83,47 @@ async function addUsersToEvent(data, users, i){
     
     // Проверка за грешка
     if (!resUsers.ok) {
-        alert(dataUsers.error || "В събитие " + event[event.length - 1].id + " не могат да бъдат добавени потребители.");
+        alert(dataUsers.error || "В събитие " + data.eventId[i] + " не могат да бъдат добавени потребители.");
+        return;
+    }
+}
+
+async function addResourceToEvent(data, eventIds){
+    const eventID = eventIds[data[0] - 1];
+    const resourceTitle = data[1].trim();
+    const resourceURL = data[2].trim();
+    const resourceType = data[3].trim();
+
+    if (!resourceTitle && !resourceURL && !resourceType) return;
+
+    // Подготвяме данните за POST заявката
+    const formResource = new FormData();
+    formResource.append("eventid", eventID);
+    formResource.append("title", resourceTitle);
+    formResource.append("url", resourceURL);
+    formResource.append("type", resourceType);
+
+    // Изпращаме заявката към сървъра
+    const res = await fetch("../php/add_resource.php", {
+        method: "POST",
+        body: formResource
+    });
+
+    const text = await res.text();
+
+    // Опитваме се да парснем JSON
+    try { 
+        data = JSON.parse(text); 
+    }
+    catch {
+        console.error("Non-JSON response:", text);
+        alert("Сървърна грешка – отговорът не е JSON.");
+        return;
+    }
+
+    // Проверка за грешка
+    if (!res.ok) {
+        alert(data.error || "Ресурсът не можа да бъде добавен");
         return;
     }
 }
@@ -128,15 +174,26 @@ document.getElementById("add").addEventListener("click", async () => {
         return;
     }
 
-    const users = editor.value.trim();
+    const users = editorBBB.value.trim();
     
-    if (!users) return;
-    // console.log(data.eventId);
-    addUsersToEvent(data, users, 0);
+    if (users){
+        // console.log(data.eventId);
+        await addUsersToEvent(data, users, 0);
+    }
+    
+    const resourceValue = editorMaterials.value.trim();
+    if(resourceValue){
+        const resource_list = resourceValue.split("\n").map(t => t="1,"+t).map(t => t.split(","));
+        console.log(resource_list);
+
+        for(let i = 0; i < resource_list.length; i++){
+            await addResourceToEvent(resource_list[i], data.eventId)
+        }
+    }
 
     // Изчистваме полето и презареждаме коментарите
-    importer.value = "";
-    editor.value = "";
+    importerBBB.value = "";
+    editorBBB.value = "";
     // window.location.href = "event_list_page.php";
 });
 
@@ -181,17 +238,26 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
         return;
     }
 
-    const users = editor.value.trim();
+    const users = editorBBB.value.trim();
     
-    if (!users) return;
+    if (users){
     // console.log(data.eventId);
-    for(let i = 0; i < data.eventId.length; i++){
-        addUsersToEvent(data, users, i);
+        for(let i = 0; i < data.eventId.length; i++){
+            await addUsersToEvent(data, users, i);
+        }
     }
 
+    const resourceValue = editorMaterials.value.trim();
+    if(resourceValue){
+        const resource_list = resourceValue.split("\n").map(t => t.split(","));
+
+        for(let i = 0; i < resource_list.length; i++){
+            await addResourceToEvent(resource_list[i], data.eventId)
+        }
+    }
     // Изчистваме полето и презареждаме коментарите
-    importer.value = "";
-    editor.value = "";
+    importerBBB.value = "";
+    editorBBB.value = "";
     // window.location.href = "event_list_page.php";
 });
 

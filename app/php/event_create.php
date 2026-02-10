@@ -72,7 +72,7 @@ $stmt = $pdo->prepare("
 for ($i = 0; $i < count($title); $i++) {
   $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
   $eventId[] = (int)$pdo->lastInsertId();
-  echo end($eventId);
+  // echo end($eventId);
   // Add ALL students from this major and group with present=0
 
   if (count($groups) === 0) {
