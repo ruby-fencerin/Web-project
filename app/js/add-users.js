@@ -74,6 +74,7 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
 
     if (!users) return;
     formUsers.append("users", users);
+    
     const resUsers = await fetch("../php/add_users.php", {
         method: "POST",
         body: formUsers

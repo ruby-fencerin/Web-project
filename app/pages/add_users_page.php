@@ -53,7 +53,7 @@
                 <input type="text" id="email" placeholder="user@example.com" />
                 <div id = "user-fn">Факултетен номер</div>
                 <input type="text" id="fn" placeholder="1234567 или 0ab1234567" />
-                <div id = "user-major">Спецялност</div>
+                <div id = "user-major">Специалност</div>
                 <input type="text" id="major" placeholder="напр. Информатика" />
                 <div id = "user-study-year">Курс</div>
                 <input type="number" id="study-year" min="1" max="4"/>
@@ -71,7 +71,7 @@
 
             <h1> Вмъкване на мнозина студенти </h1>
             <input type="file" id="users-import" name="users-import" accept=".csv" />
-            <textarea id="imported-user-list" placeholder="Първо име,Фамилия,емайл,ФН "></textarea>
+            <textarea id="imported-user-list" placeholder="Първо име,Фамилия,емайл,ФН,Спецялност,Група,Година на прием,Курс"></textarea>
             <div id = "add-multiple">
                 Импорт
             </div>

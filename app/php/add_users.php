@@ -28,12 +28,15 @@ $userId = (int)$_SESSION['user_id'];
 $role   = (string)$_SESSION['role'];
 
 // Взимаме данните от POST заявката
-$users    = trim($_POST['users'] ?? '');
+$users = trim($_POST['users'] ?? '');
 
 // Валидация
 if ($users === '') {
   http_response_code(400);
-  echo json_encode(['error' => 'Невалидни входни данни']);
+  echo json_encode([
+    'error' => 'Невалидни входни данни',
+    'received_keys' => array_keys($_POST)
+  ], JSON_UNESCAPED_UNICODE);
   exit;
 }
 
@@ -66,13 +69,24 @@ foreach ($userRowsArray as $row) {
         "study_year"   => (int)$temp[7],
     );
 
-    $userFNsString = $userFNsString . "\",\"" . end($usersFormated)["fn"];
 }
-#$userFNsString = "\"" . $userFNsString . "\"";
-#$userFNsString=substr($userFNsString,1);
-#echo $userFNsString;
+
+
+if (count($usersFormated) === 0) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Няма валидни редове за добавяне'], JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
 
 $fns = array_values(array_unique(array_map(fn($u) => $u['fn'], $usersFormated)));
+
+if (count($fns) === 0) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Липсват факултетни номера'], JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
 $placeholders = implode(',', array_fill(0, count($fns), '?'));
 
 $stmt = $pdo->prepare("
@@ -115,7 +129,7 @@ foreach ($usersFormated as $user) {
     $stmtAcad->execute([
         $studentId,
         $user['major'],
-        $user['group'],
+        (string)$user['group'],
         (int)$user['study_year'],
         (int)$user['start_year']
     ]);
