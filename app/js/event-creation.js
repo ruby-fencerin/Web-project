@@ -150,16 +150,22 @@ function mapDayTime(datearr, timearr){
 
 document.getElementById("add-multiple").addEventListener("click", async () => {
     const events_list_value = document.querySelector("#imported-event-list").value;
-    events_list = events_list_value.split("\n").map(t => t.split(","));
-    console.log(events_list);
-    events_transpose = transpose(events_list);
+    const events_list = events_list_value.split("\n").map(t => t.split(","));
+    //console.log(events_list);
+    const events_transpose = transpose(events_list);
+    const major = (document.getElementById("major-select")?.value || "").trim();
+    const year  = (document.getElementById("year-select")?.value || "").trim();
+    const groupsRaw = (document.getElementById("group-select")?.value || "").trim();
+    
     // Подготвяме данните за POST заявката
     const form = new FormData();
     form.append("title", JSON.stringify(events_transpose[0]));
     form.append("description", JSON.stringify(events_transpose[1]));
     form.append("start_at", JSON.stringify(mapDayTime(events_transpose[2], events_transpose[3])));
     form.append("end_at", JSON.stringify(mapDayTime(events_transpose[4], events_transpose[5])));
-    
+    form.append("major", major);
+    form.append("year", year);  
+    form.append("groups", groupsRaw);
     // Изпращаме заявката към сървъра
     const res = await fetch("../php/event_create.php", {
         method: "POST",
