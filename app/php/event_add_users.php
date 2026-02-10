@@ -55,7 +55,7 @@ $queryUserIDs = $stmt->fetchAll();
 
 // Записваме коментара в базата
 $stmt = $pdo->prepare("
-  INSERT INTO attendances(`event_id`, `student_id`, `present`, `added_by`, `added_at`)
+  INSERT IGNORE INTO attendances(`event_id`, `student_id`, `present`, `added_by`, `added_at`)
   VALUES (?, ?, 1, ? , NOW())
 ");
 

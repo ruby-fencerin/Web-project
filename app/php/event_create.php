@@ -15,10 +15,10 @@ require_once __DIR__ . '/db.php';
 
 
 // Взимаме данните от POST заявката
-$title    = trim($_POST['title'] ?? '');
-$description    = trim($_POST['description'] ?? '');
-$start_at    = trim($_POST['start_at'] ?? '');
-$end_at    = trim($_POST['end_at'] ?? '');
+$title    = json_decode($_POST['title'],true) ?? '';
+$description    = json_decode($_POST['description'],true) ?? '';
+$start_at    = json_decode($_POST['start_at'],true) ?? '';
+$end_at    = json_decode($_POST['end_at'],true) ?? '';
 
 // Валидация
 if ($title === '' || $description === '' || $start_at === '' || $end_at === '') {
@@ -45,22 +45,29 @@ if($role !== 'teacher'){
   echo json_encode(['error' => 'Нямате права за създаване на събитие']);
   exit;
 }
+#var_dump($title);
+
 // Записваме коментара в базата
 $stmt = $pdo->prepare("
   INSERT INTO events(`title`, `description`, `start_at`, `end_at`, `created_by`, `created_at`)
   VALUES (?, ?, ?, ?, ? , NOW())
 ");
-$stmt->execute([$title, $description, $start_at, $end_at, $userId]);
+for ($i = 0; $i < count($title); $i++) {
+  $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
+}
 
-
+$eventId = [];
 $stmt = $pdo->prepare("
   SELECT 
     id 
   FROM events
   WHERE title = ? AND description = ? AND start_at = ? AND end_at = ? AND created_by = ?
 ");
-$stmt->execute([$title, $description, $start_at, $end_at, $userId]);
+for ($i = 0; $i < count($title); $i++) {
+  $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
+  $eventIdPerFetch = $stmt->fetchAll();
+  $eventId[] = json_encode($eventIdPerFetch);
+}
 
-$eventId = $stmt->fetchAll();
 // Успешен отговор
 echo json_encode(['success' => true, 'eventId' => $eventId]);
