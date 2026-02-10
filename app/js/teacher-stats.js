@@ -44,10 +44,12 @@ async function loadStats() {
     data.stats.forEach(stat => {
         eventNames.push(stat.event_title);
         // Закръгляме процентите до цяло число и внимаваме да не делим на 0
-        const percent = (data.total !== 0)
-                        ? ((stat.count_students / data.total) * 100).toFixed(0)
-                        : '0';
-        
+        const totalInEvent = Number(stat.total_students) || 0;
+        const presentInEvent = Number(stat.present_students) || 0;
+
+        const percent = (totalInEvent !== 0)
+        ? ((presentInEvent / totalInEvent) * 100).toFixed(0)
+        : '0';
         percentages.push(percent);
     });
 
@@ -115,7 +117,9 @@ async function loadStats() {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return 'Процент присъствали студенти: ' + context.parsed.y + '%';
+                        const i = context.dataIndex;
+                        const stat = data.stats[data.stats.length - 1 - i]; // заради reverse()
+                        return `Присъствали: ${stat.present_students}/${stat.total_students} (${context.parsed.y}%)`;
                         }
                     }
                 }

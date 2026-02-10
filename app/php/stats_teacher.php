@@ -33,13 +33,16 @@ $userId = (int)$_SESSION['user_id'];
 // студенти за всяко събитие на преподавателя.
 // Използваме prepared statement за защита от SQL Injection
 $stmt = $pdo->prepare("
-    SELECT e.id as event_id,
-           e.title as event_title,
-           COUNT(a.student_id) as count_students
+    SELECT
+        e.id    AS event_id,
+        e.title AS event_title,
+        COUNT(a.student_id) AS total_students,
+        SUM(CASE WHEN a.present = 1 THEN 1 ELSE 0 END) AS present_students
     FROM events e
-    LEFT JOIN attendances a ON e.id = a.event_id AND a.present = 1
+    LEFT JOIN attendances a
+        ON e.id = a.event_id
     WHERE e.created_by = ?
-    GROUP BY a.event_id
+    GROUP BY e.id, e.title
     ORDER BY e.start_at DESC
 ");
 
@@ -49,15 +52,6 @@ $stmt->execute([$userId]);
 // Взимаме всички резултати
 $stats = $stmt->fetchAll();
 
-// Подготвяме заявка, за да намерим общия брой студенти
-$totalStmt = $pdo->prepare("
-    SELECT COUNT(*)
-    FROM users
-    WHERE role = 'student'
-");
-
-$totalStmt->execute();
-$total = (int)$totalStmt->fetchColumn();
 
 // Връщаме данните като JSON
-echo json_encode(['stats' => $stats, 'total' => $total]);
+echo json_encode(['stats' => $stats], JSON_UNESCAPED_UNICODE);
