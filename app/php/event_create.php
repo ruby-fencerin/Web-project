@@ -27,9 +27,6 @@ if ($title === '' || $description === '' || $start_at === '' || $end_at === '') 
   exit;
 }
 
-// Превръщане към време
-$start_at = $start_at;
-$end_at = $end_at;
 // Проверка дали потребителят е логнат
 if (!isset($_SESSION['user_id'], $_SESSION['role'])) {
   http_response_code(401);
@@ -45,29 +42,77 @@ if($role !== 'teacher'){
   echo json_encode(['error' => 'Нямате права за създаване на събитие']);
   exit;
 }
-#var_dump($title);
 
-// Записваме коментара в базата
+$major = trim($_POST['major'] ?? '');
+if ($major === '') {
+  http_response_code(400);
+  echo json_encode(['error' => 'Липсва специалност']);
+  exit;
+}
+
+$year = isset($_POST['year']) ? (int)$_POST['year'] : 0;
+if ($year <= 0) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Липсва или невалиден курс'], JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
+$groupsRaw = trim($_POST['groups'] ?? '');
+$groups = [];
+if ($groupsRaw !== '') {
+  $groups = array_values(array_unique(array_filter(array_map('trim', explode(',', $groupsRaw)), fn($x) => $x !== '')));
+}
+
+// Create event
 $stmt = $pdo->prepare("
   INSERT INTO events(`title`, `description`, `start_at`, `end_at`, `created_by`, `created_at`)
-  VALUES (?, ?, ?, ?, ? , NOW())
+  VALUES (?, ?, ?, ?, ?, NOW())
 ");
 for ($i = 0; $i < count($title); $i++) {
   $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
 }
 
-$eventId = [];
-$stmt = $pdo->prepare("
-  SELECT 
-    id 
-  FROM events
-  WHERE title = ? AND description = ? AND start_at = ? AND end_at = ? AND created_by = ?
-");
-for ($i = 0; $i < count($title); $i++) {
-  $stmt->execute([$title[$i], $description[$i], $start_at[$i], $end_at[$i], $userId]);
-  $eventIdPerFetch = $stmt->fetchAll();
-  $eventId[] = json_encode($eventIdPerFetch);
+$eventId = (int)$pdo->lastInsertId();
+
+// Add ALL students from this major and group with present=0
+
+if (count($groups) === 0) {
+  // No group filter => whole major
+  $stmt = $pdo->prepare("
+    INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
+    SELECT ?, u.id, 0, ?, NOW()
+    FROM users u
+    JOIN student_academic_info sai ON sai.student_id = u.id
+    WHERE u.role = 'student'
+      AND sai.major = ?
+      AND sai.study_year = ?
+    ON DUPLICATE KEY UPDATE
+      present = present
+  ");
+  $stmt->execute([$eventId, $userId, $major, $year]);
+  
+} else {
+  // Filter by groups list
+  $placeholders = implode(',', array_fill(0, count($groups), '?'));
+
+  $sql = "
+    INSERT INTO attendances (event_id, student_id, present, added_by, added_at)
+    SELECT ?, u.id, 0, ?, NOW()
+    FROM users u
+    JOIN student_academic_info sai ON sai.student_id = u.id
+    WHERE u.role = 'student'
+      AND sai.major = ?
+      AND sai.study_year = ?
+      AND sai.student_group IN ($placeholders)
+    ON DUPLICATE KEY UPDATE present = present
+  ";
+
+  $params = array_merge([$eventId, $userId, $major, $year], $groups);
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($params);
 }
+
 
 // Успешен отговор
 echo json_encode(['success' => true, 'eventId' => $eventId]);

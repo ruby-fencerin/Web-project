@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 10, 2026 at 11:26 AM
+-- Generation Time: Feb 10, 2026 at 01:11 PM
 -- Server version: 12.1.2-MariaDB-ubu2404
 -- PHP Version: 8.3.29
 
@@ -318,6 +318,7 @@ INSERT INTO `users` (`id`, `role`, `first_name`, `last_name`, `faculty_number`, 
 ALTER TABLE `attendances`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `uq_attendance_event_student` (`event_id`,`student_id`),
+  ADD UNIQUE KEY `uniq_event_student` (`event_id`,`student_id`),
   ADD KEY `idx_attendance_student` (`student_id`),
   ADD KEY `idx_attendance_event` (`event_id`),
   ADD KEY `fk_att_added_by` (`added_by`);
@@ -369,7 +370,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -381,7 +382,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `resources`

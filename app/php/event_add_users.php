@@ -40,6 +40,7 @@ if($role !== 'teacher'){
   echo json_encode(['error' => 'Нямате права за създаване на събитие']);
   exit;
 }
+
 $userNamesArray = explode("\r\n", $users);
 $userNamesString = implode("\",\"", $userNamesArray);
 # echo $userNamesString;
@@ -54,14 +55,17 @@ $stmt->execute();
 $queryUserIDs = $stmt->fetchAll();
 
 // Записваме коментара в базата
-$stmt = $pdo->prepare("
-  INSERT IGNORE INTO attendances(`event_id`, `student_id`, `present`, `added_by`, `added_at`)
-  VALUES (?, ?, 1, ? , NOW())
+$upsert = $pdo->prepare("
+  INSERT IGNORE INTO attendances(event_id, student_id, present, added_by, added_at)
+  VALUES (?, ?, 1, ?, NOW())
+  ON DUPLICATE KEY UPDATE
+    present = 1,
+    added_by = VALUES(added_by),
+    added_at = VALUES(added_at)
 ");
 
-foreach($queryUserIDs as $id){
-  #echo $id['id'];
-  $stmt->execute([$eventId, $id['id'], $userId]);
+foreach ($queryUserIDs as $row) {
+  $upsert->execute([$eventId, (int)$row['id'], $userId]);
 }
 
 // Успешен отговор
