@@ -50,12 +50,15 @@
                 <div id = "event-end-at">Приключва в</div>
                 <input type="time" id="event-end-time" />
                 <input type="date" id="event-end-date" />
-                <label for="major-select">Специалност</label>
+                <div id="major-select-div">Специалност</div>
                 <select id="major-select">
-                <option value="">-- Избери специалност --</option>
+                    <option value="">-- Избери специалност --</option>
                 </select>
+                <div id="group-select-div">Група</div>
+                <input type="text" id="group-select" placeholder="напр. 1, 2, 3 (празно = всички)" />
+                
 
-            </div>
+            </div>  
 
 
             <input type="file" id="bbb-import" name="bbb-import" accept=".txt" />

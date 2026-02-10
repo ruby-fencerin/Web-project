@@ -50,6 +50,12 @@ if ($major === '') {
   exit;
 }
 
+$groupsRaw = trim($_POST['groups'] ?? '');
+$groups = [];
+if ($groupsRaw !== '') {
+  $groups = array_values(array_unique(array_filter(array_map('trim', explode(',', $groupsRaw)), fn($x) => $x !== '')));
+}
+
 // Create event
 $stmt = $pdo->prepare("
   INSERT INTO events(`title`, `description`, `start_at`, `end_at`, `created_by`, `created_at`)
@@ -59,18 +65,42 @@ $stmt->execute([$title, $description, $start_at, $end_at, $userId]);
 
 $eventId = (int)$pdo->lastInsertId();
 
-// Add ALL students from this major with present=0
-$stmt = $pdo->prepare("
-  INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
-  SELECT ?, u.id, 0, ?, NOW()
-  FROM users u
-  JOIN student_academic_info sai ON sai.student_id = u.id
-  WHERE u.role = 'student'
-    AND sai.major = ?
-  ON DUPLICATE KEY UPDATE
-    present = present
-");
-$stmt->execute([$eventId, $userId, $major]);
+// Add ALL students from this major and group with present=0
+
+if (count($groups) === 0) {
+  // No group filter => whole major
+  $stmt = $pdo->prepare("
+    INSERT INTO attendances (`event_id`, `student_id`, `present`, `added_by`, `added_at`)
+    SELECT ?, u.id, 0, ?, NOW()
+    FROM users u
+    JOIN student_academic_info sai ON sai.student_id = u.id
+    WHERE u.role = 'student'
+      AND sai.major = ?
+    ON DUPLICATE KEY UPDATE
+      present = present
+  ");
+  $stmt->execute([$eventId, $userId, $major]);
+  
+} else {
+  // Filter by groups list
+  $placeholders = implode(',', array_fill(0, count($groups), '?'));
+
+  $sql = "
+    INSERT INTO attendances (event_id, student_id, present, added_by, added_at)
+    SELECT ?, u.id, 0, ?, NOW()
+    FROM users u
+    JOIN student_academic_info sai ON sai.student_id = u.id
+    WHERE u.role = 'student'
+      AND sai.major = ?
+      AND sai.student_group IN ($placeholders)
+    ON DUPLICATE KEY UPDATE present = present
+  ";
+
+  $params = array_merge([$eventId, $userId, $major], $groups);
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($params);
+}
 
 
 // Успешен отговор
