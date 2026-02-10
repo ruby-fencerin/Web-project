@@ -63,9 +63,9 @@ const importerEvents = document.querySelector("#event-import");
 const editorEvents = document.querySelector("#imported-event-list");
 importerEvents.addEventListener("change", () => changeTextarea(importerEvents, editorEvents, ""));
 
-// const importerMaterials = document.querySelector("#material-import");
-// const editorMaterials = document.querySelector("#imported-material-list");
-// importerMaterials.addEventListener("change", () => changeTextarea(importerMaterials, editorMaterials, ""));
+const importerMaterials = document.querySelector("#material-import");
+const editorMaterials = document.querySelector("#imported-material-list");
+importerMaterials.addEventListener("change", () => changeTextarea(importerMaterials, editorMaterials, ""));
 
 async function addUsersToEvent(data, users, i){
     let formUsers = new FormData();
@@ -84,6 +84,46 @@ async function addUsersToEvent(data, users, i){
     // Проверка за грешка
     if (!resUsers.ok) {
         alert(dataUsers.error || "В събитие " + data.eventId[i] + " не могат да бъдат добавени потребители.");
+        return;
+    }
+}
+
+async function addResourceToEvent(data, eventIds){
+    const eventID = eventIds[data[0] - 1];
+    const resourceTitle = data[1].trim();
+    const resourceURL = data[2].trim();
+    const resourceType = data[3].trim();
+
+    if (!resourceTitle && !resourceURL && !resourceType) return;
+
+    // Подготвяме данните за POST заявката
+    const formResource = new FormData();
+    formResource.append("eventid", eventID);
+    formResource.append("title", resourceTitle);
+    formResource.append("url", resourceURL);
+    formResource.append("type", resourceType);
+
+    // Изпращаме заявката към сървъра
+    const res = await fetch("../php/add_resource.php", {
+        method: "POST",
+        body: formResource
+    });
+
+    const text = await res.text();
+
+    // Опитваме се да парснем JSON
+    try { 
+        data = JSON.parse(text); 
+    }
+    catch {
+        console.error("Non-JSON response:", text);
+        alert("Сървърна грешка – отговорът не е JSON.");
+        return;
+    }
+
+    // Проверка за грешка
+    if (!res.ok) {
+        alert(data.error || "Ресурсът не можа да бъде добавен");
         return;
     }
 }
@@ -189,12 +229,21 @@ document.getElementById("add-multiple").addEventListener("click", async () => {
 
     const users = editorBBB.value.trim();
     
-    if (!users) return;
+    if (users){
     // console.log(data.eventId);
-    for(let i = 0; i < data.eventId.length; i++){
-        await addUsersToEvent(data, users, i);
+        for(let i = 0; i < data.eventId.length; i++){
+            await addUsersToEvent(data, users, i);
+        }
     }
 
+    const resourceValue = editorMaterials.value.trim();
+    if(resourceValue){
+        const resource_list = resourceValue.split("\n").map(t => t.split(","));
+
+        for(let i = 0; i < resource_list.length; i++){
+            await addResourceToEvent(resource_list[i], data.eventId)
+        }
+    }
     // Изчистваме полето и презареждаме коментарите
     importerBBB.value = "";
     editorBBB.value = "";

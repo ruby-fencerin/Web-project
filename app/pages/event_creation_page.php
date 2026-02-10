@@ -71,6 +71,8 @@
 
             <input type="file" id="event-import" name="event-import" accept=".csv" />
             <textarea id="imported-event-list" placeholder="Списък с събития"></textarea>
+            <input type="file" id="material-import" name="material-import" accept=".csv" />
+            <textarea id="imported-material-list" placeholder="Списък с материали"></textarea>
             <div id = "add-multiple">
                 Импорт няколко събития
             </div>
