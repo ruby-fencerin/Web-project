@@ -176,9 +176,20 @@ document.getElementById("add").addEventListener("click", async () => {
 
     const users = editorBBB.value.trim();
     
-    if (!users) return;
-    // console.log(data.eventId);
-    await addUsersToEvent(data, users, 0);
+    if (users){
+        // console.log(data.eventId);
+        await addUsersToEvent(data, users, 0);
+    }
+    
+    const resourceValue = editorMaterials.value.trim();
+    if(resourceValue){
+        const resource_list = resourceValue.split("\n").map(t => t="1,"+t).map(t => t.split(","));
+        console.log(resource_list);
+
+        for(let i = 0; i < resource_list.length; i++){
+            await addResourceToEvent(resource_list[i], data.eventId)
+        }
+    }
 
     // Изчистваме полето и презареждаме коментарите
     importerBBB.value = "";
