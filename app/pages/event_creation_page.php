@@ -54,7 +54,7 @@
                 <select id="major-select">
                     <option value="">-- Избери специалност --</option>
                 </select>
-                <div id="year-select-div">Курс:</div>
+                <div id="year-select-div">Курс</div>
                 <input type="number" id="year-select" min="1" max="4"/>
                 <div id="group-select-div">Група</div>
                 <input type="text" id="group-select" placeholder="напр. 1, 2, 3 (празно = всички)" />

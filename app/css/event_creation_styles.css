@@ -47,7 +47,7 @@ h2 {
     background-color: #1173d4;
 }
 
-#event-theme, #event-info, #event-start-at, #event-end-at {
+#event-theme, #event-info, #event-start-at, #event-end-at, #major-select-div, #year-select-div, #group-select-div {
     margin: 7px 0 3px 0;
 }
 
